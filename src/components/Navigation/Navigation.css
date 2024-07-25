@@ -1,0 +1,246 @@
+@import url('../../colors.css');
+
+#header {
+	height: 64px;
+	padding: 0 76px;
+	display: flex;
+	align-items: center;
+}
+
+#navigationWrapper {
+	display: flex;
+	align-items: center;
+	position: relative;
+	perspective: 800px;
+}
+
+#dropdownLinksWrapper {
+	display: flex;
+	align-items: center;
+}
+
+.navigationLink {
+	padding: 0px 12px;
+	height: 30px;
+	font-size: 14px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	text-decoration: none;
+	color: var(--font-nav-unhovered);
+	user-select: none;
+	
+	transition: all 150ms;
+}
+
+#navigationLinkHoverBackground {
+	height: 30px;
+	min-width: 20px;
+	border-radius: 9999px;
+	background-color: var(--nav-link-background);
+	position: absolute;
+	z-index: -1;
+
+	transition: all 250ms;
+}
+
+.navigationLink:hover {
+	color: var(--font-nav-hovered);
+}
+
+#download {
+	border-radius: 9999px;
+}
+
+#download:hover {
+	background-color: var(--nav-link-background);
+}
+
+	.navigationLink .chevronDown {
+		width: 9px;
+		position: relative;
+		top: 1.5px;
+		fill: var(--font-nav-unhovered);
+
+		transition: all 150ms;
+	}
+
+	.navigationLink:hover .chevronDown {
+		fill:  var(--font-nav-hovered);
+		transform: rotate(180deg);
+	}
+
+
+
+#logoContainer {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-right: 18px;
+} 
+
+	#logoContainer svg#logo {
+		cursor: pointer;
+	}
+
+	#logoContainer svg#divider {
+		fill: var(--accents-2);
+		stroke: var(--accents-2);
+	}
+
+#download {
+	margin-left: auto;
+}
+@media (max-width: 1150px) {
+
+	.navigationLink {
+		display: none;
+	}
+}
+
+
+
+/* Dropdown Menu */
+#dropdownMenuWrapper {
+	position: absolute;
+	top: calc(100%);
+	/* top: calc(100% + 14px); */
+	transition: all 250ms;
+}
+
+#dropdownMenu {
+	position: relative;
+	/* height: 200px; */
+	top: 10px;
+	border-radius: 12px;
+	padding: 8px;
+	box-shadow: 
+		0 0 0 1px rgba(0,0,0,.08), 
+		0px 1px 1px rgba(0,0,0,.02),
+		0px 4px 8px -4px rgba(0,0,0,.04), 
+		0px 16px 24px -8px rgba(0,0,0,.06);
+	background-color: white;
+
+	transition: all 250ms;
+}
+
+.dropdownMenuWrapperUnhovered {
+	transform: scale(0.9) rotateX(-15deg);
+	pointer-events: none;
+	opacity: 0;
+}
+
+.dropdownMenuWrapperHovered {
+	transform: scale(1) rotateX(0deg);
+	pointer-events: all;
+	opacity: 1;
+}
+
+#dropdownMenuPointerArrow {
+	position: absolute;
+	top: -8.5px;
+
+	transition: all 250ms;
+}
+
+
+
+/* Docs Dropdown */
+#docsDropdown {
+	/* border: solid red 1px; */
+	display: grid;
+	grid-template-columns: 248px 248px;
+	grid-template-rows: 64px 64px 64px;
+	grid-template-areas: 
+		"tutorial-one		guide-two"
+		"tutorial-two		guide-three"
+		"tutorial-three		guide-three"
+	;
+	position: relative;
+	background-color: transparent;
+	z-index: 0;
+}
+
+#docsDropdownBackground {
+	background-color: var(--nav-link-background);
+	border-radius: 6px;
+	position: absolute;
+	width: 248px;
+	height: 64px;
+	z-index: -1;
+
+	transition: all 200ms;
+}
+
+/* Support dropdown */
+#supportDropdown {
+	border: solid red 1px;
+	width: 248px;
+	height: 200px;
+}
+
+
+
+/* Menu Item */
+.dropdownMenuItem {
+	height: 64px;
+	width: 248px;
+	display: flex;
+	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+	justify-content: center;
+	padding: 0px 12px;
+}
+
+	.dropdownMenuItemHeader {
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.dropdownMenuItemSubtext {
+		font-size: 12px;
+		font-weight: 400;
+		color: rgb(102, 102, 102);
+	}
+
+
+
+
+
+/* Hamburger Menu */
+#hamburgerMenu {
+	width: 32px;
+	height: 32px;
+	border-radius: 9999px;
+	border: solid 1px var(--ds-gray-alpha-400);
+	margin-left: auto;
+	background-color: transparent;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+
+	transition: all 150ms;
+}
+
+	#hamburgerMenu:hover {
+		background-color: rgb(242, 242, 242);
+	}
+
+	.hamburgerLine {
+		min-height: 1.5px;
+		max-height: 1.5px;
+		min-width: 14px;
+		max-width: 14px;
+		background-color: #666666;
+	}
+
+	@media (min-width: 1151px) {
+		#hamburgerMenu {
+			display: none;
+		}
+	}

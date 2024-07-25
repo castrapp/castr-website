@@ -1,0 +1,11 @@
+:root {
+    --font-nav-unhovered: #666666;
+    --font-nav-hovered: rgb(23, 23, 23);
+    --nav-link-background: #ebebeb;
+
+    --accents-2: #eaeaea;
+
+    --ds-gray-900: #666666;
+
+    --ds-gray-alpha-400: rgba(0,0,0,.08);
+}
