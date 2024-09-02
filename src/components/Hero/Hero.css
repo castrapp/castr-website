@@ -1,0 +1,25 @@
+
+#hero {
+    border: solid blue 1px;
+    padding-top: 80px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    height: 100vh;
+}
+
+#hero #logo {
+    height: 84px;
+    width: 84px;
+}
+
+#hero h6 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+#hero h1 {
+    font-size: 72px;
+    font-weight: 700;
+}

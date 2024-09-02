@@ -11,10 +11,27 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	height: 100%;
+	/* height: 100%; */
+}
+
+html {
+	background-color: #F6F4F0;
 }
 
 #app {
 	min-height: 100%;
 	box-sizing: border-box;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
+
+#filler {
+	height: 500px;
+}
+
+#privacy {
+	margin: 20px;
 }
