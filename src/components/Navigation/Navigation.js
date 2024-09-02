@@ -7,12 +7,17 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const Global = createContext();
 
 const Navigation = () => {
+	const dropdownParent = document.querySelector('#dropdownMenuContainer');
+
 	const [isHovered, setIsHovered] = useState(false);
 	const [isHoveredOnDropdownLink, setIsHoveredOnDropdownLink] = useState(false);
 	const [hoveredElement, setHoveredElement] = useState(null);
 	const [left, setLeft] = useState(0);
 	const [width, setWidth] = useState(70);
-	const [dropdownWidth, setDropdownWidth] = useState(248);
+
+	const [dropdownLeft, setDropdownLeft] = useState(0);
+	const [dropdownWidth, setDropdownWidth] = useState(10);
+	const [dropdownHeight, setDropdownHeight] = useState(10);
 
 	const setHovered = (elementId) => {
 		const parentElement = document.querySelector('#navigationWrapper');
@@ -25,18 +30,25 @@ const Navigation = () => {
 		setHoveredElement(elementId);
 	}
 
-	// useEffect(() => {
-	// 	console.log('left value is changing: ', left)
-	// }, [left])
-	// useEffect(() => {
-	// 	console.log('width value is changing: ', width)
-	// }, [width])
+	const setDropdownValues = (elementId) => {
+		const element = document.querySelector(`#${elementId}`);
+		const parentElementValue = dropdownParent.getBoundingClientRect();
+		const elementValue = element.getBoundingClientRect();
+
+		console.log('new left value is: ', elementValue.left - parentElementValue.left)
+		setDropdownLeft(((elementValue.left - parentElementValue.left) - 8) * -1);
+		setDropdownWidth(elementValue.width);
+		setDropdownHeight(elementValue.height);
+	}
+
 	useEffect(() => {
-		console.log('isHovered is changing: ', isHovered)
-	}, [isHovered])
+		console.log('hovered element is changing: ', hoveredElement)
+		if(hoveredElement === 'docs') setDropdownValues('docsDropdown');
+		if(hoveredElement === 'support') setDropdownValues('supportDropdown');
+	}, [hoveredElement])
 
 	const values = {
-		setDropdownWidth
+		hoveredElement,
 	}
 
 	return (
@@ -53,7 +65,7 @@ const Navigation = () => {
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 			>
-				<div 
+				{/* <div 
 					id='dropdownLinksWrapper'
 					onMouseEnter={() => setIsHoveredOnDropdownLink(true)}
 					onMouseLeave={() => setIsHoveredOnDropdownLink(false)}
@@ -80,28 +92,35 @@ const Navigation = () => {
 					</a>
 
 
-					{/* Dropdown Menu */}
+
 					<div 
 						id="dropdownMenuWrapper"
 						className={isHoveredOnDropdownLink ? 'dropdownMenuWrapperHovered' : 'dropdownMenuWrapperUnhovered'}
-						// className={'dropdownMenuHovered'}
-						style={{width: dropdownWidth}}
 					>
-						<div id='dropdownMenu'>
+						<div 
+							id='dropdownMenu'
+	
+						>
 							<DropdownMenuPointerArrow 
 								style={{ left: left + ((width/2)-15) < 150 ? left + ((width/2)-15) : 60 }}
 							/>
-							{hoveredElement === 'docs' && 
-							<DocsDropdown />
-							}
-							{hoveredElement === 'support' && 
-							<SupportDropdown />
-							}
+
+							<div
+								id='dropdownMenuContainer'
+								style={{ width: dropdownWidth, height: dropdownHeight }}
+							>
+
+							</div>
+								<DocsDropdown />
+								<SupportDropdown />
+							
+							
+							
 						</div>
 					</div>
-				</div>
+				</div> */}
 				
-				<a 
+				{/* <a 
 					id='about' 
 					className='navigationLink'
 					onMouseEnter={() => {
@@ -120,7 +139,7 @@ const Navigation = () => {
 					}}
 				>
 					GitHub
-				</a>
+				</a> */}
 
 				{isHovered &&
 				<div id='navigationLinkHoverBackground' style={{ width: width, left: left }}></div>
@@ -146,15 +165,10 @@ const Navigation = () => {
 const DocsDropdown = () => {
 
 	const parentElement = document.querySelector('#docsDropdown');
-	const { setDropdownWidth } = useContext(Global);
 
 	const [left, setLeft] = useState(0)
 	const [top, setTop] = useState(0)
 
-	useEffect(() => {
-		setDropdownWidth(500)
-	}, [])
-	
 	const setHovered = (elementId) => {
 		const element = document.querySelector(`#${elementId}`);
 		const parentElementValue = parentElement.getBoundingClientRect();
@@ -170,7 +184,7 @@ const DocsDropdown = () => {
 
 	return (
 		<div id="docsDropdown">
-			<div 
+			{/* <div 
 				id="docsDropdownBackground"
 				style={{ left: left, top: top }}
 			></div>
@@ -203,19 +217,13 @@ const DocsDropdown = () => {
 			>
 				<div className='dropdownMenuItemHeader'>3. Cast</div>
 				<div className='dropdownMenuItemSubtext'>Learn how to cast to the virtual camera</div>
-			</div>
+			</div> */}
 		</div>
 	)
 }
 
 
 const SupportDropdown = () => {
-
-	const { setDropdownWidth } = useContext(Global);
-
-	useEffect(() => {
-		setDropdownWidth(250)
-	}, [])
 	
 	return  (
 		<div id='supportDropdown'>
