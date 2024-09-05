@@ -1,7 +1,8 @@
 import './App.css';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Navigation } from './Navigation/Navigation';
+// import { Navigation } from './Navigation/Navigation';
+import { NavigationTemp } from './NavigationTemp/NavigationTemp';
 import { Footer } from './Footer/Footer';
 import { Home } from './Home/Home';
 import { Download } from './Download/Download';
@@ -14,7 +15,7 @@ const App = () => {
 
 	return (
 		<Router>
-			<Navigation />
+			<NavigationTemp />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/download" element={<Download />} />
