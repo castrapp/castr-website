@@ -14,11 +14,11 @@ const Home = () => {
 
             <Features />
 
-            <QuickTutorial />
+            {/* <QuickTutorial /> */}
 
-            <Opensource />
+            {/* <Opensource /> */}
 
-            <Download />
+            {/* <Download /> */}
 
 		</div>
 	);

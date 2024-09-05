@@ -60,14 +60,14 @@ const Features = () => {
                     description="Add and organize as many sources as you need. With support for various input types, including video, audio, images, and more, your creativity knows no bounds. Mix and match sources to build dynamic and engaging scenes that captivate your audience."
                 />
                 
-                <FeatureCard 
+                {/* <FeatureCard 
                     style={{
                         background: 'linear-gradient(to bottom right, #fccb4a, #f0712a)',
                         color: 'white',
                     }}
                     header="Record"
                     description="Capture every detail with high-resolution recording, up to 4K at 60fps, depending on your Mac's capabilities. Perfect for tutorials, gameplay, or professional content, ensuring sharp and fluid recordings every time."
-                />
+                /> */}
                 <FeatureCard 
                     style={{
                         background: '#E2F0FD',
