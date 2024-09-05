@@ -1,0 +1,85 @@
+#hero {
+    /* height: 1000px; */
+    background-color: rgb(245, 245, 247);
+    /* background: linear-gradient(to bottom right, #ff981b4f, #8f58db51);  */
+    display: grid;
+    grid-template-columns: 
+        /* 90px at 1050 width to 20px at 450 width */
+        /* 120px at 1440 width to 20px at 480 width */
+        clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px) 
+        1fr
+        clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px)
+    ;
+    grid-template-rows: 
+        clamp(60px ,calc(60px + (150 - 60) * (100vw - 480px) / (1050 - 480)), 150px)
+        auto 
+        clamp(74px ,calc(74px + (94 - 74) * (100vw - 480px) / (1050 - 480)), 94px)
+        auto
+        80px
+    ;
+    grid-template-areas: 
+        ". . ."
+        ". header ."
+        ". . ."
+        ". picture ."
+        ". . ."
+    ;
+    align-items: flex-start;
+    justify-items: center;
+}
+
+
+
+
+
+#hero-header {
+    grid-area: header;
+    font-family: "SF Pro Display";
+    font-size: clamp(32px ,calc(32px + (80 - 32) * (100vw - 480px) / (1050 - 480)), 80px);
+    font-weight: 700;
+    width: clamp(0px, 100%, 1680px);
+
+    /* text-align: center; */
+    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    line-height: 1;
+}
+
+
+
+
+#hero-header-caret {
+    position: absolute;
+    right: -8px;
+    background-color: rgb(0, 113, 227);
+    border-radius: 9999px;
+    width: clamp(2px ,calc(2px + (4 - 2) * (100vw - 480px) / (1050 - 480)), 4px);
+    height: clamp(32px ,calc(32px + (80 - 32) * (100vw - 480px) / (1050 - 480)), 80px);
+}
+
+#hero-image-container {
+    grid-area: picture;
+    width: clamp(0px, 100%, 1120px);
+    height: clamp(220px, calc(220px + (750 - 220) * (100vw - 480px) / (1050 - 480)), 750px);
+    border-radius: 18px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero-image {
+    position: absolute;
+    z-index: 2;
+    width: clamp(0px, 100%, 1000px);
+}
+
+#hero-background {
+   width: 100%;
+   height: 100%;
+   border-radius: 18px;
+    /* max-width: 1680px; */
+}

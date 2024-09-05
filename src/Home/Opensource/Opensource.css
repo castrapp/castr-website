@@ -1,0 +1,33 @@
+#opensource {
+    height: 750px;
+    background: black;
+    font-family: "SF Pro Display";
+    font-size: clamp(48px, calc(48px + (80 - 48) * (100vw - 730px) / (1070 - 730)), 80px);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: clamp(32px, calc(32px + (68 - 32) * (100vw - 730px) / (1070 - 730)), 68px);
+}
+
+
+.opensource-button {
+    /* all: unset; */
+    display: inline-block; /* Ensure it's still an inline-block element */
+    cursor: pointer; /* Maintain the pointer cursor for a button */
+    padding: 10px 22px;
+    background-color: transparent;
+    border-radius: 9999px;
+    border: solid white 1px;
+    color: white;
+    font-size: 17px;
+    font-family: "SF Pro Display";
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
