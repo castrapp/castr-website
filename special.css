@@ -1,0 +1,55 @@
+@import url('../fonts.css');
+@import url('../font-presets.css');
+
+:root {
+
+	/* Font Sizes */	  
+	--section-title-size: calc(70px + (350 - 70) * ((100vw - 375px) / (1920 - 375)));
+	--section-title-top: calc()
+
+}
+
+	h1 {
+		margin: 0;
+	}
+
+	/* Font Preset for Section Title */
+	section#about-title h1 {
+		font-family: AZ;
+		font-size: var(--section-title-size);
+		line-height: var(--section-title-size);
+		text-align: center;
+		text-transform: uppercase;
+	}
+
+
+
+
+
+
+
+
+
+
+	div#about-header h1{
+		color: white;
+		font-family: HaasGroteskDisplay;
+		font-weight: 45;
+		/* 30px at 375px ---to--- 120px at 1920px; */
+		font-size: calc(30px + (120 - 30) * ((100vw - 375px) / (1920 - 375)));
+		line-height: calc(30px + (120 - 30) * ((100vw - 375px) / (1920 - 375)));;
+		text-transform: uppercase;
+	}
+
+	div#about-information > p {
+		color: white;
+		font-family: HaasGroteskDisplay;
+		font-weight: 55;
+		/* 25px to 14px */
+		font-size: calc(14px + (25 - 14) * ((100vw - 375px) / (1920 - 375)));
+		line-height:  calc((14px + (25 - 14) * ((100vw - 375px) / (1920 - 375))) * 1.5);
+	}
+
+		div#about-information > p:nth-child(1) {
+			text-align: right;
+		}

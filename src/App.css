@@ -6,32 +6,40 @@
 	border: solid red 1px;
 } */
 
-html,
+html {
+	/* overflow: hidden; */
+	box-sizing: border-box;
+	height: 100vh;
+	overscroll-behavior: none; /* Prevents the bounce effect */
+    touch-action: pan-x pan-y;
+	margin: 0;
+	padding: 0;
+}
+
+
 body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	/* height: 100%; */
+	height: 100%;
+	overscroll-behavior: none; /* Prevents the bounce effect */
+    touch-action: pan-x pan-y;
+	-webkit-font-smoothing: antialiased;
 }
 
-html {
-	background-color: #F6F4F0;
+
+
+#root {
+	/* min-height: 100%; */
+	box-sizing: border-box;
+	position: relative;
+	overflow-y: scroll;
+	height: 100%;
+	box-sizing: border-box;
+	/* overflow: hidden; */
 }
 
 #app {
-	min-height: 100%;
+	height: 100%;
 	box-sizing: border-box;
-}
-
-
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-}
-
-#filler {
-	height: 500px;
-}
-
-#privacy {
-	margin: 20px;
 }
