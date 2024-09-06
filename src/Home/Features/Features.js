@@ -49,7 +49,8 @@ const Features = () => {
                         color: 'white',
                     }}
                     header="Scenes"
-                    description="Create, customize, and manage an unlimited number of scenes. Seamlessly switch between different setups, whether you're streaming, recording, or presenting. Scenes allow you to tailor your workspace for every occasion, giving you the flexibility to focus on what's most important."
+                    description="Create and customize a scene. Scenes allow you to tailor your workspace for every occasion, whether you're streaming, recording, or presenting, giving you the flexibility to focus on what's most important."
+                    // description="Create, customize, and manage an unlimited number of scenes. Seamlessly switch between different setups, whether you're streaming, recording, or presenting. Scenes allow you to tailor your workspace for every occasion, giving you the flexibility to focus on what's most important."
                 />
                 <FeatureCard 
                     style={{
@@ -57,7 +58,8 @@ const Features = () => {
                         color: 'white',
                     }}
                     header="Sources"
-                    description="Add and organize as many sources as you need. With support for various input types, including video, audio, images, and more, your creativity knows no bounds. Mix and match sources to build dynamic and engaging scenes that captivate your audience."
+                    description="Add and organize a screen capture source. With support for customizing which applications are shown in your in your screen capture, your creativity knows no bounds."
+                    // description="Add and organize as many sources as you need. With support for various input types, including video, audio, images, and more, your creativity knows no bounds. Mix and match sources to build dynamic and engaging scenes that captivate your audience."
                 />
                 
                 {/* <FeatureCard 

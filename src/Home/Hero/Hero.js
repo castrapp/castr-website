@@ -1,6 +1,6 @@
 import './Hero.css'
 import background from './background.jpg'
-import picture from './picture.png'
+import picture from './photo.png'
 
 const Hero = () => {
 
@@ -11,7 +11,7 @@ const Hero = () => {
                 <span>Customize.&nbsp;</span>
                 <span style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
                     Cast.
-                    <div id='hero-header-caret'/>
+                    {/* <div id='hero-header-caret'/> */}
                 </span>
             </div>
 
