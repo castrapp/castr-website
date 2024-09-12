@@ -2,49 +2,32 @@ import './Navigation.css';
 
 const Navigation = () => {
 
-    // Function to handle navigation
-    const navigateTo = (path) => {
-        const baseUrl = window.location.origin;
-        window.location.href = `${baseUrl}${path}`;
-    }
-
-    // Function to toggle the custom property
-    const toggleMobileMenu = () => {
-        const navigationElement = document.getElementById('navigation');
-        const isMenuOpen = getComputedStyle(navigationElement).getPropertyValue('--mobileMenuOpen');
-        navigationElement.style.setProperty('--mobileMenuOpen', isMenuOpen === '1' ? '0' : '1');
-    };
+   const toggleMenu =() => {
+        const hamburgerMenu = document.querySelector('#hamburger-menu')
+        hamburgerMenu.hasAttribute("opened") ? hamburgerMenu.removeAttribute("opened") : hamburgerMenu.setAttribute("opened", "")
+   }
 
     return (
-        <div 
-            id='navigation'
-            style={{ '--mobileMenuOpen': 0 }} // Initialize custom property to false (0)
-        >
-            <div id='navigation-wrapper'>
+        <div id='navigation'>
+            <div id="logo">
                 <Logo />
-                <a className='navigation-link'>About</a>
-                <a className='navigation-link'>Documentation</a>
-                <a className='navigation-link'>GitHub</a>
-                <a className='navigation-link' onClick={() => navigateTo('/contact')}>Contact</a>
-                <a 
-                    className='navigation-link' 
-                    onClick={() => navigateTo('/download')}
-                    style={{ marginLeft: 'auto' }}
-                >
-                    Download
-                </a>
+                Castr
+            </div>
 
-                <button 
-                    id='hamburger-menu'
-                    onClick={toggleMobileMenu} // Call the toggle function on click
-                > 
-                    <div className='hamburger-menu-line' />
-                    <div className='hamburger-menu-line' />
-                </button>
+            <a id="about">About</a>
+            <a id="docs">Documentation</a>
+            <a id="support">Support</a>
+            <a id="github">Github</a>
+            <a id="download">Download</a>
 
-                {/* <div id='navigation-mobile'> */}
-                    {/* Mobile menu content */}
-                {/* </div> */}
+            <button id="hamburger-menu" onClick={() => toggleMenu()}>
+                <div />
+                <div />
+                <div />
+            </button>
+
+            <div id="mobile-menu">
+                
             </div>
         </div>
     );
