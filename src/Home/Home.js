@@ -5,14 +5,29 @@ import { Opensource } from './Opensource/Opensource';
 import { Download } from './Download/Download';
 import './Home.css'
 
+import tiger from './tiger.jpg'
 
 const Home = () => {
 	return (
 		<div id='home'>
 
-            <Hero />
+            {/* <img src={tiger} style={{ width: '100%', height: '100%'}}/> */}
 
-            <Features />
+            {/* <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p>
+            <p style={{ height: '100px' }}>herro prease</p> */}
+            {/* <Hero />
+
+            <Features /> */}
 
             {/* <QuickTutorial /> */}
 
