@@ -4,5 +4,117 @@
 }
 
 #home {
+    margin-top: 60px;
+    height: 1000px;
+
     transition: filter 450ms cubic-bezier(0.67, 0.19, 0.31, 0.82);
 }
+
+
+
+
+/* Hero - Start */
+#home-hero {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+    gap: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#home-badge {
+    position: relative;
+    border-radius: 9999px;
+    font-size: 12px;
+    height: 24px;
+    padding: 0px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: rgb(186, 186, 186);
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+#home-badge::after {
+    position: absolute;
+    content: "";
+    top: -1px;
+    left: -1px;
+    z-index: -1;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(
+        60deg,
+        hsl(224, 85%, 66%),
+        hsl(269, 85%, 66%),
+        hsl(314, 85%, 66%),
+        hsl(359, 85%, 66%),
+        hsl(44, 85%, 66%),
+        hsl(89, 85%, 66%),
+        hsl(134, 85%, 66%),
+        hsl(179, 85%, 66%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: 9999px;
+    animation: moveGradient 4s alternate infinite;
+}
+
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+#home-subheader {
+    /* color: rgb(186, 186, 186); */
+    font-size: 14px;
+}
+
+#home-header {
+    font-size: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 100px;
+    
+    transition: all 250ms;
+}
+
+#home-header-caret {
+    border-radius: 9999px;
+    width: 4px;
+    background-color: #3677F9;
+    height: 80px;
+    opacity: 1;
+}
+
+.blink {
+    animation: blink 1s steps(1) infinite;
+}
+
+
+@keyframes blink {
+50% {
+    opacity: 0;
+}
+}
+
+
+
+
+#scenes {
+    transform: translate(-33904.594 3981.315);
+}
+
+
+
+
+
+/* Hero - End */

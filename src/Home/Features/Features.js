@@ -39,7 +39,7 @@ const Features = () => {
             {/* <div id='features-nav'>Hi</div> */}
 
             <span id='features-header'>
-                <span style={{ color: 'rgb(29, 29, 31)'}}>Features.</span> Built in, seamless, and easy to use.
+                <span style={{ color: 'white'}}>Features.</span> Built in, seamless, and easy to use.
             </span>
 
             <div id='features-cards-container' style={{ paddingLeft: `${scrollPadding}px`, paddingRight:`${scrollPadding}px` }}>

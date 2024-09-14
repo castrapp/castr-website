@@ -89,6 +89,16 @@
     overflow: hidden;
 }
 
+@media (max-width: 750px) {
+    #dropdown-menu {
+        display: none;
+    }
+
+    #hover-backdrop {
+        display: none;
+    }
+}
+
     #dropdown-docs, #dropdown-support {
         /* position: absolute; */
         position: relative;
