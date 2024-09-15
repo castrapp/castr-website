@@ -41,7 +41,7 @@ const Contact = () => {
   return (
     <div id='contact'>
       <div id='contact-container'>
-        <div id='contact-section-1' className='contact-section' style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
+        <div id='contact-section-1' className='contact-section'>
           <div className='contact-section-header'>Contact Us</div>
           <div className='contact-section-text'>
             Whether you have a question, need assistance, or just want to provide feedback, feel free to contact us
