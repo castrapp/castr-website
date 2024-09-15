@@ -47,8 +47,7 @@ const Hero = () => {
     useEffect(() => {
   
         setTimeout(() => {
-           
-            // startTypingAnimation();
+            startTypingAnimation();
         }, 500)
 
     }, []);
@@ -56,8 +55,6 @@ const Hero = () => {
     return (
         <div id="home-hero">
 
-
-        
         <div id="home-badge">For MacOS 13+</div>
         <div id="home-subheader">An open-source screen-casting applicaiton built natively for MacOS.</div>
 

@@ -6,29 +6,29 @@
 
 
 #features-header {
-    font-family: "SF Pro Display";
+    grid-area: header;
     font-size: clamp(28px ,calc(28px + (48 - 28) * (100vw - 480px) / (1440 - 480)), 48px);
     font-weight: 600;
     color: rgb(134, 134, 139);
-    grid-area: header;
-    width: clamp(0px, 100%, 1120px);
     margin: 40px auto;
     padding: 0px 20px;
+    width: clamp(0px, 100%, 1120px);
     box-sizing: border-box;
 }
 
 #features-cards-container {
     /* height: 100%; */
-    width: 100%;
     display: inline-grid;
     grid-auto-flow: column;
+    width: 100%;
     gap: 20px;
-    padding-left: 100px;
     overflow-x: scroll;
     box-sizing: border-box;
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
+    padding-top: 50px; 
+    padding-bottom: 50px; 
 }
 
 #features-cards-container::-webkit-scrollbar {
@@ -36,11 +36,130 @@
 }
 
 .feature-card {
-    width: clamp(280px, calc(280px + (400 - 280) * (100vw - 480px) / (1440 - 480)), 400px) !important;
-    height: clamp(522px, calc(522px + (740 - 522) * (100vw - 480px) / (1440 - 480)), 740px) !important;
-    border-radius: 28px;
-    padding: clamp(20px, calc(20px + (25 - 20) * (100vw - 480px) / (1440 - 480)), 25px);
+    border: solid 1px rgb(108, 108, 108);
+    cursor: pointer;
+    position: relative;
+    height: 360px;
+    width: 340px;
+    padding: 32px 28px;
+    border-radius: 30px;
     box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+    grid-template-areas: "header button";
+    align-items: end;
+
     
     scroll-snap-align: center;
+    /* mask-clip: content-box; */
+    /* overflow: hidden; */
+
 }
+
+.feature-card:hover {
+
+}
+
+ 
+
+.feature-card-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    /* opacity: 0.5; */
+    filter: grayscale(90%);
+    border-radius: 29px;
+    /* background-size: cover; */
+
+    transition: all 250ms;
+}
+
+.feature-card-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('noise.jpg');
+    background-size: cover;
+    border-radius: 29px;
+    opacity: 0.2; /* Adjust opacity for the intensity of the grain */
+    pointer-events: none; /* Ensure the overlay doesn't block interactions */
+}
+
+    .feature-card:hover .feature-card-image {
+        filter: grayscale(10%);
+    }
+
+.feature-card-image-blur {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -2;
+    border-radius: 30px;
+    filter: blur(0px);
+    opacity: 0.5;
+
+    transition: all 250ms;
+}
+
+    .feature-card:hover .feature-card-image-blur {
+        filter: blur(20px);
+    }
+
+
+
+.feature-card-header {
+    grid-area: header;
+    font-size: 21px;
+    font-weight: 600;
+}
+.feature-card-button {
+    grid-area: button;
+    border-radius: 9999px;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px rgb(177, 177, 177);
+    /* background-color: rgba(255, 255, 255, 0); */
+    background-color: #1414145f;
+    cursor: pointer;
+    z-index: 1;
+    overflow: hidden;
+
+    transition: all 350ms;
+}
+
+    .feature-card-button:hover {
+        background-color: rgba(255, 255, 255, 0.173);
+        border: solid 1px rgb(255, 255, 255);
+    }
+
+
+    .feature-card-button > div {
+        border-radius: 9999px;
+        height: 1.5px;
+        width: 12px;
+        background-color: rgb(225, 225, 225);
+        position: absolute;
+
+        transition: all 350ms;
+    }
+        .feature-card-button:hover div  {
+            background-color: rgb(255, 255, 255);
+        }
+
+    .feature-card-button > div:nth-child(2) {
+        transform: rotate(90deg);
+    }

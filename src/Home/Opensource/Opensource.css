@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
     /* gap: clamp(32px, calc(32px + (68 - 32) * (100vw - 730px) / (1070 - 730)), 68px); */
 }
 
@@ -27,7 +28,7 @@
     padding: 8px 14px;
     background-color: transparent;
     border-radius: 9999px;
-    border: solid white 1px;
+    border: solid rgba(255, 255, 255, 0.69) 1px;
     color: white;
     font-size: 14px;
     font-family: "SF Pro Display";
@@ -37,4 +38,25 @@
     justify-content: center;
     user-select: none;
     margin-top: 30px;
+    gap: 6px;
+    white-space: no-wrap;
+}
+
+#github-logo-text {
+    width: 37px;
+
+    fill: white;
+}
+#github-logo-text path {
+    fill: white;
+}
+
+#opensource-background {
+    /* border: solid red 1px; */
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 500px;
+    /* background: linear-gradient(180deg, transparent, rgba(97, 106, 115, .12) 40%, rgba(97, 106, 115, .12) 60%, rgba(97, 106, 115, 0)); */
+
 }

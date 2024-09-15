@@ -20,6 +20,8 @@ const Navigation = () => {
     const handleFocusIn = (event) => {
         console.log('Element focused:', event.target);
 
+        if(!event.target.hasAttribute('data-navigation')) return;
+
         // Show the hover backdrop at navigation links location
         const hoverBackdrop = document.querySelector('#hover-backdrop')
         const navigation = document.querySelector(`#navigation`).getBoundingClientRect()
@@ -213,6 +215,10 @@ export { Navigation };
 
 
 
+const navigateTo = (path) => {
+    const baseUrl = window.location.origin;
+    window.location.href = `${baseUrl}${path}`;
+}
 
 
 
@@ -257,6 +263,7 @@ const Logo = () => {
             width="30" 
             height="30" 
             viewBox="0 0 31.876 31.876"
+            onClick={() => navigateTo('/')}
         >
             <path d="M7.324,0H24.552a7.324,7.324,0,0,1,7.324,7.324V24.552a7.324,7.324,0,0,1-7.324,7.324H7.324A7.324,7.324,0,0,1,0,24.552V7.324A7.324,7.324,0,0,1,7.324,0Z"/>
             <g transform="translate(7.266 6.672)">

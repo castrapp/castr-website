@@ -3,7 +3,7 @@
 }
 
 * {
-	border: solid red 1px;
+	/* border: solid red 1px; */
 	font-family: "SF Pro Display"
 }
 
@@ -46,7 +46,14 @@ body {
 	/* overflow: hidden; */
 }
 
+	#root[mobile-menu-opened] #home {
+		pointer-events: none;
+		user-select: none;
+	}
+
 #app {
 	height: 100%;
 	box-sizing: border-box;
 }
+
+
