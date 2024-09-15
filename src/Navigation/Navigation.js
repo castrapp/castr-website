@@ -17,109 +17,6 @@ const Navigation = () => {
         document.querySelector('#root').removeAttribute('mobile-menu-opened')
     }
 
-    const handlePointerMove = (e) => {
-        // // console.log('handling pointer enter', e.target)
-
-        // const targetBounds = e.nativeEvent.target.getBoundingClientRect()
-        // const navigation = document.querySelector(`#navigation`).getBoundingClientRect()
-        // const hoverBackdrop = document.querySelector('#hover-backdrop')
-        // hoverBackdrop.style.left = `${targetBounds.left - navigation.left}px`
-        // hoverBackdrop.style.width = `${targetBounds.width}px`
-
-        // console.log('pointer is moving')
-    }
-
-    const handlePointerEnter = (e) => {
-        // console.log('pointer is entering', e.nativeEvent.relatedTarget, e.nativeEvent.srcElement)
-        // if(e.nativeEvent.relatedTarget?.tagName?.toLowerCase() === "a") {
-        //     e.nativeEvent.relatedTarget?.focus()
-        //     document.querySelector('#hover-backdrop').style.opacity = 1
-        // } else {
-
-        //     document.querySelector('#hover-backdrop').style.opacity = 0
-        // }
-
-
-        // if(e.nativeEvent.relatedTarget?.id == "docs" || e.nativeEvent.relatedTarget?.id == "support") {
-        //     const dropdown = document.querySelector('#dropdown-menu')
-        //     const docsDropdown = document.querySelector(`#dropdown-docs`)
-        //     const supportDropdown = document.querySelector(`#dropdown-support`)
-
-        //     const about = document.querySelector('#about').getBoundingClientRect()
-        //     const navigation = document.querySelector(`#navigation`).getBoundingClientRect()
-        //     const docsBounds = docsDropdown.getBoundingClientRect()
-        //     const supportBounds = supportDropdown.getBoundingClientRect()
-
-        //     dropdown.style.top = `${(about.top + about.height) - 2}px`
-        //     dropdown.style.left = `${about.left - navigation.left + (about.width * 0.5)}px`
-        //     dropdown.style.opacity = 1
-        //     dropdown.style.pointerEvents = 'unset'
-
-        //     if(e.nativeEvent.relatedTarget?.id == "docs") {
-        //         console.log('its equal to the docs ')
-        //         dropdown.style.width = `${docsBounds.width}px`
-        //         dropdown.style.height = `${docsBounds.height}px`
-        //         docsDropdown.style.right = `0px`
-        //         supportDropdown.style.right = `0px`
-        //     }
-        //     else if(e.nativeEvent.relatedTarget?.id == "support") {
-        //         console.log('its equal to support: ', `-${supportBounds.width}px`)
-
-        //         docsDropdown.style.right = `${supportBounds.width}px`
-        //         supportDropdown.style.right = `${supportBounds.width}px`
-
-        //         // supportDropdown.style.right = '-100px'
-        //     }
-        // } else {
-
-        // }
-    }
-
-    const handlePointerLeave = (e) => {
-        // console.log('pointer is leaving: ', e.nativeEvent.srcElement, e.nativeEvent.relatedTarget)
-        // if(e.nativeEvent.relatedTarget?.tagName?.toLowerCase() === "a") {
-        //     document.querySelector('#hover-backdrop').style.opacity = 1
-        // } 
-        // else if(e.nativeEvent.relatedTarget?.id == "dropdown-docs" || e.nativeEvent.relatedTarget?.id == "dropdown-support") {
-        //     return
-        // }
-        // else {
-        //     document.querySelector('#hover-backdrop').style.opacity = 0
-        //     e.nativeEvent.srcElement?.blur()
-
-        //     const dropdownMenu = document.querySelector('#dropdown-menu')
-        //     dropdownMenu.style.opacity = 0
-        // }  
-        
-
-    }
-
-
-    const handleDropdownPointerLeave = (e) => {
-
-        // if(e.nativeEvent.relatedTarget?.id !==  "dropdown-docs" || e.nativeEvent.relatedTarget?.id !==  "dropdown-support") {
-        //     const dropdownMenu = document.querySelector('#dropdown-menu')
-        //     dropdownMenu.style.opacity = 0
-        //     // dropdownMenu.style.opacity = 0
-        // }  
-    } 
-
-
-
-    useEffect(() => {
-
-        window.addEventListener('resize', handleResize)
-        window.addEventListener('focusin', handleFocusIn);
-        window.addEventListener('focusout', handleFocusOut);
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-            window.removeEventListener('focusin', handleFocusIn)
-            window.removeEventListener('focusout', handleFocusOut)
-        }
-
-    }, [])
-
     const handleFocusIn = (event) => {
         console.log('Element focused:', event.target);
 
@@ -204,6 +101,24 @@ const Navigation = () => {
     }
 
 
+    
+    useEffect(() => {
+
+        window.addEventListener('resize', handleResize)
+        window.addEventListener('focusin', handleFocusIn);
+        window.addEventListener('focusout', handleFocusOut);
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+            window.removeEventListener('focusin', handleFocusIn)
+            window.removeEventListener('focusout', handleFocusOut)
+        }
+
+    }, [])
+
+
+
+
     return (
         <div 
             id='navigation' 
@@ -223,7 +138,7 @@ const Navigation = () => {
 
             <div id="hover-backdrop" />
 
-            <div id="dropdown-menu" onPointerLeave={handleDropdownPointerLeave}>
+            <div id="dropdown-menu">
                 <div id="dropdown-docs">
                     <div onPointerDown={e => e.preventDefault()}>
                         {/* <div className="dropdown-card-img"></div> */}

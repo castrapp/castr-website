@@ -40,6 +40,12 @@ async function startTypingAnimation(element) {
     // Deleting down to "100% "
     div.innerHTML = "100% Open Sourc";
     await sleep(125);
+    div.innerHTML = "100% Open Sour";
+    await sleep(125);
+    div.innerHTML = "100% Open Sou";
+    await sleep(125);
+    div.innerHTML = "100% Open So";
+    await sleep(125);
     div.innerHTML = "100% Open S";
     await sleep(125);
     div.innerHTML = "100% Open ";

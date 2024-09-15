@@ -38,7 +38,7 @@
     font-family: "SF Pro Display";
     font-size: clamp(40px ,calc(40px + (80 - 40) * (100vw - 480px) / (1240 - 480)), 80px);
     font-weight: 600;
-    width: clamp(0px, 100%, 1680px);
+    width: clamp(0px, 100%, 1120px);
     -webkit-font-smoothing: antialiased;
     display: flex;
     /* align-items: center; */
@@ -67,7 +67,7 @@
     font-weight: 600;
     color: rgb(134, 134, 139);
     grid-area: subheader;
-    width: clamp(0px, 100%, 1680px);
+    width: clamp(0px, 100%, 1120px);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -75,7 +75,8 @@
     grid-area: cards;
     height: 100%;
     width: 100%;
-    display: flex;
+    display: inline-grid;
+    grid-auto-flow: column;
     gap: 20px;
     padding-left: 100px;
     overflow-x: scroll;
@@ -91,8 +92,9 @@
 }
 
 .quick-tutorial-card {
+    box-sizing: border-box;
     min-width: clamp(280px, calc(280px + (1200 - 280) * (100vw - 430px) / (1440 - 430)), 1200px) ;
-    min-height: clamp(522px, calc(522px + (750 - 522) * (100vw - 480px) / (1440 - 480)), 750px);
+    min-height: clamp(522px, calc(522px + (600 - 522) * (100vw - 480px) / (1440 - 480)), 600px);
     border-radius: 28px;
     padding: clamp(20px, calc(20px + (25 - 20) * (100vw - 480px) / (1440 - 480)), 25px);
     display: grid;

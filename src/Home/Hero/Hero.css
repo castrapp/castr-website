@@ -1,90 +1,120 @@
-#hero {
-    /* height: 1000px; */
-    background-color: rgb(245, 245, 247);
-    /* background: linear-gradient(to bottom right, #ff981b4f, #8f58db51);  */
-    display: grid;
-    grid-template-columns: 
-        /* 90px at 1050 width to 20px at 450 width */
-        /* 120px at 1440 width to 20px at 480 width */
-        clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px) 
-        1fr
-        clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px)
-    ;
-    grid-template-rows: 
-        clamp(60px ,calc(60px + (150 - 60) * (100vw - 480px) / (1050 - 480)), 150px)
-        auto 
-        clamp(74px ,calc(74px + (94 - 74) * (100vw - 480px) / (1050 - 480)), 94px)
-        auto
-        80px
-    ;
-    grid-template-areas: 
-        ". . ."
-        ". header ."
-        ". . ."
-        ". picture ."
-        ". . ."
-    ;
-    align-items: flex-start;
-    justify-items: center;
-}
-
-
-
-
-
-#hero-header {
-    grid-area: header;
-    font-family: "SF Pro Display";
-    font-size: clamp(32px ,calc(32px + (80 - 32) * (100vw - 480px) / (1050 - 480)), 80px);
-    font-weight: 700;
-    width: clamp(0px, 100%, 1680px);
-
-    /* text-align: center; */
-    
+/* Hero - Start */
+#home-hero {
+    height: 100svh;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    line-height: 1;
-}
-
-
-
-
-#hero-header-caret {
-    position: absolute;
-    right: -8px;
-    background-color: rgb(0, 113, 227);
-    border-radius: 9999px;
-    width: clamp(2px ,calc(2px + (4 - 2) * (100vw - 480px) / (1050 - 480)), 4px);
-    height: clamp(32px ,calc(32px + (80 - 32) * (100vw - 480px) / (1050 - 480)), 80px);
-}
-
-#hero-image-container {
-    border: solid red 1px;
-    grid-area: picture;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: clamp(0px, 100%, 1120px);
-    /* height: clamp(220px, calc(220px + (750 - 220) * (100vw - 480px) / (1050 - 480)), 750px); */
-    border-radius: 18px;
+    gap: 20px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
     box-sizing: border-box;
+
+    padding-top: 100px;;
+}
+
+
+
+#home-badge {
     position: relative;
+    border-radius: 9999px;
+    font-size: 12px;
+    height: 24px;
+    padding: 0px 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: black;
+    color: rgb(186, 186, 186);
+    font-weight: 500;
+    box-sizing: border-box;
 }
 
-#hero-image {
-    position: relative;
-    z-index: 2;
-    width: clamp(0px, 100%, 1000px);
-}
-
-#hero-background {
+#home-badge::after {
     position: absolute;
-   width: 100%;
-   height: 100%;
-   border-radius: 18px;
-    /* max-width: 1680px; */
+    content: "";
+    top: -1px;
+    left: -1px;
+    z-index: -1;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background: linear-gradient(
+        60deg,
+        hsl(224, 85%, 66%),
+        hsl(269, 85%, 66%),
+        hsl(314, 85%, 66%),
+        hsl(359, 85%, 66%),
+        hsl(44, 85%, 66%),
+        hsl(89, 85%, 66%),
+        hsl(134, 85%, 66%),
+        hsl(179, 85%, 66%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: 9999px;
+    animation: moveGradient 4s alternate infinite;
 }
+
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+#home-subheader {
+    /* color: rgb(186, 186, 186); */
+    font-size: 14px;
+}
+
+#home-header {
+    font-size: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 120px;
+    
+    transition: all 250ms;
+}
+
+#home-header-caret {
+    border-radius: 9999px;
+    width: 4px;
+    background-color: #3677F9;
+    height: 80px;
+    opacity: 1;
+}
+
+.blink {
+    animation: blink 1s steps(1) infinite;
+}
+
+
+@keyframes blink {
+50% {
+    opacity: 0;
+}
+}
+
+
+
+
+
+#home-svg {
+    /* background: grey; */
+    width: 1100px;
+    height: 530px;
+    perspective: 600px;
+    box-sizing: border-box;
+}
+
+#home-svg > div {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    /* transform: rotateX(5deg) rotateY(0deg); */
+}
+
+
+/* Hero - End */

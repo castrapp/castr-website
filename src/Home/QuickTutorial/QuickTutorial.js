@@ -33,7 +33,7 @@ const QuickTutorial = () => {
         <div id="quick-tutorial">
 
             <div id="quick-tutorial-header">
-                How it works
+                 How it works
 
                 <div id="quick-tutorial-header-description">
                 Get started in just 3 simple steps. Create a new scene. Add your sources. Then cast. 
@@ -41,7 +41,7 @@ const QuickTutorial = () => {
             </div>
 
             <span id='quick-tutorial-subheader'>
-                <span style={{ color: 'rgb(29, 29, 31)'}}>Step 1.</span> Create a new scene
+                <span style={{ color: 'white'}}>Step 1.</span> Create a new scene
             </span>
 
 

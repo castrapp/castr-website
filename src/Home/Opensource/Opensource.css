@@ -1,8 +1,8 @@
 #opensource {
-    height: 950px;
+    height: 100svh;
     /* background: black; */
     font-family: "SF Pro Display";
-    font-size: clamp(48px, calc(48px + (80 - 48) * (100vw - 730px) / (1070 - 730)), 80px);
+    font-size: clamp(38px, calc(40px + (80 - 40) * (100vw - 730px) / (1070 - 730)), 80px);
     color: white;
     font-weight: 600;
     display: flex;

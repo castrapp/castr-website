@@ -42,14 +42,15 @@
     font-weight: 600;
     color: rgb(134, 134, 139);
     grid-area: header;
-    width: clamp(0px, 100%, 1680px);
+    width: clamp(0px, 100%, 1120px);
 }
 
 #features-cards-container {
     grid-area: cards;
     height: 100%;
     width: 100%;
-    display: flex;
+    display: inline-grid;
+    grid-auto-flow: column;
     gap: 20px;
     padding-left: 100px;
     overflow-x: scroll;
@@ -65,10 +66,11 @@
 }
 
 .feature-card {
-    min-width: clamp(280px, calc(280px + (400 - 280) * (100vw - 480px) / (1440 - 480)), 400px);
-    min-height: clamp(522px, calc(522px + (750 - 522) * (100vw - 480px) / (1440 - 480)), 750px);
+    width: clamp(280px, calc(280px + (400 - 280) * (100vw - 480px) / (1440 - 480)), 400px) !important;
+    height: clamp(522px, calc(522px + (740 - 522) * (100vw - 480px) / (1440 - 480)), 740px) !important;
     border-radius: 28px;
     padding: clamp(20px, calc(20px + (25 - 20) * (100vw - 480px) / (1440 - 480)), 25px);
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: 
     clamp(58px ,calc(58px + (74 - 58) * (100vw - 480px) / (1440 - 480)), 74px)

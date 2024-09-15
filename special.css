@@ -53,3 +53,40 @@
 		div#about-information > p:nth-child(1) {
 			text-align: right;
 		}
+
+
+
+
+
+/* 
+    Formula
+    You only need to change the first 3 in the middle part of the clamp function 
+    And the first and the last in the outermost clamp function
+*/
+
+/* 120px at 1440 width to 20px at 480 width */
+/*  clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px) */
+
+/* 120px at 1440 width to 20px at 480 width */
+
+/* Card Width */
+/* 400px at 1440 width to 280x at 480 width */
+/*  clamp(280px ,calc(280px + (400 - 280) * (100vw - 480px) / (1440 - 480)), 400px) */
+
+/* Card Height */
+/* 750px at 1440 width to 522x at 480 width */
+/*  clamp(522px ,calc(522px + (750 - 522) * (100vw - 480px) / (1440 - 480)), 750px) */
+
+
+/* Card Padding */
+/* 25px at 1440 width to 20x at 480 width */
+/*  clamp(20px ,calc(20px + (25- 20) * (100vw - 480px) / (1440 - 480)), 25px) */
+
+
+/* Card Photo Icon */
+/* 74px at 1440 width to 58px at 480 width */
+/*  clamp(58px ,calc(58px + (74 - 58) * (100vw - 480px) / (1440 - 480)), 74px) */
+
+/* Card Photo Font Size */
+/* 48px at 1440 width to 28px at 480 width */
+/* clamp(28px ,calc(28px + (48 - 28) * (100vw - 480px) / (1440 - 480)), 48px) */

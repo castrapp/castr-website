@@ -2,13 +2,8 @@ import './Footer.css'
 
 const Footer = () => {
 	return (
-		<div id='footer-temp'>
 
-			<div id='footer-line' />
-
-			<div id='footer-temp-text'>2024 Castr</div>
-
-			{/* <div id='footer-container'>
+			<div id='footer-container'>
 				<div className='footer-section'>
 					<div className='footer-header'>Support</div>
 					<div className='footer-link'>Reddit Community</div>
@@ -30,8 +25,7 @@ const Footer = () => {
 					<div className='footer-link'>MacOS Store</div>
 					<div className='footer-link'>Other</div>
 				</div>
-			</div>	 */}
-		</div>
+			</div>	
 
 	);
 }
