@@ -41,11 +41,7 @@ const Hero = () => {
     }
 
 
-    
-
-
     useEffect(() => {
-  
         setTimeout(() => {
             startTypingAnimation();
         }, 500)
@@ -55,30 +51,27 @@ const Hero = () => {
     return (
         <div id="home-hero">
 
-        <div id="home-badge">For MacOS 13+</div>
-        <div id="home-subheader">An open-source screen-casting applicaiton built natively for MacOS.</div>
+                <div id="home-badge">For MacOS 13+</div>
+                <div id="home-subheader">An open-source screen-casting application built natively for MacOS.</div>
 
-        <div id="home-header">
-              <div id="home-header-text"></div>
-              <div id="home-header-caret" className='blink'/>
-        </div> 
-       
+                <div id="home-header">
+                    <div id="home-header-text"></div>
+                    <div id="home-header-caret" className='blink'/>
+                </div> 
+            
 
-
-        {/* <AppSVG /> */}
-
-        {/* <div id="home-svg">
-              <div id="svg" 
-                    onPointerMove={e => handlePointerMove(e.nativeEvent)}
-                    onPointerLeave={handlePointerLeave}
-                    onPointerEnter={handlePointerEnter}
-              >
-                    Hello WORLD
-              </div>
-        </div> */}
+                {/* <div id="home-svg">
+                    <div id="svg" 
+                            onPointerMove={e => handlePointerMove(e.nativeEvent)}
+                            onPointerLeave={handlePointerLeave}
+                            onPointerEnter={handlePointerEnter}
+                    >
+                            Hello WORLD
+                    </div>
+                </div> */}
 
 
-  </div>
+        </div>
     )
 }
 

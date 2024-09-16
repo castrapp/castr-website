@@ -25,17 +25,38 @@
     height: 100svh;
     z-index: -1; 
     box-sizing: border-box;
+    overflow: hidden;
 
     /* pointer-events: none; */
     /* position: relative; */
 }
+
+#gradient-noise  {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    
+    content: "";
+    z-index: 2;
+    
+    opacity: 100%;
+    background: #000000;
+    filter: url(#noiseFilter2);
+
+    mix-blend-mode: overlay;
+  }
+
+
 
 
 #gradient {
     width: 100%;
     height: 100%;
     /* box-sizing: border-box; */
-    opacity: 0.3;
+    /* opacity: 0.3; */
 }
 
 .gradient-overlay {
@@ -47,6 +68,6 @@
     bottom: -1px;
     z-index: 2;
     /* border: green solid 1px; */
-    background: linear-gradient(to top, #141414, #14141400);
+    background: linear-gradient(to top, #000000, #00000000);
 }
 

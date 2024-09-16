@@ -37,21 +37,21 @@
 }
 
 .contact-section-header {
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-weight: 600;
     font-size: 28px;
     padding-bottom: 24px;
 }
 
 .contact-section-subheader {
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-weight: 600;
     font-size: 19px;
     padding-bottom: 16px;
 }
 
 .contact-section-text {
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-weight: 400;
     font-size: 17px;
     line-height: 25px;
@@ -63,7 +63,7 @@
     border-radius: 8px;
     border: solid 1px rgba(0, 0, 0, .1);
     height: 40px;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: 14px;
     font-weight: 400;
     color: rgb(143, 143, 143);
@@ -74,7 +74,7 @@
     border-radius: 8px;
     border: solid 1px rgba(0, 0, 0, .1);
     min-height: clamp(200px ,calc(200px + (300 - 200) * (100vw - 480px) / (950 - 480)), 300px);
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: 14px;
     font-weight: 400;
     color: rgb(143, 143, 143);
@@ -89,7 +89,7 @@
     all: unset;
     height: 32px;
     padding: 0px 12px;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: 14px;
     font-weight: 600;
     border-radius: 6px;

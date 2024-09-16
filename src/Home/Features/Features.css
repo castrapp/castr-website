@@ -37,7 +37,7 @@
 
 
 #features-header {
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(28px ,calc(28px + (48 - 28) * (100vw - 480px) / (1440 - 480)), 48px);
     font-weight: 600;
     color: rgb(134, 134, 139);
@@ -92,14 +92,14 @@
 .feature-card-header {
     grid-area: header;
     align-self: center;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(21px, calc(21px + (28 - 21) * (100vw - 480px) / (1440 - 480)), 28px);
     font-weight: 600;
 }
 
 .feature-card-description {
     grid-area: description;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(14px, calc(14px + (17 - 14) * (100vw - 480px) / (1440 - 480)), 17px);
     font-weight: 400;
     line-height: clamp(18px, calc(18px + (21 - 18) * (100vw - 480px) / (1440 - 480)), 21px);

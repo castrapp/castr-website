@@ -1,7 +1,7 @@
 #opensource {
     height: 100svh;
     /* background: black; */
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(38px, calc(40px + (80 - 40) * (100vw - 730px) / (1070 - 730)), 80px);
     color: white;
     font-weight: 600;
@@ -31,7 +31,6 @@
     border: solid rgba(255, 255, 255, 0.69) 1px;
     color: white;
     font-size: 14px;
-    font-family: "SF Pro Display";
     font-weight: 400;
     display: flex;
     align-items: center;

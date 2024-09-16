@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Sketch from './Hero/js/app';
 
 
-import { Hero } from './Hero/Hero';
-import { Features } from './Features2/Features';
+// import { Hero } from './Hero/Hero';
+import { Hero } from './Hero2/Hero';
+// import { Features } from './Features2/Features';
+import { Features } from './Features3/Features';
 import { Opensource } from './Opensource/Opensource';
-import { QuickTutorial } from './QuickTutorial/QuickTutorial';
+// import { QuickTutorial } from './QuickTutorial/QuickTutorial';
+import { QuickTutorial } from './QuickTutorial2/QuickTutorial';
 // import { Download } from './Download/Download';
+import { Download } from './Download2/Download';
 
 
 import './Home.css'
@@ -47,15 +51,25 @@ const Home = () => {
 
             <Opensource />
 
-            {/* <QuickTutorial /> */}
+            <QuickTutorial />
 
 
-            {/* <Download /> */}
+            <Download />
 
             <div id='home-gradient-container'>
+                <div id='gradient-noise' />
                 <canvas id="gradient"></canvas>
                 <div className="gradient-overlay"/>
             </div>
+
+            <svg display={'none'}>
+                <filter id='noiseFilter2'>
+                    <feTurbulence 
+                    type='fractalNoise' 
+                    baseFrequency='0.6' 
+                    stitchTiles='stitch'/>
+                </filter>
+            </svg>
 
 		</div>
 	);

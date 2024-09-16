@@ -35,7 +35,7 @@
 
 #quick-tutorial-header {
     grid-area: header;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(40px ,calc(40px + (80 - 40) * (100vw - 480px) / (1240 - 480)), 80px);
     font-weight: 600;
     width: clamp(0px, 100%, 1120px);
@@ -47,7 +47,7 @@
 
 #quick-tutorial-header-description {
     grid-area: header;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(19px ,calc(19px + (21 - 19) * (100vw - 480px) / (1440 - 480)), 21px);
     max-width: 370px;
 }
@@ -62,7 +62,7 @@
 }
 
 #quick-tutorial-subheader {
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(28px ,calc(28px + (48 - 28) * (100vw - 480px) / (1440 - 480)), 48px);
     font-weight: 600;
     color: rgb(134, 134, 139);
@@ -119,14 +119,14 @@
 .quick-tutorial-card-header {
     grid-area: header;
     align-self: center;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(21px, calc(21px + (28 - 21) * (100vw - 480px) / (1440 - 480)), 28px);
     font-weight: 600;
 }
 
 .quick-tutorial-card-description {
     grid-area: description;
-    font-family: "SF Pro Display";
+    /* font-family: "SF Pro Display"; */
     font-size: clamp(14px, calc(14px + (17 - 14) * (100vw - 480px) / (1440 - 480)), 17px);
     font-weight: 400;
     line-height: clamp(18px, calc(18px + (21 - 18) * (100vw - 480px) / (1440 - 480)), 21px);

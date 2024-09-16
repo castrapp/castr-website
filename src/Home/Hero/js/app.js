@@ -23,8 +23,9 @@ import GUI from 'lil-gui';
 // console.log('pallette is: ', pallete)
 let newPallete = ['#a7c5bd', '#333333', '#eb7b59', '#cf4647', '#524656']
 let pallete83 = ['#a7c5bd', '#e5ddcb', '#eb7b59', '#cf4647', '#524656']
+let pallete84 = ['#1324F5', '#000000', '#FF00A7', '#EB1E20', '#000000']
 
-let pallete = pallete83.map((color) => new THREE.Color(color))
+let pallete = pallete84.map((color) => new THREE.Color(color))
 
 
 
@@ -56,6 +57,7 @@ export default class Sketch {
 		
 		// Set the initial camera position
 		this.camera.position.set(0.0002293715413487227, 0.009497897208904172, 0.02388205001053332);
+		// this.camera.position.set(0, 0.009497897208904172, 0.05);
 
 		// Set the exact coordinates the camera should look at
 		this.camera.lookAt(-0.008924118444488625, -0.36953302562053325, -0.9291747430304609);

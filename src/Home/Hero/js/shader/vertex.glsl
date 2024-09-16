@@ -101,7 +101,7 @@ void main() {
 
 
   // Adjust the (noise * 0.1) part on this line to manipulate the height of the displacement
-  vec3 pos = vec3(position.x,position.y,position.z + noise * 0.1 +tilt + incline + offset);
+  vec3 pos = vec3(position.x,position.y,position.z + noise * 0.15 +tilt + incline + offset);
 
 
 
