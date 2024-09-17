@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import './Hero.css'
+import './SubHero.css'
 
 
 
@@ -8,16 +8,7 @@ const Hero = () => {
 
 
     return (
-        <div id="home-hero">
-
-            <div id="home-hero-info">
-                <div id="hero-badge">For MacOS 13.0+</div>
-                <div id="hero-header">Create, Customize, Cast.</div>
-                <div id="hero-subheader">A free and open-source, screen casting application for video recording and streaming, built natively for MacOS.</div>
-
-                <button id="hero-download">Download</button>
-            </div>
-
+        <div id="subhero">
 
             <div id="home-svg">
                 <ScreenshotBase />
@@ -29,8 +20,7 @@ const Hero = () => {
                 <SourceConfigBase />
             </div>
 
-            {/* <div id="hero-learn-more">Learn more below.</div> */}
-            {/* <LearnMoreArrow /> */}
+       
         </div>
     )
 }
