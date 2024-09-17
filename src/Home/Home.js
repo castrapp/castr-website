@@ -14,6 +14,7 @@ import { Download } from './Download2/Download';
 
 
 import './Home.css'
+import { SubHero } from './SubHero/SubHero';
 
 
 const Home = () => {
@@ -30,7 +31,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        const newSketch = new Sketch(document.querySelector('#gradient'))
+        // const newSketch = new Sketch(document.querySelector('#gradient'))
 
         // Resize the canvas on window resize
         window.addEventListener('resize', resize);
@@ -47,6 +48,8 @@ const Home = () => {
 
             <Hero />
 
+            <SubHero />
+
             <Features />
 
             <Opensource />
@@ -62,14 +65,14 @@ const Home = () => {
                 <div className="gradient-overlay"/>
             </div>
 
-            <svg display={'none'}>
+            {/* <svg display={'none'}>
                 <filter id='noiseFilter2'>
                     <feTurbulence 
                     type='fractalNoise' 
                     baseFrequency='0.6' 
                     stitchTiles='stitch'/>
                 </filter>
-            </svg>
+            </svg> */}
 
 		</div>
 	);

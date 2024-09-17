@@ -1,6 +1,6 @@
 /* Hero - Start */
 #home-hero {
-    border: solid red 1px;
+    /* border: solid red 1px; */
     /* height: 100svh; */
     box-sizing: border-box;
     display: flex;
@@ -8,27 +8,44 @@
     align-items: center;
     justify-content: center;
 
+    margin-left: auto;
+    margin-right: auto;
 
+
+
+
+    margin-top: 200px;;
     padding-left: 20px;
     padding-right: 20px;
-
-    padding-top: 200px;;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 75px;
+    /* padding-bottom: 75px; */
     position: relative;
     perspective: 600px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    /* overflow-x: hidden; */
 }
 
 #home-hero-info {
+    border: dashed rgb(31, 31, 31) 1px;
     position: relative;
+    width: clamp(0px, 100%, 1080px);
+    padding: 48px 20px;
+    margin-bottom: 40px;
+    /* top: -200px; */
     /* top: 1; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: black;
+}
 
+@keyframes blurStart {
+    from {
+        filter: blur(20px);
+    }
+    to {
+        filter: blur(0px);
+    }
 }
 
 #hero-badge {
@@ -41,13 +58,19 @@
     margin-bottom: 12px;
     background-color: rgba(0, 153, 255, 0.196);
     color: rgb(0, 153, 255);
+    filter: blur(20px);
+    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    /* animation-delay: 200ms; */
 }
 
 #hero-header {
     font-size: 72px;
     font-weight: 600;
-    line-height: 72px;
+    line-height: 1;
     margin-bottom: 20px;
+    filter: blur(20px);
+    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    animation-delay: 200ms;
 }
 
 #hero-subheader {
@@ -56,6 +79,10 @@
     margin-bottom: 36px;
     max-width: 640px;
     text-align: center;
+    filter: blur(20px);
+    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    animation-delay: 400ms;
+
 }
 
 #hero-download {
@@ -69,6 +96,9 @@
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     cursor: pointer;
+    filter: blur(20px);
+    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    animation-delay: 600ms;
 }
 
 
@@ -91,74 +121,70 @@
 
 
 
-
-#home-svg {
-    /* border: solid red 1px; */
-    /* position: absolute; */
+.cross {
+    width: 21px;
+    height: 21px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 500px;
-    /* transform: translateZ(200px); */
-    animation: svg 4s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-    animation-delay: 1.0s;
-
-    transform: translateZ(400px);
-    filter: blur(20px);
-}
-
-@keyframes svg {
-    from {
-        transform: translateZ(400px);
-        filter: blur(20px);
-    }
-
-    to {
-        transform: translateZ(0px);
-        filter: blur(0px);
-    }
-}
-
-
-
-#screenshot-base {
-    /* position: absolute; */
-    transform: scale(0.9);
-    /* bottom: 0px; */
-    transform-origin: center;
-}
-
-
-#scenes-base {
+    position: relative;
     position: absolute;
-    transform:translateX(-420px) translateY(-200px) scale(1) ;
-    /* animation: scenes 2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */
-    backdrop-filter: blur(20px);
-    /* animation-delay: 1.5s;  */
+}
 
+#cross-1 {
+    top: -11px;
+    left: -11px;
+}
+
+#cross-2 {
+    bottom: -11px;
+    right: -11px;
+}
+
+.cross > div {
+    height: 1.5px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(135, 135, 135);
+    position: absolute;
+}
+
+.cross > div:nth-child(2) {
+    transform: rotate(90deg);
 }
 
 
-#sources-base {
+
+
+
+
+
+#squares-top-container {
+    height: 88px;
+    border: solid rgb(31, 31, 31) 1px;
     position: absolute;
-    transform: translateX(-420px) translateY(200px) scale(1);
-    /* animation: scenes 3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */
-    backdrop-filter: blur(20px);
+    left: -1px;
+    right: -1px;
+    top: -90px;
+    display: flex;
+    justify-content: space-evenly;
+}
+#squares-bottom-container {
+    height: 88px;
+    border: solid rgb(31, 31, 31) 1px;
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    bottom: -90px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 
-#controls-base {
-    position: absolute;
-    transform: translateX(420px) translateY(-290px) scale(1);
-    /* animation: scenes 3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */
-    backdrop-filter: blur(20px);
-}
-
-
-
-#source-config-base {
-    position: absolute;
-    transform: translateX(420px) translateY(100px) scale(1);
-    /* animation: scenes 3s cubic-bezier(0.075, 0.82, 0.165, 1) forwards; */
-    backdrop-filter: blur(20px);
+#squares-top-container > div,
+#squares-bottom-container > div {
+    width: 1px;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: rgb(31, 31, 31);
 }

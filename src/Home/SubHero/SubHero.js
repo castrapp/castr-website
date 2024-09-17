@@ -1,63 +1,292 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import './SubHero.css'
 
 
+let currentXmain = 0;
+let currentYmain = 0;
+let isAnimatingmain = false;
 
-const Hero = () => {
+const handlePointerMoveMain2 = (e) => {
+    const svg = document.querySelector('#screenshot-base');
+    const bounds = svg.getBoundingClientRect();
 
+    // Calculate the pointer position relative to the center of the SVG
+    const transformX = e.clientX - (bounds.left + bounds.width / 2);
+    const transformY = -1 * (e.clientY - (bounds.top + bounds.height / 2));
+
+    // Normalize the values between -1 and 1
+    const normalizedX = transformX / (bounds.width / 2);
+    const normalizedY = transformY / (bounds.height / 2);
+
+    // Set rotation values based on the normalized pointer position
+    const targetRotateX = -1 * (2 * normalizedY); // Rotation along X-axis
+    const targetRotateY = -1 * (2 * normalizedX); // Rotation along Y-axis
+
+    // Smoothly transition between the current and target rotate values
+    if (!isAnimatingmain) {
+        isAnimatingmain = true;
+        requestAnimationFrame(animate);
+    }
+    // svg.style.transition = ''
+    function animate() {
+        currentXmain += (targetRotateX - currentXmain) *1; // Smoothly move towards targetRotateX
+        currentYmain += (targetRotateY - currentYmain) * 1; // Smoothly move towards targetRotateY
+        
+        svg.style.transform = `rotateX(${currentXmain}deg) rotateY(${currentYmain}deg)`;
+
+        // Continue animating until the movement is close to the target
+        if (Math.abs(currentXmain - targetRotateX) > 0.1 || Math.abs(currentYmain - targetRotateY) > 0.1) {
+            requestAnimationFrame(animate);
+        } else {
+            isAnimatingmain = false;
+        }
+    }
+};
+
+const SubHero = () => {
+    const handleScroll = () => {
+        const rootElement = document.querySelector('#root'); // The scrollable root element
+        const heroElement = document.querySelector('#home-hero'); // The #hero element for reference
+        const homeSvgElement = document.querySelector('#home-svg'); // The element to animate
+
+        // Get the scroll position and height of hero
+        const scrollTop = rootElement.scrollTop; // Current scroll position of root
+        const heroHeight = heroElement.getBoundingClientRect().height; // Height of the #hero
+
+        // Calculate the percentage of scroll progress relative to the hero height
+        const scrollPercentage = Math.min(scrollTop / heroHeight, 1); // Normalize between 0 and 1
+
+        // Define the scroll range for the animation (30% to 75%)
+        const minScrollPercentage = 0.3; // Animation starts at 30% scroll
+        const maxScrollPercentage = 0.75; // Animation ends at 75% scroll
+
+        // If scrollPercentage is below minScrollPercentage, don't animate (set to 0)
+        if (scrollPercentage < minScrollPercentage) {
+            homeSvgElement.style.filter = `blur(20px)`;
+            homeSvgElement.style.transform = `translateZ(400px)`;
+            homeSvgElement.style.opacity = 0;
+            return;
+        }
+
+        // Normalize the scrollPercentage between minScrollPercentage and maxScrollPercentage
+        const effectiveScrollPercentage = Math.min(
+            (scrollPercentage - minScrollPercentage) / (maxScrollPercentage - minScrollPercentage),
+            1
+        );
+
+        // Log the percentage to the console (for debugging purposes)
+        console.log(`Effective Scroll Percentage: ${(effectiveScrollPercentage * 100).toFixed(2)}%`);
+
+        // Interpolate the blur, translateZ, and opacity values based on effectiveScrollPercentage
+        const blurValue = 20 * (1 - effectiveScrollPercentage); // From 20px to 0px
+        const translateZValue = 400 * (1 - effectiveScrollPercentage); // From 400px to 0px
+        const opacityValue = effectiveScrollPercentage; // From 0 to 1
+
+        // Apply the CSS properties to the #home-svg element
+        if (homeSvgElement) {
+            homeSvgElement.style.filter = `blur(${blurValue}px)`;
+            homeSvgElement.style.transform = `translateZ(${translateZValue}px)`;
+            homeSvgElement.style.opacity = opacityValue; // Opacity goes from 0 to 1
+        }
+    };
+
+    const handlePointerMoveMain = (e) => {
+        console.log('pointer is moving on element', e.nativeEvent.target.id)
+        const element = e.currentTarget; // The element being hovered
+        const bounds = element.getBoundingClientRect(); // Get element's bounding box
+    
+        // Calculate the center of the element
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
+    
+        // Calculate pointer's position relative to the center of the element
+        const relativeX = e.clientX - centerX;
+        const relativeY = (e.clientY - centerY);
+
+        const offsetPercent = 0.04;
+        // const offsetPercent2 = 0.04;
+        // console.log('relative x ', relativeX, ' relative y ', relativeY)
+        // console.log('small offset', relativeX * 0.005)
+
+        const base =  document.querySelector('#home-svg');
+
+            // Apply both translateX and translateY using the scaled relative positions
+            document.querySelector('#home-svg').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
+        // document.querySelector('#screenshot-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
+        // document.querySelector('#scenes-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
+        // document.querySelector('#sources-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
+        // document.querySelector('#controls-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
+        // document.querySelector('#source-config-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
+    };
+
+
+
+    const handlePointerMove = (e) => {
+        const svg = document.querySelector('#scenes-base')
+        const bounds = svg.getBoundingClientRect()
+
+        const transformX = e.offsetX - (bounds.width * 0.5)
+        const transformY = -1 * (e.offsetY - (bounds.height * 0.5))
+        // console.log('pointer is moving: ', transformX, transformY)
+
+        const normalizedX = transformX / (bounds.width * 0.5)
+        const normalizedY = transformY / (bounds.height * 0.5)
+
+
+        const rotateX = -1 * (3 * normalizedY)
+        const rotateY = -1 * (3 * normalizedX)
+
+        // console.log('rotateX is: ', rotateX)
+        console.log('rotateY is: ', rotateY)
+
+        svg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+    }
+
+
+    useEffect(() => {
+       
+        
+        // const rootElement = document.querySelector('#root'); // The scrollable root element
+
+        // if (rootElement) {
+        //     rootElement.addEventListener('scroll', handleScroll); // Attach scroll event listener
+        // }
+
+        // // Cleanup listener when the component unmounts
+        // return () => {
+        //     if (rootElement) {
+        //         rootElement.removeEventListener('scroll', handleScroll);
+        //     }
+        // };
+
+        const svgElement = document.querySelector('#home-svg');
+
+        // Listen for the animation end event
+        const handleAnimationEnd = () => {
+          // Get the computed final styles
+          const computedStyle = window.getComputedStyle(svgElement);
+    
+          // Apply the final styles inline to preserve them
+          svgElement.style.transform = computedStyle.transform;
+          svgElement.style.filter = computedStyle.filter;
+          svgElement.style.opacity = computedStyle.opacity;
+    
+          // Remove the animation by setting animation to 'none'
+          svgElement.style.animation = 'none';
+        };
+    
+        // Attach the 'animationend' event listener
+        if (svgElement) {
+          svgElement.addEventListener('animationend', handleAnimationEnd);
+        }
+    
+        // Cleanup listener when the component unmounts
+        return () => {
+          if (svgElement) {
+            svgElement.removeEventListener('animationend', handleAnimationEnd);
+          }
+        };
+    }, []);
 
     return (
-        <div id="subhero">
+        <div id="subhero" onPointerMove={handlePointerMoveMain}>
+            <div id="home-svg" >
+            <div id='subhero-header'>Designed exclusively for MacOS</div>
 
-            <div id="home-svg">
-                <ScreenshotBase />
+                <div id="screenshot-base-wrapper" >
+                    <ScreenshotBase />
+                </div>
+              
+                <div id="scenes-base-wrapper" >
+                    <ScenesBase />
+                </div>
+               
+                <div id="sources-base-wrapper">
+                    <SourcesBase />
+                </div>
 
-                <ScenesBase />
+                <div id="controls-base-wrapper" >
+                    <ControlsBase />
+                </div>
 
-                <SourcesBase />
-                <ControlsBase />
-                <SourceConfigBase />
+                <div id="source-config-base-wrapper" >
+                    <SourceConfigBase />
+                </div>
+         
             </div>
-
-       
         </div>
-    )
+    );
 }
 
-export { Hero }
+
+
+export { SubHero }
 
 
 
 
 
+let currentX = 0;
+let currentY = 0;
+let isAnimating = false;
 
+const handlePointerMove = (e) => {
+    const svg = document.querySelector('#scenes-base');
+    const bounds = svg.getBoundingClientRect();
 
-const LearnMoreArrow = () => (
-    <svg 
-        id='learn-more-arrow'
-        xmlns="http://www.w3.org/2000/svg" 
-        width="26" 
-        height="8" 
-        viewBox="0 0 26 8" 
-        fill="none" 
-        className="animate-bounce stroke-2"
-    >
+    // Calculate the pointer position relative to the center of the SVG
+    const transformX = e.clientX - (bounds.left + bounds.width / 2);
+    const transformY = -1 * (e.clientY - (bounds.top + bounds.height / 2));
+
+    // Normalize the values between -1 and 1
+    const normalizedX = transformX / (bounds.width / 2);
+    const normalizedY = transformY / (bounds.height / 2);
+
+    // Set rotation values based on the normalized pointer position
+    const targetRotateX = -1 * (2 * normalizedY); // Rotation along X-axis
+    const targetRotateY = -1 * (2 * normalizedX); // Rotation along Y-axis
+
+    // Smoothly transition between the current and target rotate values
+    if (!isAnimating) {
+        isAnimating = true;
+        requestAnimationFrame(animate);
+    }
+    // svg.style.transition = ''
+    function animate() {
+        currentX += (targetRotateX - currentX) *1; // Smoothly move towards targetRotateX
+        currentY += (targetRotateY - currentY) * 1; // Smoothly move towards targetRotateY
         
-        <path 
-            d="M1 1L12.5528 6.77639C12.8343 6.91716 13.1657 6.91716 13.4472 6.77639L25 1"  
-            strokeLinecap="round"
-            >
-        </path>
-        
-    </svg>
-)
+        svg.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
 
+        // Continue animating until the movement is close to the target
+        if (Math.abs(currentX - targetRotateX) > 0.1 || Math.abs(currentY - targetRotateY) > 0.1) {
+            requestAnimationFrame(animate);
+        } else {
+            isAnimating = false;
+        }
+    }
+};
+
+
+const handlePointerLeave = (e) => {
+    const element = document.querySelector('#scenes-base')
+
+    if(element.id === "scenes-base") {
+       
+    }
+    isAnimating = false
+    element.style.transition = 'all 500ms cubic-bezier(0.165, 0.84, 0.44, 1)'
+     element.style.transform = "rotateY(-1.5deg) rotateX(1.5deg)"
+     
+
+     console.log('setting new transforms, ', element.style.transform, element)
+}
 
 
 
 const ScreenshotBase = () => (
-<svg xmlns="http://www.w3.org/2000/svg" width="1145.422" height="677.106" viewBox="0 0 1145.422 677.106" id='screenshot-base'>
+<svg xmlns="http://www.w3.org/2000/svg" width="1145.422" height="677.106" viewBox="0 0 1145.422 677.106" id='screenshot-base' onPointerMove={handlePointerMoveMain2}>
   <g id="Group_172" data-name="Group 172" transform="translate(-18126.631 -1897.29)">
     <path id="Rectangle_112" data-name="Rectangle 112" d="M9.757,0H283.823V677.106H9.757A9.748,9.748,0,0,1,0,667.35V9.757A9.748,9.748,0,0,1,9.757,0Z" transform="translate(18126.631 1897.29)" fill="rgba(56,44,42,0.52)"/>
     <path id="Rectangle_114" data-name="Rectangle 114" d="M0,0H578.565V677.106H0Z" transform="translate(18410.943 1897.29)" fill="rgba(56,44,42,0.4)"/>
@@ -74,11 +303,11 @@ const ScreenshotBase = () => (
       </g>
     </g>
     <path id="Scene_1" data-name="Scene 1" d="M4.609,12.93q-1.15,0-2-.347t-1.331-.977Q.8,10.976.737,10.122l-.007-.1H2.674l.007.063q.04.36.3.632t.689.425q.434.153.994.153.54,0,.947-.16t.637-.445q.23-.285.23-.652v-.007q0-.474-.383-.76T4.809,8.8L3.792,8.592q-1.5-.307-2.179-1.007T.93,5.787V5.781q0-.894.475-1.561T2.7,3.183q.827-.37,1.894-.37,1.124,0,1.927.363t1.256,1q.452.632.515,1.439l.007.083h-1.9l-.013-.08q-.057-.347-.288-.607T5.489,4.6q-.383-.15-.89-.147T3.733,4.6q-.372.145-.58.409t-.208.627v.007q0,.467.377.762t1.227.469l1.017.21q1.02.207,1.664.56t.95.887q.307.534.307,1.284v.007q0,.954-.469,1.652T6.68,12.548Q5.809,12.93,4.609,12.93Zm8.674-.09q-1.147,0-1.951-.45t-1.226-1.309Q9.684,10.222,9.684,9V8.989q0-1.211.42-2.059t1.224-1.3q.8-.449,1.951-.449.974,0,1.676.333t1.109.939q.407.605.494,1.426l0,.02H14.746l-.007-.013q-.1-.534-.462-.855t-.989-.322q-.524,0-.885.263t-.55.77q-.188.507-.188,1.244V9q0,.744.19,1.261t.552.784q.362.267.882.267.6,0,.959-.282t.485-.839l.013-.02,1.8-.007,0,.043q-.1.8-.512,1.389t-1.1.917Q14.243,12.84,13.282,12.84Zm7.87,0q-1.117,0-1.921-.464t-1.237-1.319q-.434-.855-.434-2.033V9.019q0-1.171.432-2.031t1.221-1.332q.789-.472,1.859-.472t1.851.459q.78.459,1.2,1.287t.422,1.943v.6H18.535V8.255H23.61L22.7,9.409V8.632q0-.66-.2-1.1t-.559-.665q-.357-.223-.83-.223t-.834.23q-.363.23-.572.675t-.208,1.085v.784q0,.62.205,1.06t.587.674q.382.233.909.233.427,0,.727-.125t.484-.3q.183-.172.25-.308l.02-.04,1.814,0-.017.07q-.083.343-.312.72t-.625.7q-.4.327-.987.532T21.152,12.84Zm4.832-.157V5.34h1.948V6.474h.12q.253-.6.787-.944t1.321-.347q1.227,0,1.869.717t.642,2.034v4.749H30.723V8.378q0-.78-.327-1.181t-1.017-.4q-.45,0-.774.2t-.5.57q-.175.367-.175.867v4.245Zm11.648.157q-1.117,0-1.921-.464t-1.237-1.319q-.434-.855-.434-2.033V9.019q0-1.171.432-2.031t1.221-1.332q.789-.472,1.859-.472t1.851.459q.78.459,1.2,1.287t.422,1.943v.6H35.015V8.255h5.076l-.914,1.154V8.632q0-.66-.2-1.1t-.559-.665q-.357-.223-.83-.223t-.834.23q-.363.23-.572.675t-.208,1.085v.784q0,.62.205,1.06t.587.674q.382.233.909.233.427,0,.727-.125t.484-.3q.183-.172.25-.308l.02-.04,1.814,0-.017.07q-.083.343-.312.72t-.625.7q-.4.327-.987.532T37.633,12.84Zm10.561-.157V4.964h-.12L45.71,6.6V4.787L48.2,3.059h2.011v9.624Z" transform="translate(18427.553 1915.283)" fill="#fff"/>
-    <g id="Line_62" data-name="Line 62" transform="translate(18409.969 1897.598)" fill="none" stroke-linecap="square">
+    <g id="Line_62" data-name="Line 62" transform="translate(18409.969 1897.598)" fill="none" strokeLinecap="square">
       <path d="M.486,675.643V.488" stroke="none"/>
       <path d="M 0.9737517833709717 676.1305541992188 L -0.001905580749735236 676.1305541992188 L -0.001905580749735236 675.6427001953125 L -0.001905580749735236 0.4878286719322205 L -0.001905580749735236 0 L 0.9737517833709717 0 L 0.9737517833709717 0.4878286719322205 L 0.9737517833709717 675.6427001953125 L 0.9737517833709717 676.1305541992188 Z" stroke="none" fill="#000"/>
     </g>
-    <g id="Line_64" data-name="Line 64" transform="translate(18988.533 1897.598)" fill="none" stroke-linecap="square">
+    <g id="Line_64" data-name="Line 64" transform="translate(18988.533 1897.598)" fill="none" strokeLinecap="square">
       <path d="M.488,675.643V.488" stroke="none"/>
       <path d="M 0.9756573438644409 676.1305541992188 L 0 676.1305541992188 L 0 675.6427001953125 L 0 0.4878286719322205 L 0 0 L 0.9756573438644409 0 L 0.9756573438644409 0.4878286719322205 L 0.9756573438644409 675.6427001953125 L 0.9756573438644409 676.1305541992188 Z" stroke="none" fill="#000"/>
     </g>
@@ -98,7 +327,10 @@ const ScreenshotBase = () => (
 
 
 const ScenesBase = () => (
-<svg id="Scenes" xmlns="http://www.w3.org/2000/svg" width="270.871" height="298.153" viewBox="0 0 270.871 298.153" id='scenes-base'>
+<svg xmlns="http://www.w3.org/2000/svg" width="270.871" height="298.153" viewBox="0 0 270.871 298.153" id="scenes-base" 
+    onPointerMove={handlePointerMove} 
+    onPointerLeave={handlePointerLeave}
+>
 
 
   <g id="Rectangle_13" data-name="Rectangle 13" fill="rgba(56,44,42,0.5)">
@@ -107,16 +339,16 @@ const ScenesBase = () => (
   </g>
   <path id="Scenes-2" data-name="Scenes" d="M4.712,13.22q-1.176,0-2.042-.355t-1.36-1Q.815,11.222.754,10.35l-.007-.106H2.734l.007.065q.041.368.3.646t.7.435q.443.157,1.016.157.552,0,.968-.164t.651-.455q.235-.292.235-.667v-.007q0-.484-.392-.777T4.917,9l-1.04-.211q-1.531-.314-2.228-1.03t-.7-1.838V5.91q0-.914.486-1.6t1.328-1.06q.846-.378,1.937-.378,1.149,0,1.971.372T7.956,4.265q.462.646.527,1.471l.007.085H6.55L6.536,5.74q-.058-.355-.295-.621T5.612,4.7q-.392-.153-.91-.15T3.817,4.7q-.38.148-.593.418t-.213.641v.007q0,.477.385.779t1.255.479l1.04.215q1.043.211,1.7.573t.972.907q.314.546.314,1.313v.007q0,.975-.479,1.689t-1.369,1.1Q5.94,13.22,4.712,13.22Zm8.868-.092q-1.173,0-1.995-.46T10.333,11.33Q9.9,10.452,9.9,9.2V9.19q0-1.238.43-2.105t1.251-1.326Q12.4,5.3,13.577,5.3q1,0,1.713.341t1.134.96q.416.619.5,1.458l0,.02H15.077l-.007-.014q-.1-.546-.472-.875t-1.011-.329q-.535,0-.905.269t-.563.788q-.193.518-.193,1.272V9.2q0,.76.194,1.289t.564.8q.37.273.9.273.614,0,.98-.288t.5-.858l.014-.02,1.845-.007,0,.044q-.106.815-.523,1.42T15.27,12.8Q14.562,13.128,13.58,13.128Zm8.047,0q-1.142,0-1.964-.474T18.4,11.306q-.443-.875-.443-2.078V9.221q0-1.2.442-2.076t1.248-1.362q.806-.482,1.9-.482t1.892.469q.8.469,1.229,1.316T25.1,9.071v.617H18.951V8.44H24.14l-.934,1.18V8.825q0-.675-.206-1.127t-.571-.68q-.365-.228-.849-.228t-.852.235q-.372.235-.585.69t-.213,1.11v.8q0,.634.21,1.084t.6.689q.39.239.929.239.436,0,.743-.128t.494-.3q.188-.176.256-.315l.02-.041,1.855,0-.017.072q-.085.351-.319.736t-.639.719q-.406.334-1.009.544T21.627,13.128Zm4.94-.16V5.46h1.991V6.619h.123q.259-.61.8-.965t1.35-.355q1.255,0,1.911.733t.656,2.08v4.855H31.413v-4.4q0-.8-.334-1.207t-1.04-.409q-.46,0-.791.208t-.51.583q-.179.375-.179.886v4.34Zm11.91.16q-1.142,0-1.964-.474t-1.265-1.348q-.443-.875-.443-2.078V9.221q0-1.2.442-2.076t1.248-1.362Q37.3,5.3,38.4,5.3t1.892.469q.8.469,1.229,1.316t.431,1.986v.617H35.8V8.44H40.99l-.934,1.18V8.825q0-.675-.206-1.127t-.571-.68q-.365-.228-.849-.228t-.852.235q-.372.235-.585.69t-.213,1.11v.8q0,.634.21,1.084t.6.689q.39.239.929.239.436,0,.743-.128t.494-.3q.188-.176.256-.315l.02-.041,1.855,0-.017.072q-.085.351-.319.736t-.639.719q-.406.334-1.009.544T38.477,13.128Zm7.924,0q-1.019,0-1.739-.283t-1.125-.781q-.406-.5-.477-1.139l0-.031h1.957l.01.027q.123.348.467.573t.931.225q.385,0,.672-.1t.448-.288q.162-.184.162-.433v-.01q0-.3-.245-.5t-.818-.324l-1.251-.266q-.716-.153-1.193-.442t-.713-.713q-.235-.424-.235-.984V7.649q0-.709.39-1.236t1.1-.82q.706-.293,1.64-.293.985,0,1.674.295t1.06.791q.372.5.413,1.1v.024H47.669l-.007-.031q-.078-.307-.406-.542T46.37,6.7q-.344,0-.61.1t-.418.285q-.152.184-.152.436v.01q0,.2.1.346t.334.259q.232.111.617.2l1.248.266q1.129.242,1.666.733t.537,1.323v.01q0,.74-.423,1.294t-1.164.858Q47.366,13.128,46.4,13.128Z" transform="translate(9.363 11.3)" fill="#fff"/>
   <g id="Group_10" data-name="Group 10" transform="translate(11.377 277.514)">
-    <g id="Line_38" data-name="Line 38" transform="translate(3.98)" fill="none" stroke-linecap="round">
+    <g id="Line_38" data-name="Line 38" transform="translate(3.98)" fill="none" strokeLinecap="round">
       <path d="M.748.748V8.71" stroke="none"/>
       <path d="M 0.7481615543365479 9.457840919494629 C 0.6448628902435303 9.457840919494629 0.5464534759521484 9.436905860900879 0.4569448232650757 9.399046897888184 C 0.3674361705780029 9.361188888549805 0.2868283092975616 9.30640697479248 0.2191327810287476 9.238711357116699 C 0.1514372676610947 9.171016693115234 0.09665407985448837 9.090409278869629 0.05879474431276321 9.000900268554688 C 0.02093547023832798 8.911391258239746 0 8.812980651855469 0 8.709678649902344 L 0 0.7481629848480225 C 0 0.6448618769645691 0.02093547023832798 0.546451210975647 0.05879474431276321 0.456942081451416 C 0.09665407985448837 0.3674329519271851 0.1514372676610947 0.28682541847229 0.2191327810287476 0.2191305160522461 C 0.2868283092975616 0.1514356136322021 0.3674361705780029 0.09665330499410629 0.4569448232650757 0.05879474431276321 C 0.5464534759521484 0.02093624323606491 0.6448628902435303 1.427004917786689e-06 0.7481615543365479 1.427004917786689e-06 C 0.8514602780342102 1.427004917786689e-06 0.949869692325592 0.02093624323606491 1.03937828540802 0.05879474431276321 C 1.128886938095093 0.09665330499410629 1.209494829177856 0.1514356136322021 1.277190327644348 0.2191305160522461 C 1.34488582611084 0.28682541847229 1.399669051170349 0.3674329519271851 1.437528371810913 0.456942081451416 C 1.475387692451477 0.546451210975647 1.496323108673096 0.6448618769645691 1.496323108673096 0.7481629848480225 L 1.496323108673096 8.709678649902344 C 1.496323108673096 8.812980651855469 1.475387692451477 8.911391258239746 1.437528371810913 9.000900268554688 C 1.399669051170349 9.090409278869629 1.34488582611084 9.171016693115234 1.277190327644348 9.238711357116699 C 1.209494829177856 9.30640697479248 1.128886938095093 9.361188888549805 1.03937828540802 9.399046897888184 C 0.949869692325592 9.436905860900879 0.8514602780342102 9.457840919494629 0.7481615543365479 9.457840919494629 Z" stroke="none" fill="#bfb3b1"/>
     </g>
-    <g id="Line_39" data-name="Line 39" transform="translate(0 3.981)" fill="none" stroke-linecap="round">
+    <g id="Line_39" data-name="Line 39" transform="translate(0 3.981)" fill="none" strokeLinecap="round">
       <path d="M8.709.748H.748" stroke="none"/>
       <path d="M -0.0005936340312473476 0.7481615543365479 C -0.0005936340312473476 0.6448628902435303 0.02034148015081882 0.5464534759521484 0.0581999197602272 0.4569448232650757 C 0.09605836123228073 0.3674361705780029 0.1508401334285736 0.2868283092975616 0.2185353487730026 0.2191327810287476 C 0.2862305641174316 0.1514372676610947 0.3668382465839386 0.09665407985448837 0.4563466608524323 0.05879474431276321 C 0.5458560585975647 0.02093547023832798 0.6442670226097107 0 0.7475684285163879 0 L 8.709064483642578 0 C 8.812366485595703 0 8.910776138305664 0.02093547023832798 9.000286102294922 0.05879474431276321 C 9.089795112609863 0.09665407985448837 9.170401573181152 0.1514372676610947 9.238097190856934 0.2191327810287476 C 9.305791854858398 0.2868283092975616 9.360573768615723 0.3674361705780029 9.398433685302734 0.4569448232650757 C 9.436291694641113 0.5464534759521484 9.457225799560547 0.6448628902435303 9.457225799560547 0.7481615543365479 C 9.457225799560547 0.8514602780342102 9.436291694641113 0.949869692325592 9.398433685302734 1.03937828540802 C 9.360573768615723 1.128886938095093 9.305791854858398 1.209494829177856 9.238097190856934 1.277190327644348 C 9.170401573181152 1.34488582611084 9.089795112609863 1.399669051170349 9.000286102294922 1.437528371810913 C 8.910776138305664 1.475387692451477 8.812366485595703 1.496323108673096 8.709064483642578 1.496323108673096 L 0.7475684285163879 1.496323108673096 C 0.6442670226097107 1.496323108673096 0.5458560585975647 1.475387692451477 0.4563466608524323 1.437528371810913 C 0.3668382465839386 1.399669051170349 0.2862305641174316 1.34488582611084 0.2185353487730026 1.277190327644348 C 0.1508401334285736 1.209494829177856 0.09605836123228073 1.128886938095093 0.0581999197602272 1.03937828540802 C 0.02034148015081882 0.949869692325592 -0.0005936340312473476 0.8514602780342102 -0.0005936340312473476 0.7481615543365479 Z" stroke="none" fill="#bfb3b1"/>
     </g>
   </g>
-  <g id="Line_2" data-name="Line 2" transform="translate(45.658 281.495)" fill="none" stroke-linecap="round">
+  <g id="Line_2" data-name="Line 2" transform="translate(45.658 281.495)" fill="none" strokeLinecap="round">
     <path d="M8.709.748H.748" stroke="none"/>
     <path d="M -0.0005936340312473476 0.7481615543365479 C -0.0005936340312473476 0.6448628902435303 0.02034148015081882 0.5464534759521484 0.0581999197602272 0.4569448232650757 C 0.09605836123228073 0.3674361705780029 0.1508401334285736 0.2868283092975616 0.2185353487730026 0.2191327810287476 C 0.2862305641174316 0.1514372676610947 0.3668382465839386 0.09665407985448837 0.4563466608524323 0.05879474431276321 C 0.5458560585975647 0.02093547023832798 0.6442670226097107 0 0.7475684285163879 0 L 8.709064483642578 0 C 8.812366485595703 0 8.910776138305664 0.02093547023832798 9.000286102294922 0.05879474431276321 C 9.089795112609863 0.09665407985448837 9.170401573181152 0.1514372676610947 9.238097190856934 0.2191327810287476 C 9.305791854858398 0.2868283092975616 9.360573768615723 0.3674361705780029 9.398433685302734 0.4569448232650757 C 9.436291694641113 0.5464534759521484 9.457225799560547 0.6448628902435303 9.457225799560547 0.7481615543365479 C 9.457225799560547 0.8514602780342102 9.436291694641113 0.949869692325592 9.398433685302734 1.03937828540802 C 9.360573768615723 1.128886938095093 9.305791854858398 1.209494829177856 9.238097190856934 1.277190327644348 C 9.170401573181152 1.34488582611084 9.089795112609863 1.399669051170349 9.000286102294922 1.437528371810913 C 8.910776138305664 1.475387692451477 8.812366485595703 1.496323108673096 8.709064483642578 1.496323108673096 L 0.7475684285163879 1.496323108673096 C 0.6442670226097107 1.496323108673096 0.5458560585975647 1.475387692451477 0.4563466608524323 1.437528371810913 C 0.3668382465839386 1.399669051170349 0.2862305641174316 1.34488582611084 0.2185353487730026 1.277190327644348 C 0.1508401334285736 1.209494829177856 0.09605836123228073 1.128886938095093 0.0581999197602272 1.03937828540802 C 0.02034148015081882 0.949869692325592 -0.0005936340312473476 0.8514602780342102 -0.0005936340312473476 0.7481615543365479 Z" stroke="none" fill="#bfb3b1"/>
   </g>
@@ -154,22 +386,22 @@ const ScenesBase = () => (
 const SourcesBase = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="271.537" height="298.886" viewBox="0 0 271.537 298.886" id='sources-base'>
   <g id="Scenes" transform="translate(-14847.638 -185.172)">
-    <g id="Rectangle_90" data-name="Rectangle 90" transform="translate(14847.639 185.172)" fill="rgba(56,44,42,0.5)" stroke="rgba(193,193,193,0.35)" stroke-width="1">
+    <g id="Rectangle_90" data-name="Rectangle 90" transform="translate(14847.639 185.172)" fill="rgba(56,44,42,0.5)" stroke="rgba(193,193,193,0.35)" strokeWidth="1">
       <rect width="271.536" height="298.886" rx="6" stroke="none"/>
       <rect x="0.5" y="0.5" width="270.536" height="297.886" rx="5.5" fill="none"/>
     </g>
-    <text id="Scenes-2" data-name="Scenes" transform="translate(14857.025 209.5)" fill="#fff" font-size="14" font-family="SF Pro" font-weight="700"><tspan x="0" y="0">Scenes</tspan></text>
+    <text id="Scenes-2" data-name="Scenes" transform="translate(14857.025 209.5)" fill="#fff" fontSize="14" fontFamily="SF Pro" fontWeight="700"><tspan x="0" y="0">Scenes</tspan></text>
     <g id="Group_29" data-name="Group 29" transform="translate(14859.793 464.119)">
-      <line id="Line_38" data-name="Line 38" y2="7.981" transform="translate(3.991)" fill="none" stroke="#bfb3b1" stroke-linecap="round" stroke-width="1.5"/>
-      <line id="Line_39" data-name="Line 39" y2="7.981" transform="translate(7.981 3.991) rotate(90)" fill="none" stroke="#bfb3b1" stroke-linecap="round" stroke-width="1.5"/>
+      <line id="Line_38" data-name="Line 38" y2="7.981" transform="translate(3.991)" fill="none" stroke="#bfb3b1" strokeLinecap="round" strokeWidth="1.5"/>
+      <line id="Line_39" data-name="Line 39" y2="7.981" transform="translate(7.981 3.991) rotate(90)" fill="none" stroke="#bfb3b1" strokeLinecap="round" strokeWidth="1.5"/>
     </g>
-    <line id="Line_46" data-name="Line 46" y2="7.981" transform="translate(14902.139 468.109) rotate(90)" fill="none" stroke="#bfb3b1" stroke-linecap="round" stroke-width="1.5"/>
-    <line id="Line_47" data-name="Line 47" y2="15.315" transform="translate(14881.466 460.558)" fill="none" stroke="rgba(193,193,193,0.35)" stroke-width="1"/>
-    <line id="Line_49" data-name="Line 49" x2="252.475" transform="translate(14857.025 224.287)" fill="none" stroke="rgba(193,193,193,0.35)" stroke-width="1"/>
-    <line id="Line_48" data-name="Line 48" x2="270.861" transform="translate(14847.639 452.609)" fill="none" stroke="rgba(193,193,193,0.35)" stroke-width="1"/>
+    <line id="Line_46" data-name="Line 46" y2="7.981" transform="translate(14902.139 468.109) rotate(90)" fill="none" stroke="#bfb3b1" strokeLinecap="round" strokeWidth="1.5"/>
+    <line id="Line_47" data-name="Line 47" y2="15.315" transform="translate(14881.466 460.558)" fill="none" stroke="rgba(193,193,193,0.35)" strokeWidth="1"/>
+    <line id="Line_49" data-name="Line 49" x2="252.475" transform="translate(14857.025 224.287)" fill="none" stroke="rgba(193,193,193,0.35)" strokeWidth="1"/>
+    <line id="Line_48" data-name="Line 48" x2="270.861" transform="translate(14847.639 452.609)" fill="none" stroke="rgba(193,193,193,0.35)" strokeWidth="1"/>
     <rect id="Rectangle_89" data-name="Rectangle 89" width="252.475" height="39" rx="6" transform="translate(14857.025 234.33)" fill="#fff" opacity="0.13"/>
-    <text id="Screen_Capture_Source" data-name="Screen Capture Source" transform="translate(14899.148 251.787)" fill="#fff" font-size="13" font-family="SF Pro" font-weight="500" letter-spacing="-0.02em"><tspan x="0" y="0">Screen Capture Source</tspan></text>
-    <text id="Screen_Capture_Source-2" data-name="Screen Capture Source" transform="translate(14899 266)" fill="rgba(255,255,255,0.67)" font-size="12" font-family="SF Pro" letter-spacing="-0.01em"><tspan x="0" y="0">Screen Capture Source</tspan></text>
+    <text id="Screen_Capture_Source" data-name="Screen Capture Source" transform="translate(14899.148 251.787)" fill="#fff" fontSize="13" fontFamily="SF Pro" fontWeight="500" letterSpacing="-0.02em"><tspan x="0" y="0">Screen Capture Source</tspan></text>
+    <text id="Screen_Capture_Source-2" data-name="Screen Capture Source" transform="translate(14899 266)" fill="rgba(255,255,255,0.67)" fontSize="12" fontFamily="SF Pro" letterSpacing="-0.01em"><tspan x="0" y="0">Screen Capture Source</tspan></text>
     <g id="Group_40" data-name="Group 40">
       <path id="Path_81" data-name="Path 81" d="M14.407,28.813A14.513,14.513,0,0,0,28.813,14.407,14.516,14.516,0,0,0,14.393,0,14.5,14.5,0,0,0,0,14.407,14.523,14.523,0,0,0,14.407,28.813Z" transform="translate(14863.304 239.405)" fill="#3677f9"/>
       <g id="rectangle.inset.filled.badge.record" transform="translate(14866.784 245.91)">
@@ -190,13 +422,13 @@ const SourcesBase = () => (
 const ControlsBase = () => (
 <svg xmlns="http://www.w3.org/2000/svg" width="272.537" height="100.886" viewBox="0 0 272.537 100.886" id='controls-base'>
   <g id="Controls" transform="translate(-15732.233 140.201)">
-    <g id="Rectangle_93" data-name="Rectangle 93" transform="translate(15732.232 -140.201)" fill="rgba(56,44,42,0.5)" stroke="rgba(193,193,193,0.35)" stroke-width="1">
+    <g id="Rectangle_93" data-name="Rectangle 93" transform="translate(15732.232 -140.201)" fill="rgba(56,44,42,0.5)" stroke="rgba(193,193,193,0.35)" strokeWidth="1">
       <rect width="272.536" height="100.886" rx="6" stroke="none"/>
       <rect x="0.5" y="0.5" width="271.536" height="99.886" rx="5.5" fill="none"/>
     </g>
-    <text id="Controls-2" data-name="Controls" transform="translate(15741.619 -115.874)" fill="#fff" font-size="14" font-family="SF Pro" font-weight="700"><tspan x="0" y="0">Controls</tspan></text>
-    <line id="Line_50" data-name="Line 50" x2="252.475" transform="translate(15741.764 -101.087)" fill="none" stroke="rgba(193,193,193,0.35)" stroke-width="1"/>
-    <g id="Rectangle_94" data-name="Rectangle 94" transform="translate(15742.264 -91.3)" fill="rgba(255,255,255,0.11)" stroke="rgba(193,193,193,0.35)" stroke-width="1">
+    <text id="Controls-2" data-name="Controls" transform="translate(15741.619 -115.874)" fill="#fff" fontSize="14" fontFamily="SF Pro" fontWeight="700"><tspan x="0" y="0">Controls</tspan></text>
+    <line id="Line_50" data-name="Line 50" x2="252.475" transform="translate(15741.764 -101.087)" fill="none" stroke="rgba(193,193,193,0.35)" strokeWidth="1"/>
+    <g id="Rectangle_94" data-name="Rectangle 94" transform="translate(15742.264 -91.3)" fill="rgba(255,255,255,0.11)" stroke="rgba(193,193,193,0.35)" strokeWidth="1">
       <rect width="252.475" height="42" rx="6" stroke="none"/>
       <rect x="0.5" y="0.5" width="251.475" height="41" rx="5.5" fill="none"/>
     </g>
@@ -204,7 +436,7 @@ const ControlsBase = () => (
       <rect id="Rectangle_95" data-name="Rectangle 95" width="27.512" height="27.035" fill="#fff" opacity="0"/>
       <path id="Path_94" data-name="Path 94" d="M27.022,13.521A13.6,13.6,0,0,1,13.511,27.031,13.611,13.611,0,0,1,0,13.521,13.608,13.608,0,0,1,13.5.01,13.622,13.622,0,0,1,27.022,13.521ZM6.477,6.474a.623.623,0,0,0,0,.874L19.7,20.567a.65.65,0,0,0,.874,0,.623.623,0,0,0,0-.874L7.352,6.474A.624.624,0,0,0,6.477,6.474Zm-.834,3.7V16.9a1.975,1.975,0,0,0,2.172,2.133h7.219A2.319,2.319,0,0,0,16.4,18.65L6.291,8.539A2.089,2.089,0,0,0,5.643,10.169Zm14.994-.782-2.676,2.278v3.722l2.676,2.278a1.2,1.2,0,0,0,.755.331.855.855,0,0,0,.861-.954V10.01a.851.851,0,0,0-.861-.94A1.191,1.191,0,0,0,20.637,9.388ZM10.268,8.024l6.925,6.918V10.169A1.908,1.908,0,0,0,15.1,8.024Z" transform="translate(0 0.003)" fill="#fff"/>
     </g>
-    <text id="Virtual_Camera" data-name="Virtual Camera" transform="translate(15787.639 -66.8)" fill="#fff" font-size="12" font-family="SF Pro" font-weight="700" letter-spacing="-0.015em"><tspan x="0" y="0">Virtual Camera</tspan></text>
+    <text id="Virtual_Camera" data-name="Virtual Camera" transform="translate(15787.639 -66.8)" fill="#fff" fontSize="12" fontFamily="SF Pro" fontWeight="700" letterSpacing="-0.015em"><tspan x="0" y="0">Virtual Camera</tspan></text>
   </g>
 </svg>
 
@@ -214,12 +446,12 @@ const ControlsBase = () => (
 
 
 const SourceConfigBase = () => (
-    <svg id="Source_Configuration" data-name="Source Configuration" xmlns="http://www.w3.org/2000/svg"width="271.414" height="496.148" viewBox="0 0 271.414 496.148" id='source-config-base'>
+    <svg data-name="Source Configuration" xmlns="http://www.w3.org/2000/svg"width="271.414" height="496.148" viewBox="0 0 271.414 496.148" id='source-config-base'>
   <defs>
-    <clipPath id="clip-path">
+    <clipPath id="clipPath">
       <path d="M0,0H118.51V382.417H0Z" fill="none"/>
     </clipPath>
-    <clipPath id="clip-path-2">
+    <clipPath id="clipPath-2">
       <path d="M0,0H28.566V389.005H0Z" fill="none"/>
     </clipPath>
   </defs>
@@ -234,7 +466,7 @@ const SourceConfigBase = () => (
   </g>
   <path id="Pick_and_choose_which_applications_you_would_like_to_display." data-name="Pick and choose which applications you would like to display." d="M1.466,7.2V6.348H3.648q.829,0,1.284-.431t.455-1.19V4.717q0-.765-.455-1.193T3.648,3.1H1.466V2.24H3.894q.727,0,1.284.31t.875.867q.318.556.318,1.289v.011q0,.733-.318,1.294t-.875.877Q4.621,7.2,3.894,7.2ZM.984,9.959V2.24h.963V9.959Zm6.763,0V4.193h.931V9.959ZM8.217,3.08q-.262,0-.452-.19t-.19-.452q0-.267.19-.455T8.217,1.8q.267,0,.455.187t.187.455q0,.262-.187.452T8.217,3.08Zm4.473,6.98q-.808,0-1.4-.369t-.92-1.043q-.326-.674-.326-1.589V7.049q0-.9.324-1.562t.917-1.03q.594-.366,1.4-.366.7,0,1.209.246T14.707,5q.3.415.39.928l.005.032h-.925l-.005-.016q-.107-.428-.487-.727t-1-.3q-.519,0-.9.262t-.586.741Q11,6.4,11,7.049V7.06q0,.663.209,1.153t.588.757q.38.267.893.267.583,0,.952-.251t.53-.733l.011-.032.92-.005-.011.059q-.118.519-.417.923t-.792.634Q13.386,10.06,12.691,10.06Zm3.724-.1V1.9h.931V9.959Zm3.632,0L17.8,7.135l.685-.594,2.739,3.418ZM17.228,7.883l-.043-1.171h.246l2.493-2.519h1.129L18.314,6.835l-.225.219Zm9.546,2.177q-.546,0-.982-.209t-.69-.594q-.254-.385-.254-.909V8.338q0-.513.246-.88t.717-.575q.471-.209,1.139-.246l2.118-.128v.744l-2.006.128q-.658.037-.96.273t-.3.663v.011q0,.439.332.682t.834.243q.476,0,.845-.19t.58-.516q.211-.326.211-.738v-1.8q0-.535-.324-.816t-.971-.281q-.519,0-.85.185t-.444.522l-.005.016h-.931l.005-.032q.075-.455.377-.794t.784-.53q.481-.19,1.1-.19.706,0,1.2.23t.744.661q.254.431.254,1.03V9.959H28.6v-.85h-.086q-.182.3-.441.519t-.586.324Q27.164,10.06,26.774,10.06Zm4.361-.1V4.193h.931v.867h.086q.219-.46.631-.714t1.048-.254q.974,0,1.5.554t.522,1.581V9.959h-.931V6.45q0-.781-.329-1.158t-1.019-.377q-.46,0-.8.2t-.522.562q-.185.364-.185.872V9.959Zm8.421.1q-.727,0-1.273-.369t-.845-1.04q-.3-.671-.3-1.57V7.07q0-.9.3-1.573T38.28,4.46q.543-.369,1.276-.369.4,0,.746.126t.623.35q.273.225.428.535h.086V1.9h.931V9.959h-.931v-.92h-.086q-.177.321-.444.548t-.61.35Q39.956,10.06,39.555,10.06Zm.214-.824q.524,0,.9-.262t.583-.746q.2-.484.2-1.147V7.07q0-.669-.2-1.15t-.583-.744q-.38-.262-.9-.262t-.9.259q-.377.259-.578.741t-.2,1.155v.011q0,.669.2,1.153t.578.744Q39.245,9.237,39.769,9.237Zm9.626.824q-.808,0-1.4-.369t-.92-1.043q-.326-.674-.326-1.589V7.049q0-.9.324-1.562t.917-1.03q.594-.366,1.4-.366.7,0,1.209.246T51.412,5q.3.415.39.928l.005.032h-.925l-.005-.016q-.107-.428-.487-.727t-1-.3q-.519,0-.9.262t-.586.741Q47.7,6.4,47.7,7.049V7.06q0,.663.209,1.153t.588.757q.38.267.893.267.583,0,.952-.251t.53-.733l.011-.032.92-.005-.011.059q-.118.519-.417.923t-.792.634Q50.09,10.06,49.4,10.06Zm3.724-.1V1.9h.931V5.059h.086q.219-.46.631-.714t1.048-.254q.647,0,1.1.249t.685.725q.235.476.235,1.161V9.959H56.9V6.45q0-.781-.329-1.158t-1.019-.377q-.46,0-.8.2t-.522.562q-.185.364-.185.872V9.959Zm8.661.1q-.818,0-1.415-.361t-.92-1.03Q59.122,8,59.122,7.081V7.07q0-.925.324-1.594t.92-1.027q.6-.358,1.415-.358t1.417.358q.594.358.917,1.027t.324,1.594v.011q0,.92-.324,1.589T63.2,9.7Q62.6,10.06,61.781,10.06Zm0-.824q.546,0,.925-.257t.58-.738q.2-.481.2-1.161V7.07q0-.685-.2-1.166t-.58-.735q-.38-.254-.925-.254t-.925.254q-.38.254-.58.735t-.2,1.166v.011q0,.679.2,1.161t.58.738Q61.235,9.237,61.781,9.237Zm6.372.824q-.818,0-1.415-.361t-.92-1.03Q65.495,8,65.495,7.081V7.07q0-.925.324-1.594t.92-1.027q.6-.358,1.415-.358t1.417.358q.594.358.917,1.027t.324,1.594v.011q0,.92-.324,1.589T69.57,9.7Q68.977,10.06,68.153,10.06Zm0-.824q.546,0,.925-.257t.58-.738q.2-.481.2-1.161V7.07q0-.685-.2-1.166t-.58-.735q-.38-.254-.925-.254t-.925.254q-.38.254-.58.735t-.2,1.166v.011q0,.679.2,1.161t.58.738Q67.607,9.237,68.153,9.237Zm5.982.824q-.642,0-1.134-.2t-.789-.548q-.3-.353-.35-.829h.952q.118.358.46.578t.893.219q.39,0,.687-.115t.468-.316q.171-.2.171-.463V8.381q0-.294-.235-.5t-.77-.334l-.893-.214Q73.054,7.2,72.706,7t-.513-.508q-.166-.3-.166-.714V5.771q0-.481.281-.861t.768-.6q.487-.219,1.1-.219t1.072.19q.468.19.754.538t.35.818h-.915q-.091-.342-.417-.556t-.85-.214q-.342,0-.61.11t-.423.3q-.155.193-.155.449v.011q0,.193.1.342t.316.262q.214.112.551.2l.888.214q.813.2,1.212.567t.4.99v.011q0,.513-.3.907t-.826.612Q74.793,10.06,74.135,10.06Zm6.008,0q-.824,0-1.415-.364t-.909-1.03Q77.5,8,77.5,7.1V7.092q0-.893.318-1.567t.9-1.054q.583-.38,1.364-.38t1.351.364q.564.364.867,1.014t.3,1.511v.364H77.982V6.6h4.145l-.46.679V6.91q0-.679-.2-1.118T80.9,5.137q-.358-.217-.824-.217t-.832.227q-.366.227-.58.671T78.453,6.91v.369q0,.615.209,1.051T79.255,9q.385.233.909.233.39,0,.679-.107t.476-.273q.187-.166.262-.337l.021-.048h.931l-.011.043q-.075.294-.265.57t-.489.5q-.3.222-.709.353T80.143,10.06Zm7.9-.1L86.426,4.193h.931L88.49,8.8h.086l1.289-4.611h.883L92.037,8.8h.086l1.134-4.611h.925L92.566,9.959H91.63L90.341,5.5h-.086L88.972,9.959Zm7.324,0V1.9H96.3V5.059h.086q.219-.46.631-.714t1.048-.254q.647,0,1.1.249t.685.725q.235.476.235,1.161V9.959h-.931V6.45q0-.781-.329-1.158T97.8,4.915q-.46,0-.8.2t-.522.562q-.185.364-.185.872V9.959Zm6.313,0V4.193h.931V9.959Zm.471-6.879q-.262,0-.452-.19t-.19-.452q0-.267.19-.455t.452-.187q.267,0,.455.187t.187.455q0,.262-.187.452T102.149,3.08Zm4.473,6.98q-.808,0-1.4-.369t-.92-1.043q-.326-.674-.326-1.589V7.049q0-.9.324-1.562t.917-1.03q.594-.366,1.4-.366.7,0,1.209.246t.813.661q.3.415.39.928l.005.032h-.925l-.005-.016q-.107-.428-.487-.727t-1-.3q-.519,0-.9.262t-.586.741q-.206.479-.206,1.131V7.06q0,.663.209,1.153t.588.757q.38.267.893.267.583,0,.952-.251t.53-.733l.011-.032.92-.005-.011.059q-.118.519-.417.923t-.792.634Q107.318,10.06,106.622,10.06Zm3.724-.1V1.9h.931V5.059h.086q.219-.46.631-.714t1.048-.254q.647,0,1.1.249t.685.725q.235.476.235,1.161V9.959h-.931V6.45q0-.781-.329-1.158t-1.019-.377q-.46,0-.8.2t-.522.562q-.185.364-.185.872V9.959Zm10.856.1q-.546,0-.982-.209t-.69-.594q-.254-.385-.254-.909V8.338q0-.513.246-.88t.717-.575q.471-.209,1.139-.246l2.118-.128v.744l-2.006.128q-.658.037-.96.273t-.3.663v.011q0,.439.332.682t.834.243q.476,0,.845-.19t.58-.516q.211-.326.211-.738v-1.8q0-.535-.324-.816t-.971-.281q-.519,0-.85.185t-.444.522l-.005.016h-.931l.005-.032q.075-.455.377-.794t.784-.53q.481-.19,1.1-.19.706,0,1.2.23t.744.661q.254.431.254,1.03V9.959h-.931v-.85h-.086q-.182.3-.441.519t-.586.324Q121.593,10.06,121.2,10.06Zm4.361,1.824V4.193h.931v.92h.086q.177-.321.444-.548t.61-.35q.342-.123.744-.123.733,0,1.276.372T130.5,5.5q.3.669.3,1.567v.011q0,.9-.3,1.573t-.842,1.038q-.543.369-1.276.369-.4,0-.746-.126t-.62-.35q-.27-.225-.431-.535h-.086v2.835Zm2.6-2.648q.53,0,.9-.259t.575-.744q.2-.484.2-1.153V7.07q0-.674-.2-1.155t-.575-.741q-.374-.259-.9-.259t-.9.262q-.38.262-.583.744t-.2,1.15v.011q0,.663.2,1.147t.583.746Q127.639,9.237,128.163,9.237Zm3.986,2.648V4.193h.931v.92h.086q.177-.321.444-.548t.61-.35q.342-.123.743-.123.733,0,1.276.372t.842,1.04q.3.669.3,1.567v.011q0,.9-.3,1.573t-.842,1.038q-.543.369-1.276.369-.4,0-.746-.126t-.62-.35q-.27-.225-.431-.535h-.086v2.835Zm2.6-2.648q.53,0,.9-.259t.575-.744q.2-.484.2-1.153V7.07q0-.674-.2-1.155t-.575-.741q-.374-.259-.9-.259t-.9.262q-.38.262-.583.744t-.2,1.15v.011q0,.663.2,1.147t.583.746Q134.225,9.237,134.749,9.237Zm4.04.722V1.9h.931V9.959Zm2.639,0V4.193h.931V9.959ZM141.9,3.08q-.262,0-.452-.19t-.19-.452q0-.267.19-.455T141.9,1.8q.267,0,.455.187t.187.455q0,.262-.187.452T141.9,3.08Zm4.473,6.98q-.808,0-1.4-.369t-.92-1.043q-.326-.674-.326-1.589V7.049q0-.9.324-1.562t.917-1.03q.594-.366,1.4-.366.7,0,1.209.246t.813.661q.3.415.39.928l.005.032h-.925l-.005-.016q-.107-.428-.487-.727t-1-.3q-.519,0-.9.262t-.586.741q-.206.479-.206,1.131V7.06q0,.663.209,1.153t.588.757q.38.267.893.267.583,0,.952-.251t.53-.733l.011-.032.92-.005-.011.059q-.118.519-.417.923t-.792.634Q147.067,10.06,146.372,10.06Zm5.254,0q-.546,0-.982-.209t-.69-.594q-.254-.385-.254-.909V8.338q0-.513.246-.88t.717-.575q.471-.209,1.139-.246l2.118-.128v.744l-2.006.128q-.658.037-.96.273t-.3.663v.011q0,.439.332.682t.834.243q.476,0,.845-.19t.58-.516q.211-.326.211-.738v-1.8q0-.535-.324-.816t-.971-.281q-.519,0-.85.185t-.444.522l-.005.016h-.931l.005-.032q.075-.455.377-.794t.784-.53q.481-.19,1.1-.19.706,0,1.2.23t.743.661q.254.431.254,1.03V9.959h-.931v-.85h-.086q-.182.3-.441.519t-.586.324Q152.016,10.06,151.626,10.06Zm6.41-.059q-.888,0-1.286-.358t-.4-1.182v-3.5h-.909v-.77h.909V2.7h.963V4.193h1.262v.77h-1.262V8.226q0,.508.193.73t.642.222q.123,0,.211-.005t.217-.016v.792q-.134.021-.267.037T158.036,10Zm1.852-.043V4.193h.931V9.959Zm.471-6.879q-.262,0-.452-.19t-.19-.452q0-.267.19-.455t.452-.187q.267,0,.455.187t.187.455q0,.262-.187.452T160.359,3.08Zm4.484,6.98q-.818,0-1.415-.361t-.92-1.03q-.324-.669-.324-1.589V7.07q0-.925.324-1.594t.92-1.027q.6-.358,1.415-.358t1.417.358q.594.358.917,1.027T167.5,7.07v.011q0,.92-.324,1.589T166.26,9.7Q165.666,10.06,164.842,10.06Zm0-.824q.546,0,.925-.257t.58-.738q.2-.481.2-1.161V7.07q0-.685-.2-1.166t-.58-.735q-.38-.254-.925-.254t-.925.254q-.38.254-.58.735t-.2,1.166v.011q0,.679.2,1.161t.58.738Q164.3,9.237,164.842,9.237Zm4,.722V4.193h.931v.867h.086q.219-.46.631-.714t1.048-.254q.974,0,1.5.554t.522,1.581V9.959h-.931V6.45q0-.781-.329-1.158t-1.019-.377q-.46,0-.8.2t-.522.562q-.185.364-.185.872V9.959Zm8.271.1q-.642,0-1.134-.2t-.789-.548q-.3-.353-.35-.829h.952q.118.358.46.578t.893.219q.39,0,.687-.115t.468-.316q.171-.2.171-.463V8.381q0-.294-.235-.5t-.77-.334l-.893-.214q-.54-.128-.888-.334t-.514-.508q-.166-.3-.166-.714V5.771q0-.481.281-.861t.768-.6q.487-.219,1.1-.219t1.072.19q.468.19.754.538t.35.818h-.915q-.091-.342-.417-.556t-.85-.214q-.342,0-.61.11t-.423.3q-.155.193-.155.449v.011q0,.193.1.342t.316.262q.214.112.551.2l.888.214q.813.2,1.212.567t.4.99v.011q0,.513-.3.907t-.826.612Q177.774,10.06,177.116,10.06Zm7.128,1.92q-.091,0-.2-.008t-.209-.024v-.765q.086.016.187.021t.2.005q.4,0,.65-.2t.409-.7l.107-.342-2.134-5.772h.995L186.02,9.52l-.369-.583h.439l-.369.583,1.77-5.328h.979l-2.252,6.119q-.235.647-.5,1.011t-.612.511Q184.757,11.981,184.244,11.981Zm7.511-1.92q-.818,0-1.415-.361t-.92-1.03Q189.1,8,189.1,7.081V7.07q0-.925.324-1.594t.92-1.027q.6-.358,1.415-.358t1.417.358q.594.358.917,1.027t.324,1.594v.011q0,.92-.324,1.589t-.917,1.03Q192.579,10.06,191.755,10.06Zm0-.824q.546,0,.925-.257t.58-.738q.2-.481.2-1.161V7.07q0-.685-.2-1.166t-.58-.735q-.38-.254-.925-.254t-.925.254q-.38.254-.58.735t-.2,1.166v.011q0,.679.2,1.161t.58.738Q191.21,9.237,191.755,9.237Zm5.933.824q-.653,0-1.1-.249t-.666-.727q-.222-.479-.222-1.158V4.193h.931V7.7q0,.776.3,1.155t.992.38q.38,0,.671-.112t.489-.324q.2-.211.3-.514t.1-.682V4.193h.931V9.959h-.931V9.1H199.4q-.139.3-.38.522t-.575.329Q198.111,10.06,197.689,10.06Zm8.454-.1-1.615-5.766h.931L206.592,8.8h.086l1.289-4.611h.883L210.139,8.8h.086l1.134-4.611h.925l-1.615,5.766h-.936L208.443,5.5h-.086l-1.284,4.461Zm9.426.1q-.818,0-1.415-.361t-.92-1.03q-.324-.669-.324-1.589V7.07q0-.925.324-1.594t.92-1.027q.6-.358,1.415-.358t1.417.358q.594.358.917,1.027t.324,1.594v.011q0,.92-.324,1.589t-.917,1.03Q216.393,10.06,215.569,10.06Zm0-.824q.546,0,.925-.257t.58-.738q.2-.481.2-1.161V7.07q0-.685-.2-1.166t-.58-.735q-.38-.254-.925-.254t-.925.254q-.38.254-.58.735t-.2,1.166v.011q0,.679.2,1.161t.58.738Q215.024,9.237,215.569,9.237Zm5.933.824q-.653,0-1.1-.249t-.666-.727q-.222-.479-.222-1.158V4.193h.931V7.7q0,.776.3,1.155t.992.38q.38,0,.671-.112T222.9,8.8q.2-.211.3-.514t.1-.682V4.193h.931V9.959H223.3V9.1h-.086q-.139.3-.38.522t-.575.329Q221.925,10.06,221.5,10.06Zm4.414-.1V1.9h.931V9.959Zm4.746.1q-.727,0-1.273-.369t-.845-1.04q-.3-.671-.3-1.57V7.07q0-.9.3-1.573t.842-1.038q.543-.369,1.276-.369.4,0,.746.126t.623.35q.273.225.428.535h.086V1.9h.931V9.959h-.931v-.92h-.086q-.177.321-.444.548t-.61.35Q231.064,10.06,230.663,10.06Zm.214-.824q.524,0,.9-.262t.583-.746q.2-.484.2-1.147V7.07q0-.669-.2-1.15t-.583-.744q-.38-.262-.9-.262t-.9.259q-.377.259-.578.741t-.2,1.155v.011q0,.669.2,1.153t.578.744Q230.353,9.237,230.877,9.237ZM.92,22.905V14.85h.931v8.056Zm2.639,0V17.139h.931v5.766Zm.471-6.879q-.262,0-.452-.19t-.19-.452q0-.267.19-.455t.452-.187q.267,0,.455.187t.187.455q0,.262-.187.452T4.029,16.026ZM6.2,22.905V14.85h.931v8.056Zm3.632,0L7.577,20.081l.685-.594L11,22.905ZM7.01,20.83l-.043-1.171h.246l2.493-2.519h1.129L8.1,19.781,7.871,20Zm7.067,2.177q-.824,0-1.415-.364t-.909-1.03q-.318-.666-.318-1.57v-.005q0-.893.318-1.567t.9-1.054q.583-.38,1.364-.38t1.351.364q.564.364.867,1.014t.3,1.511v.364H11.917v-.744h4.145l-.46.679v-.369q0-.679-.2-1.118t-.562-.655q-.358-.217-.824-.217t-.832.227q-.366.227-.58.671t-.214,1.091v.369q0,.615.209,1.051t.594.669q.385.233.909.233.39,0,.679-.107t.476-.273q.187-.166.262-.337l.021-.048h.931l-.011.043q-.075.294-.265.57t-.489.5q-.3.222-.709.353T14.078,23.007Zm8.834-.059q-.888,0-1.286-.358t-.4-1.182v-3.5h-.909v-.77h.909V15.647h.963v1.492h1.262v.77H22.19v3.263q0,.508.193.73t.642.222q.123,0,.211-.005t.217-.016v.792q-.134.021-.267.037T22.912,22.948Zm4.12.059q-.818,0-1.415-.361t-.92-1.03q-.324-.669-.324-1.589v-.011q0-.925.324-1.594t.92-1.027q.6-.358,1.415-.358t1.417.358q.594.358.917,1.027t.324,1.594v.011q0,.92-.324,1.589t-.917,1.03Q27.856,23.007,27.032,23.007Zm0-.824q.546,0,.925-.257t.58-.738q.2-.481.2-1.161v-.011q0-.685-.2-1.166t-.58-.735q-.38-.254-.925-.254t-.925.254q-.38.254-.58.735t-.2,1.166v.011q0,.679.2,1.161t.58.738Q26.486,22.183,27.032,22.183Zm9.112.824q-.727,0-1.273-.369t-.845-1.04q-.3-.671-.3-1.57v-.011q0-.9.3-1.573t.842-1.038q.543-.369,1.276-.369.4,0,.746.126t.623.35q.273.225.428.535h.086v-3.2h.931v8.056h-.931v-.92h-.086q-.177.321-.444.548t-.61.35Q36.545,23.007,36.144,23.007Zm.214-.824q.524,0,.9-.262t.583-.746q.2-.484.2-1.147v-.011q0-.669-.2-1.15t-.583-.744q-.38-.262-.9-.262t-.9.259q-.377.259-.578.741t-.2,1.155v.011q0,.669.2,1.153t.578.744Q35.834,22.183,36.358,22.183Zm4.307.722V17.139H41.6v5.766Zm.471-6.879q-.262,0-.452-.19t-.19-.452q0-.267.19-.455t.452-.187q.267,0,.455.187t.187.455q0,.262-.187.452T41.136,16.026Zm4.093,6.98q-.642,0-1.134-.2t-.789-.548q-.3-.353-.35-.829h.952q.118.358.46.578t.893.219q.39,0,.687-.115t.468-.316q.171-.2.171-.463v-.011q0-.294-.235-.5t-.77-.334l-.893-.214q-.54-.128-.888-.334t-.514-.508q-.166-.3-.166-.714v-.005q0-.481.281-.861t.768-.6q.487-.219,1.1-.219t1.072.19q.468.19.754.538t.35.818H46.53q-.091-.342-.417-.556t-.85-.214q-.342,0-.61.11t-.423.3q-.155.193-.155.449v.011q0,.193.1.342t.316.262q.214.112.551.2l.888.214q.813.2,1.212.567t.4.99v.011q0,.514-.3.907t-.826.612Q45.888,23.007,45.23,23.007Zm3.655,1.824V17.139h.931v.92H49.9q.177-.321.444-.548t.61-.35q.342-.123.744-.123.733,0,1.276.372t.842,1.04q.3.669.3,1.567v.011q0,.9-.3,1.573t-.842,1.038q-.543.369-1.276.369-.4,0-.746-.126t-.62-.35q-.27-.225-.431-.535h-.086v2.835Zm2.6-2.648q.53,0,.9-.259t.575-.744q.2-.484.2-1.153v-.011q0-.674-.2-1.155t-.575-.741q-.374-.259-.9-.259t-.9.262q-.38.262-.583.744t-.2,1.15v.011q0,.663.2,1.147t.583.746Q50.96,22.183,51.484,22.183Zm4.04.722V14.85h.931v8.056Zm4.2.1q-.546,0-.982-.209t-.69-.594q-.254-.385-.254-.909v-.011q0-.514.246-.88t.717-.575q.471-.209,1.139-.246l2.118-.128V20.2l-2.006.128q-.658.037-.96.273t-.3.663v.011q0,.439.332.682t.834.243q.476,0,.845-.19t.58-.516q.211-.326.211-.738v-1.8q0-.535-.324-.816t-.971-.281q-.519,0-.85.185t-.444.522l-.005.016h-.931l.005-.032q.075-.455.377-.794t.784-.53q.481-.19,1.1-.19.706,0,1.2.23t.744.661q.254.431.254,1.03v3.948h-.931v-.85h-.086q-.182.3-.441.519t-.586.324Q60.115,23.007,59.725,23.007Zm4.639,1.92q-.091,0-.2-.008t-.209-.024V24.13q.086.016.187.021t.2.005q.4,0,.65-.2t.409-.7l.107-.342-2.134-5.772h.995l1.776,5.328-.369-.583h.439l-.369.583,1.771-5.328h.979l-2.252,6.119q-.235.647-.5,1.011t-.612.511Q64.877,24.927,64.364,24.927Zm5.313-1.968q-.284,0-.489-.206t-.206-.489q0-.289.206-.492t.489-.2q.289,0,.492.2t.2.492q0,.283-.2.489T69.677,22.959Z" transform="translate(9.729 47.007)" fill="rgba(255,255,255,0.66)"/>
   <path id="Apps" d="M.408,10.955l3.039-8.42h1.06V4.013h-.4L1.786,10.955ZM1.873,8.68,2.238,7.63H6.075L6.44,8.68Zm4.653,2.275L4.2,4.013V2.534h.66L7.9,10.955ZM9.22,13.066V4.615h1.268v1h.1q.183-.349.469-.6t.66-.38q.374-.133.817-.133.8,0,1.391.4t.913,1.137q.324.733.324,1.731v.012q0,1-.322,1.737t-.911,1.134q-.589.4-1.394.4-.435,0-.815-.137t-.67-.385q-.29-.248-.461-.59h-.1v3.116Zm2.951-3.091q.532,0,.91-.263t.581-.754q.2-.491.2-1.168V7.779q0-.683-.2-1.171t-.581-.751q-.378-.263-.91-.263t-.91.264q-.383.265-.589.752t-.206,1.167V7.79q0,.673.206,1.164t.589.756Q11.646,9.975,12.172,9.975Zm4.5,3.091V4.615h1.268v1h.1q.183-.349.469-.6t.66-.38q.374-.133.817-.133.8,0,1.391.4t.913,1.137q.324.733.324,1.731v.012q0,1-.322,1.737t-.911,1.134q-.589.4-1.394.4-.435,0-.815-.137t-.67-.385q-.29-.248-.461-.59h-.1v3.116Zm2.951-3.091q.532,0,.91-.263t.581-.754q.2-.491.2-1.168V7.779q0-.683-.2-1.171t-.581-.751q-.378-.263-.91-.263t-.91.264q-.383.265-.589.752t-.206,1.167V7.79q0,.673.206,1.164t.589.756Q19.1,9.975,19.626,9.975Zm6.807,1.1q-.763,0-1.329-.224t-.9-.624q-.332-.4-.392-.93v-.01h1.272l0,.009q.12.357.464.579t.909.222q.391,0,.686-.112t.464-.308q.169-.2.169-.456V9.211q0-.3-.24-.5t-.789-.333l-1.01-.231q-.6-.137-.988-.369T24.176,7.2q-.188-.342-.188-.8V6.392q0-.555.317-.983t.874-.671q.558-.243,1.272-.243t1.266.224q.539.224.854.62t.372.912v.007H27.729l0-.01q-.087-.333-.415-.554t-.866-.222q-.345,0-.613.107t-.423.3q-.155.191-.155.447v.011q0,.2.1.345t.323.262q.221.112.574.2l1.005.231q.916.213,1.36.622t.444,1.1V9.1q0,.587-.343,1.032t-.936.692Q27.19,11.075,26.433,11.075Z" transform="translate(10.723 83.854)" fill="#fff"/>
-  <g id="Repeat_Grid_1" data-name="Repeat Grid 1" transform="translate(46.576 113.73)" clip-path="url(#clip-path)">
+  <g id="Repeat_Grid_1" data-name="Repeat Grid 1" transform="translate(46.576 113.73)" clipPath="url(#clipPath)">
     <path id="Castr" d="M4.889,12.172q-1.269,0-2.194-.582T1.27,9.939Q.77,8.869.77,7.4V7.385q0-1.476.5-2.546T2.692,3.188q.922-.581,2.192-.581Q5.89,2.607,6.7,3t1.334,1.09q.52.7.636,1.6l0,.037h-1.4l-.006-.023q-.131-.561-.466-.973t-.822-.64q-.487-.228-1.088-.228-.814,0-1.413.429T2.549,5.512q-.324.789-.324,1.873V7.4q0,1.079.324,1.869t.922,1.219q.6.43,1.419.43.606,0,1.094-.2t.817-.579q.329-.375.453-.886l.013-.028h1.41v.035q-.133.878-.646,1.534t-1.316,1.02Q5.91,12.172,4.889,12.172Zm7.031-.105q-.651,0-1.165-.251t-.811-.712q-.3-.461-.3-1.085v-.013q0-.614.3-1.053t.873-.689q.574-.25,1.392-.3l2.535-.153v.969l-2.35.151q-.709.041-1.043.3t-.333.717v.013q0,.473.36.739t.913.266q.513,0,.913-.2t.629-.556q.229-.351.229-.794V7.254q0-.567-.352-.867t-1.045-.3q-.571,0-.934.2t-.488.566l-.008.021H9.914l.006-.046q.083-.565.452-.986t.971-.655q.6-.235,1.382-.235.868,0,1.471.275t.916.791q.314.516.314,1.237v4.7H14.063v-.974h-.106q-.2.345-.5.591t-.689.373Q12.38,12.067,11.92,12.067Zm7.6.014q-.827,0-1.44-.242t-.973-.676q-.36-.433-.425-1.008v-.01h1.378l0,.009q.13.386.5.627t.985.241q.423,0,.743-.121t.5-.334q.183-.213.183-.493v-.011q0-.323-.26-.545t-.855-.36l-1.094-.251q-.648-.148-1.07-.4t-.627-.623q-.2-.37-.2-.869V7.008q0-.6.343-1.065t.947-.727q.6-.264,1.378-.264t1.372.242q.584.242.925.671t.4.988v.008H20.928l0-.01q-.095-.361-.45-.6t-.938-.24q-.373,0-.664.116t-.458.323q-.168.207-.168.485v.011q0,.211.111.374t.35.284q.239.122.622.216l1.089.251q.992.23,1.473.673t.481,1.19v.011q0,.636-.372,1.118t-1.014.75Q20.344,12.081,19.524,12.081Zm6.691-.089q-1.129,0-1.632-.431t-.5-1.418V6.169H23.008V5.083h1.073V3.356h1.4V5.083h1.472V6.169H25.486V9.81q0,.552.222.8t.73.246q.157,0,.266-.007t.254-.02v1.1q-.163.028-.351.048T26.215,11.992Zm2.01-.041V5.083H29.6V6.121H29.7q.185-.549.649-.852t1.148-.3q.17,0,.334.019t.267.042V6.293q-.183-.039-.363-.058t-.376-.02q-.525,0-.922.2t-.62.568q-.223.366-.223.863v4.1Z" fill="#fff"/>
     <g transform="translate(0 38.839)">
       <path id="Code" d="M4.889,12.172q-1.269,0-2.194-.582T1.27,9.939Q.77,8.869.77,7.4V7.385q0-1.476.5-2.546T2.692,3.188q.922-.581,2.192-.581Q5.89,2.607,6.7,3t1.334,1.09q.52.7.636,1.6l0,.037h-1.4l-.006-.023q-.131-.561-.466-.973t-.822-.64q-.487-.228-1.088-.228-.814,0-1.413.429T2.549,5.512q-.324.789-.324,1.873V7.4q0,1.079.324,1.869t.922,1.219q.6.43,1.419.43.606,0,1.094-.2t.817-.579q.329-.375.453-.886l.013-.028h1.41v.035q-.133.878-.646,1.534t-1.316,1.02Q5.91,12.172,4.889,12.172Zm8.057-.091q-1,0-1.733-.43t-1.122-1.228q-.393-.8-.393-1.9V8.509q0-1.1.4-1.9t1.124-1.226q.729-.429,1.729-.429t1.733.428q.726.428,1.121,1.226t.395,1.9v.013q0,1.1-.393,1.9t-1.119,1.228Q13.957,12.081,12.946,12.081Zm0-1.147q.589,0,1-.287t.627-.826q.217-.539.217-1.3V8.51q0-.763-.217-1.3t-.627-.824q-.41-.286-1-.286t-1,.286q-.411.286-.628.824T11.1,8.51v.013q0,.76.217,1.3t.627.825Q12.358,10.934,12.946,10.934Zm7.048,1.134q-.862,0-1.5-.435T17.5,10.4q-.35-.8-.35-1.877V8.51q0-1.087.349-1.882T18.484,5.4q.638-.434,1.51-.434.471,0,.883.149t.729.416q.317.268.5.64h.106V2.393h1.373v9.557H22.209V10.867H22.1q-.2.377-.508.644t-.715.412Q20.475,12.067,19.994,12.067Zm.391-1.177q.572,0,.987-.287t.637-.818q.223-.532.223-1.261V8.511q0-.736-.223-1.265t-.638-.816q-.415-.287-.985-.287t-.982.285q-.413.285-.633.814T18.55,8.51v.013q0,.735.22,1.266t.632.816Q19.814,10.89,20.385,10.89Zm7.783,1.191q-1,0-1.727-.433t-1.111-1.229q-.389-.8-.389-1.881V8.531q0-1.075.388-1.879t1.1-1.252q.71-.448,1.667-.448t1.654.432q.694.432,1.066,1.206T31.19,8.4v.482H25.641V7.9h4.867l-.662.91V8.26q0-.738-.222-1.22t-.615-.722q-.392-.24-.905-.24t-.912.25q-.4.25-.633.737T26.326,8.26v.549q0,.676.227,1.155t.648.735q.421.255,1,.255.441,0,.761-.124t.524-.307q.2-.184.283-.359l.023-.05h1.327l-.014.056q-.085.34-.307.677t-.584.617q-.362.28-.874.449T28.168,12.081Z" fill="#fff"/>
@@ -264,7 +496,7 @@ const SourceConfigBase = () => (
       <path id="Spotlight" d="M4.232,12.172q-1.032,0-1.8-.327t-1.207-.908Q.785,10.356.721,9.591l-.006-.08h1.4l.006.066q.042.413.325.718t.76.474q.477.169,1.088.169.58,0,1.028-.182t.7-.505q.256-.323.256-.743V9.5q0-.525-.4-.871T4.574,8.09L3.58,7.878q-1.389-.3-2.021-.945T.928,5.278V5.271q.005-.791.427-1.391t1.168-.937q.746-.337,1.713-.337t1.691.332q.724.332,1.143.9T7.54,5.12l.006.085H6.166l-.013-.08q-.06-.377-.308-.665T5.183,4q-.414-.168-.966-.163-.532,0-.949.163t-.66.464q-.243.3-.243.732v.006q0,.507.387.845t1.271.527l.994.217q.959.2,1.551.539t.869.827q.277.492.277,1.169v.006q0,.872-.427,1.507t-1.21.982Q5.294,12.172,4.232,12.172Zm4.849,2.065V5.082h1.373V6.166h.106q.2-.378.508-.645t.715-.411q.405-.144.885-.144.868,0,1.507.438t.989,1.232q.351.794.351,1.875v.013q0,1.087-.349,1.882t-.987,1.229q-.638.434-1.51.434-.471,0-.883-.149T11.06,11.5q-.315-.268-.5-.64h-.106v3.376Zm3.2-3.348q.576,0,.985-.285t.63-.817q.22-.532.22-1.265V8.51q0-.74-.22-1.269t-.63-.813q-.409-.285-.985-.285t-.986.287q-.415.287-.638.815t-.223,1.264v.013q0,.729.223,1.262t.639.819Q11.709,10.889,12.279,10.889Zm7.449,1.191q-1,0-1.733-.43t-1.122-1.228q-.393-.8-.393-1.9V8.509q0-1.1.4-1.9T18,5.381q.729-.429,1.729-.429t1.733.428q.726.428,1.121,1.226t.395,1.9v.013q0,1.1-.393,1.9t-1.119,1.228Q20.739,12.081,19.728,12.081Zm0-1.147q.589,0,1-.287t.627-.826q.217-.539.217-1.3V8.51q0-.763-.217-1.3t-.627-.824q-.41-.286-1-.286t-1,.286q-.411.286-.628.824t-.217,1.3v.013q0,.76.217,1.3t.627.825Q19.14,10.933,19.728,10.933Zm7.138,1.058q-1.129,0-1.632-.431t-.5-1.418V6.169H23.659V5.082h1.073V3.356h1.4V5.082h1.472V6.169H26.137v3.64q0,.552.222.8t.73.246q.157,0,.266-.007t.254-.02v1.1q-.163.028-.351.048T26.866,11.992Zm2.073-.041V2.393h1.373V11.95Zm3.1,0V5.082h1.373V11.95Zm.692-8.092q-.351,0-.607-.252T31.866,3q0-.358.255-.608t.607-.25q.358,0,.61.25T33.589,3q0,.351-.252.6T32.727,3.858Zm5.244,10.511q-.874,0-1.514-.238t-1.014-.669q-.373-.431-.458-1l.009-.016h1.389l.008.013q.084.354.494.582t1.1.228q.852,0,1.328-.384t.476-1.083V10.455h-.106q-.206.371-.522.632t-.719.394q-.4.133-.877.133-.876,0-1.516-.42t-.985-1.164q-.346-.744-.346-1.711V8.307q0-.98.349-1.733t.992-1.18q.643-.428,1.534-.428.48,0,.884.151t.713.429q.309.278.51.666h.079V5.082h1.373v6.729q0,.779-.388,1.355t-1.1.889Q38.948,14.369,37.972,14.369Zm-.023-3.89q.583,0,1-.275t.641-.761q.224-.486.224-1.125V8.306q0-.638-.224-1.13t-.641-.768q-.417-.277-1-.277t-.989.277q-.406.277-.62.768T36.126,8.3v.013q0,.638.214,1.125t.62.762Q37.367,10.479,37.949,10.479Zm4.908,1.471V2.393H44.23V6.125h.106q.252-.552.746-.862t1.244-.311q.768,0,1.3.3t.807.868q.276.57.276,1.387V11.95H47.334V7.828q0-.856-.36-1.277t-1.116-.421q-.5,0-.865.219t-.564.619q-.2.4-.2.954v4.03Zm10.019.041q-1.129,0-1.632-.431t-.5-1.418V6.169H49.669V5.082h1.073V3.356h1.4V5.082h1.472V6.169H52.147v3.64q0,.552.222.8t.73.246q.157,0,.266-.007t.254-.02v1.1q-.163.028-.351.048T52.876,11.992Z" fill="#fff"/>
     </g>
   </g>
-  <g id="rectangle.on.rectangle.circle.fill" transform="translate(10.723 106.828)" clip-path="url(#clip-path-2)">
+  <g id="rectangle.on.rectangle.circle.fill" transform="translate(10.723 106.828)" clipPath="url(#clipPath-2)">
     <g id="rectangle.on.rectangle.circle.fill-2" data-name="rectangle.on.rectangle.circle.fill">
       <path id="Rectangle_97" data-name="Rectangle 97" d="M0,0H28.566V28.071H0Z" opacity="0"/>
       <path id="Path_95" data-name="Path 95" d="M14.029,28.057a13.774,13.774,0,0,0,5.43-1.115,14.3,14.3,0,0,0,7.486-7.49,13.777,13.777,0,0,0,0-10.853,14.3,14.3,0,0,0-7.5-7.486,13.789,13.789,0,0,0-10.853,0A14.28,14.28,0,0,0,1.113,8.6a13.779,13.779,0,0,0,0,10.853,14.317,14.317,0,0,0,7.49,7.49A13.756,13.756,0,0,0,14.029,28.057Z" fill="#3677f9"/>
