@@ -3,191 +3,59 @@ import React, { useState, useEffect, useRef } from 'react';
 import './SubHero.css'
 
 
-let currentXmain = 0;
-let currentYmain = 0;
-let isAnimatingmain = false;
+// Define constants for easy adjustment
+const START_TRANSLATE_Y = 200;  // Starting translateY value for #home-svg
+const END_SCROLL_RATIO = 0.8;   // Scroll percentage at which translateY reaches final value (80%)
+const START_BLUR = 20;          // Starting blur value for #subhero
+const END_BLUR_RATIO = 0.5;     // Scroll percentage at which blur reaches 0px (50%)
 
-const handlePointerMoveMain2 = (e) => {
-    const svg = document.querySelector('#screenshot-base');
-    const bounds = svg.getBoundingClientRect();
 
-    // Calculate the pointer position relative to the center of the SVG
-    const transformX = e.clientX - (bounds.left + bounds.width / 2);
-    const transformY = -1 * (e.clientY - (bounds.top + bounds.height / 2));
-
-    // Normalize the values between -1 and 1
-    const normalizedX = transformX / (bounds.width / 2);
-    const normalizedY = transformY / (bounds.height / 2);
-
-    // Set rotation values based on the normalized pointer position
-    const targetRotateX = -1 * (2 * normalizedY); // Rotation along X-axis
-    const targetRotateY = -1 * (2 * normalizedX); // Rotation along Y-axis
-
-    // Smoothly transition between the current and target rotate values
-    if (!isAnimatingmain) {
-        isAnimatingmain = true;
-        requestAnimationFrame(animate);
-    }
-    // svg.style.transition = ''
-    function animate() {
-        currentXmain += (targetRotateX - currentXmain) *1; // Smoothly move towards targetRotateX
-        currentYmain += (targetRotateY - currentYmain) * 1; // Smoothly move towards targetRotateY
-        
-        svg.style.transform = `rotateX(${currentXmain}deg) rotateY(${currentYmain}deg)`;
-
-        // Continue animating until the movement is close to the target
-        if (Math.abs(currentXmain - targetRotateX) > 0.1 || Math.abs(currentYmain - targetRotateY) > 0.1) {
-            requestAnimationFrame(animate);
-        } else {
-            isAnimatingmain = false;
-        }
-    }
-};
 
 const SubHero = () => {
-    const handleScroll = () => {
-        const rootElement = document.querySelector('#root'); // The scrollable root element
-        const heroElement = document.querySelector('#home-hero'); // The #hero element for reference
-        const homeSvgElement = document.querySelector('#home-svg'); // The element to animate
 
-        // Get the scroll position and height of hero
-        const scrollTop = rootElement.scrollTop; // Current scroll position of root
-        const heroHeight = heroElement.getBoundingClientRect().height; // Height of the #hero
+	const handleScroll = () => {
+		console.log('scrolling')
+		
+		const rootElement = document.getElementById('root');
+		const homeHero = document.getElementById('home-hero');
+		const homeSvg = document.getElementById('home-svg');  // Get the #home-svg element
+		const subHero = document.getElementById('subhero');    // Get the #subhero element
 
-        // Calculate the percentage of scroll progress relative to the hero height
-        const scrollPercentage = Math.min(scrollTop / heroHeight, 1); // Normalize between 0 and 1
-
-        // Define the scroll range for the animation (30% to 75%)
-        const minScrollPercentage = 0.3; // Animation starts at 30% scroll
-        const maxScrollPercentage = 0.75; // Animation ends at 75% scroll
-
-        // If scrollPercentage is below minScrollPercentage, don't animate (set to 0)
-        if (scrollPercentage < minScrollPercentage) {
-            homeSvgElement.style.filter = `blur(20px)`;
-            homeSvgElement.style.transform = `translateZ(400px)`;
-            homeSvgElement.style.opacity = 0;
-            return;
-        }
-
-        // Normalize the scrollPercentage between minScrollPercentage and maxScrollPercentage
-        const effectiveScrollPercentage = Math.min(
-            (scrollPercentage - minScrollPercentage) / (maxScrollPercentage - minScrollPercentage),
-            1
-        );
-
-        // Log the percentage to the console (for debugging purposes)
-        console.log(`Effective Scroll Percentage: ${(effectiveScrollPercentage * 100).toFixed(2)}%`);
-
-        // Interpolate the blur, translateZ, and opacity values based on effectiveScrollPercentage
-        const blurValue = 20 * (1 - effectiveScrollPercentage); // From 20px to 0px
-        const translateZValue = 400 * (1 - effectiveScrollPercentage); // From 400px to 0px
-        const opacityValue = effectiveScrollPercentage; // From 0 to 1
-
-        // Apply the CSS properties to the #home-svg element
-        if (homeSvgElement) {
-            homeSvgElement.style.filter = `blur(${blurValue}px)`;
-            homeSvgElement.style.transform = `translateZ(${translateZValue}px)`;
-            homeSvgElement.style.opacity = opacityValue; // Opacity goes from 0 to 1
-        }
-    };
-
-    const handlePointerMoveMain = (e) => {
-        console.log('pointer is moving on element', e.nativeEvent.target.id)
-        const element = e.currentTarget; // The element being hovered
-        const bounds = element.getBoundingClientRect(); // Get element's bounding box
-    
-        // Calculate the center of the element
-        const centerX = bounds.left + bounds.width / 2;
-        const centerY = bounds.top + bounds.height / 2;
-    
-        // Calculate pointer's position relative to the center of the element
-        const relativeX = e.clientX - centerX;
-        const relativeY = (e.clientY - centerY);
-
-        const offsetPercent = 0.04;
-        // const offsetPercent2 = 0.04;
-        // console.log('relative x ', relativeX, ' relative y ', relativeY)
-        // console.log('small offset', relativeX * 0.005)
-
-        const base =  document.querySelector('#home-svg');
-
-            // Apply both translateX and translateY using the scaled relative positions
-            document.querySelector('#home-svg').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
-        // document.querySelector('#screenshot-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
-        // document.querySelector('#scenes-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
-        // document.querySelector('#sources-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
-        // document.querySelector('#controls-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
-        // document.querySelector('#source-config-base').style.transform = `translateX(${relativeX * offsetPercent}px) translateY(${relativeY * offsetPercent}px)`;
-    };
+		const heroHeight = homeHero.offsetHeight;  // Get the height of #home-hero
+		const scrollTop = rootElement.scrollTop;   // Get scrollTop of #root
+		const scrollRatio = scrollTop / heroHeight;  // Calculate scroll ratio
+	
+		// Interpolate translateY value from 200px to 0px (0 to END_SCROLL_RATIO)
+		if (scrollRatio <= END_SCROLL_RATIO) {
+			const translateYValue = START_TRANSLATE_Y - (START_TRANSLATE_Y * (scrollRatio / END_SCROLL_RATIO));
+			homeSvg.style.transform = `translateY(${translateYValue}px)`;
+		} else {
+			homeSvg.style.transform = 'translateY(0px)';  // Cap translateY at 0px
+		}
+	
+		// Interpolate blur value from 20px to 0px (0 to END_BLUR_RATIO)
+		if (scrollRatio <= END_BLUR_RATIO) {
+			const blurValue = START_BLUR - (START_BLUR * (scrollRatio / END_BLUR_RATIO));
+			subHero.style.filter = `blur(${blurValue}px)`;
+		} else {
+			subHero.style.filter = 'blur(0px)';  // Cap blur at 0px
+		}
+	};
 
 
+	useEffect(() => {
+		
+		const rootElement = document.getElementById('root');
+	
+		// Attach the scroll listener
+		rootElement.addEventListener('scroll', handleScroll);
+	
+		// Clean up the event listener on component unmount
+		return () => {
+		  	rootElement.removeEventListener('scroll', handleScroll);
+		};
 
-    const handlePointerMove = (e) => {
-        const svg = document.querySelector('#scenes-base')
-        const bounds = svg.getBoundingClientRect()
-
-        const transformX = e.offsetX - (bounds.width * 0.5)
-        const transformY = -1 * (e.offsetY - (bounds.height * 0.5))
-        // console.log('pointer is moving: ', transformX, transformY)
-
-        const normalizedX = transformX / (bounds.width * 0.5)
-        const normalizedY = transformY / (bounds.height * 0.5)
-
-
-        const rotateX = -1 * (3 * normalizedY)
-        const rotateY = -1 * (3 * normalizedX)
-
-        // console.log('rotateX is: ', rotateX)
-        console.log('rotateY is: ', rotateY)
-
-        svg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
-    }
-
-
-    useEffect(() => {
-       
-        
-        // const rootElement = document.querySelector('#root'); // The scrollable root element
-
-        // if (rootElement) {
-        //     rootElement.addEventListener('scroll', handleScroll); // Attach scroll event listener
-        // }
-
-        // // Cleanup listener when the component unmounts
-        // return () => {
-        //     if (rootElement) {
-        //         rootElement.removeEventListener('scroll', handleScroll);
-        //     }
-        // };
-
-        const svgElement = document.querySelector('#home-svg');
-
-        // Listen for the animation end event
-        const handleAnimationEnd = () => {
-          // Get the computed final styles
-          const computedStyle = window.getComputedStyle(svgElement);
-    
-          // Apply the final styles inline to preserve them
-          svgElement.style.transform = computedStyle.transform;
-          svgElement.style.filter = computedStyle.filter;
-          svgElement.style.opacity = computedStyle.opacity;
-    
-          // Remove the animation by setting animation to 'none'
-          svgElement.style.animation = 'none';
-        };
-    
-        // Attach the 'animationend' event listener
-        if (svgElement) {
-          svgElement.addEventListener('animationend', handleAnimationEnd);
-        }
-    
-        // Cleanup listener when the component unmounts
-        return () => {
-          if (svgElement) {
-            svgElement.removeEventListener('animationend', handleAnimationEnd);
-          }
-        };
-    }, []);
+	  }, [START_TRANSLATE_Y, END_SCROLL_RATIO, START_BLUR, END_BLUR_RATIO]);
 
     return (
         <div id="subhero">
@@ -195,8 +63,10 @@ const SubHero = () => {
             <div id='subhero-header'>Designed exclusively for MacOS</div>
 
             <div id="home-svg" >
-
                 <div id="screenshot-base-wrapper" >
+					<div id='home-svg-gradient1'/>
+					<div id='home-svg-gradient2'/>
+					<div id='home-svg-background1'/>
                     <ScreenshotBase />
                 </div>
               
@@ -217,78 +87,19 @@ const SubHero = () => {
                 </div>
          
             </div>
+
+			<div id='subhero-overlay1' />
         </div>
     );
 }
-
-
 
 export { SubHero }
 
 
 
 
-
-let currentX = 0;
-let currentY = 0;
-let isAnimating = false;
-
-const handlePointerMove = (e) => {
-    const svg = document.querySelector('#scenes-base');
-    const bounds = svg.getBoundingClientRect();
-
-    // Calculate the pointer position relative to the center of the SVG
-    const transformX = e.clientX - (bounds.left + bounds.width / 2);
-    const transformY = -1 * (e.clientY - (bounds.top + bounds.height / 2));
-
-    // Normalize the values between -1 and 1
-    const normalizedX = transformX / (bounds.width / 2);
-    const normalizedY = transformY / (bounds.height / 2);
-
-    // Set rotation values based on the normalized pointer position
-    const targetRotateX = -1 * (2 * normalizedY); // Rotation along X-axis
-    const targetRotateY = -1 * (2 * normalizedX); // Rotation along Y-axis
-
-    // Smoothly transition between the current and target rotate values
-    if (!isAnimating) {
-        isAnimating = true;
-        requestAnimationFrame(animate);
-    }
-    // svg.style.transition = ''
-    function animate() {
-        currentX += (targetRotateX - currentX) *1; // Smoothly move towards targetRotateX
-        currentY += (targetRotateY - currentY) * 1; // Smoothly move towards targetRotateY
-        
-        svg.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`;
-
-        // Continue animating until the movement is close to the target
-        if (Math.abs(currentX - targetRotateX) > 0.1 || Math.abs(currentY - targetRotateY) > 0.1) {
-            requestAnimationFrame(animate);
-        } else {
-            isAnimating = false;
-        }
-    }
-};
-
-
-const handlePointerLeave = (e) => {
-    const element = document.querySelector('#scenes-base')
-
-    if(element.id === "scenes-base") {
-       
-    }
-    isAnimating = false
-    element.style.transition = 'all 500ms cubic-bezier(0.165, 0.84, 0.44, 1)'
-     element.style.transform = "rotateY(-1.5deg) rotateX(1.5deg)"
-     
-
-     console.log('setting new transforms, ', element.style.transform, element)
-}
-
-
-
 const ScreenshotBase = () => (
-<svg xmlns="http://www.w3.org/2000/svg" width="1145.422" height="677.106" viewBox="0 0 1145.422 677.106" id='screenshot-base' onPointerMove={handlePointerMoveMain2}>
+<svg xmlns="http://www.w3.org/2000/svg" width="1145.422" height="677.106" viewBox="0 0 1145.422 677.106" id='screenshot-base'>
   <g id="Group_172" data-name="Group 172" transform="translate(-18126.631 -1897.29)">
     <path id="Rectangle_112" data-name="Rectangle 112" d="M9.757,0H283.823V677.106H9.757A9.748,9.748,0,0,1,0,667.35V9.757A9.748,9.748,0,0,1,9.757,0Z" transform="translate(18126.631 1897.29)" fill="rgba(56,44,42,0.52)"/>
     <path id="Rectangle_114" data-name="Rectangle 114" d="M0,0H578.565V677.106H0Z" transform="translate(18410.943 1897.29)" fill="rgba(56,44,42,0.4)"/>
@@ -330,8 +141,6 @@ const ScreenshotBase = () => (
 
 const ScenesBase = () => (
 <svg xmlns="http://www.w3.org/2000/svg" width="270.871" height="298.153" viewBox="0 0 270.871 298.153" id="scenes-base" 
-    onPointerMove={handlePointerMove} 
-    onPointerLeave={handlePointerLeave}
 >
 
 

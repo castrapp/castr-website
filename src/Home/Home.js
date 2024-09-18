@@ -14,7 +14,8 @@ import { Download } from './Download2/Download';
 
 
 import './Home.css'
-import { SubHero } from './SubHero/SubHero';
+// import { SubHero } from './SubHero/SubHero';
+import { SubHero } from './SubHero2/SubHero';
 
 
 const Home = () => {

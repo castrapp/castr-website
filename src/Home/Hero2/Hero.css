@@ -1,12 +1,12 @@
 /* Hero - Start */
 #home-hero {
     /* border: solid red 1px; */
-    /* height: 100svh; */
+    height: 100svh;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 
     margin-left: auto;
     margin-right: auto;
@@ -14,7 +14,7 @@
 
 
 
-    margin-top: 200px;;
+    padding-top: 200px;
     padding-left: 20px;
     padding-right: 20px;
     /* padding-bottom: 75px; */
@@ -28,15 +28,38 @@
     border: dashed rgb(31, 31, 31) 1px;
     position: relative;
     width: clamp(0px, 100%, 1080px);
-    padding: 48px 20px;
+    padding: 88px 20px;
     margin-bottom: 40px;
-    /* top: -200px; */
+    /* top: -100px; */
     /* top: 1; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: black;
+    /* background-color: black; */
+    box-sizing: border-box;
+
+}
+
+
+@keyframes intro {
+    from {
+        transform: translateZ(700px) rotate(-95deg);
+    }
+    to {
+        transform: translateZ(0px);
+    }
+}
+
+@keyframes height {
+    from {
+        height: 150px;
+        width: 150px;
+    }
+    to {
+        height: auto;
+        width: 1080px;
+    }
 }
 
 @keyframes blurStart {
@@ -50,6 +73,7 @@
 
 #hero-badge {
     /* border: solid rgb(0, 153, 255) 1px; */
+    white-space: nowrap;
     border-radius: 9999px;
     width: fit-content;
     padding: 4px 12px;
@@ -58,8 +82,8 @@
     margin-bottom: 12px;
     background-color: rgba(0, 153, 255, 0.196);
     color: rgb(0, 153, 255);
-    filter: blur(20px);
-    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    /* filter: blur(20px); */
+    /* animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards; */
     /* animation-delay: 200ms; */
 }
 
@@ -68,19 +92,21 @@
     font-weight: 600;
     line-height: 1;
     margin-bottom: 20px;
-    filter: blur(20px);
-    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    white-space: nowrap;
+    /* filter: blur(20px); */
+    /* animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards; */
     animation-delay: 200ms;
 }
 
 #hero-subheader {
+    white-space: nowrap;
     font-size: 18px;
     line-height: 28px;
     margin-bottom: 36px;
     max-width: 640px;
     text-align: center;
-    filter: blur(20px);
-    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    /* filter: blur(20px); */
+    /* animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards; */
     animation-delay: 400ms;
 
 }
@@ -96,8 +122,8 @@
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
     cursor: pointer;
-    filter: blur(20px);
-    animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards;
+    /* filter: blur(20px); */
+    /* animation: blurStart 1.5s cubic-bezier(0.27, 0.13, 0.17, 1) forwards; */
     animation-delay: 600ms;
 }
 
@@ -187,4 +213,62 @@
     height: 100%;
     box-sizing: border-box;
     background-color: rgb(31, 31, 31);
+}
+
+
+
+
+
+
+
+
+
+#home-overlay {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+
+    /* background: linear-gradient(to bottom, rgba(171, 171, 171, 0) 0%, rgba(171, 171, 171, 0) 50%, #0095ff 50%, #0095ff 100%); */
+    z-index: -2;
+    overflow: hidden;
+}
+
+#home-overlay-child1 {
+    left: 0px;
+    right: 0px;
+    height: 370px;
+    /* border: solid red 1px; */
+    /* transition: all 250ms; */
+    bottom: 0px;
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(171, 171, 171, 0) 0%, #0062ff 100%);
+    overflow: hidden;
+}
+
+    #home-overlay-child1 > div {
+        left: 0px;
+        right: 0px;
+        height: 500px;
+        /* border: solid red 1px; */
+        border-radius: 33%;
+        bottom: 80px;
+        position: absolute;
+        background-color: black;
+        filter: blur(90px);
+    }
+
+
+#home-overlay-border {
+    position: absolute;
+    /* border: solid red 1px; */
+    height: 3px;
+    /* width: 1%; */
+    left: 20%;
+    right: 20%;
+    bottom: 0px;
+    /* transition: all 250ms; */
+    z-index: 2;
+    background: radial-gradient(50% 50% at 50% 50%, #0095ff 0%, rgba(171, 171, 171, 0) 100%);
 }

@@ -6,6 +6,51 @@ import './Hero.css'
 
 const Hero = () => {
 
+   
+
+    const handleScroll = () => {
+        console.log('scrolling')
+
+        const rootElement = document.getElementById('root');
+        const homeHero = document.getElementById('home-hero');
+        const overlayChild1 = document.getElementById('home-overlay-child1');
+        const overlayBorder = document.getElementById('home-overlay-border'); // Get the #home-overlay-border element
+        
+        const heroHeight = homeHero.offsetHeight;  // Get the height of #home-hero
+        const scrollTop = rootElement.scrollTop;   // Get scrollTop of #root
+        const scrollRatio = scrollTop / heroHeight;  // Calculate scroll ratio
+
+        // Get the height of the home-overlay-child1
+        const overlayChildHeight = overlayChild1.offsetHeight;
+
+        // Interpolate the bottom value from 0px to -overlayChildHeight (within 0 to 30% scroll)
+        if (scrollRatio <= 0.3) {
+            const newBottomValue = -(overlayChildHeight * (scrollRatio / 0.3));
+            overlayChild1.style.bottom = `${newBottomValue}px`;
+
+            // Interpolate the opacity from 1 to 0 (within 0 to 30% scroll)
+            const newOpacity = 1 - (scrollRatio / 0.3);
+            overlayBorder.style.opacity = newOpacity;
+        } else {
+            // Cap values when the scroll ratio exceeds 30%
+            overlayChild1.style.bottom = `-${overlayChildHeight}px`;
+            overlayBorder.style.opacity = 0;
+        }
+    };
+
+    
+    useEffect(() => {
+
+        const rootElement = document.getElementById('root');
+       
+        // Attach the scroll listener
+        rootElement.addEventListener('scroll', handleScroll);
+    
+        // Clean up the event listener on component unmount
+        return () => {
+          rootElement.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
 
     return (
         <div id="home-hero">
@@ -40,21 +85,33 @@ const Hero = () => {
                     <div />
                 </div> */}
 
-                <div class="cross" id='cross-1'>
+                <div className="cross" id='cross-1'>
                     <div />
                     <div />
                 </div>
 
-                <div class="cross" id='cross-2'>
+                <div className="cross" id='cross-2'>
                     <div />
                     <div />
                 </div>
 
                 <div id="hero-badge">For MacOS 13.0+</div>
                 <div id="hero-header">Create with Castr</div>
-                <div id="hero-subheader">A free and open-source, screen casting application for video recording and streaming, built natively for MacOS.</div>
+                <div id="hero-subheader">A free and open-source, screen casting application for video recording and <br />streaming, built natively for MacOS.</div>
 
                 <button id="hero-download">Download</button>
+            </div>
+
+
+            <div id="home-overlay">
+                <div id='home-overlay-border' />
+                <div id="home-overlay-child1"> 
+                    <div/>
+                </div>
+
+                {/* <div id="home-overlay-child2">
+                    <div/>
+                </div> */}
             </div>
 
 
@@ -68,8 +125,8 @@ const Hero = () => {
                 <SourceConfigBase />
             </div> */}
 
-            {/* <div id="hero-learn-more">Learn more below.</div>
-            <LearnMoreArrow /> */}
+            {/* <div id="hero-learn-more">Learn more below.</div> */}
+            {/* <LearnMoreArrow /> */}
         </div>
     )
 }
