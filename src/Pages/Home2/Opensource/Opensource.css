@@ -1,0 +1,151 @@
+#opensource {
+    /* height: 100svh; */
+    /* border: solid red 1px; */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 200px 20px;
+}
+
+
+#opensource #main {
+    /* border: solid red 1px; */
+    display: grid;
+    /* height: 172px; */
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+    grid-template-areas: 
+        "bigText badge"
+        "bigText button"
+    ;
+    /* gap: 50px; */
+    width: clamp(0px, 100%, 1080px);
+    border: solid rgb(31,31,31) 1px;
+    background-color: rgb(10, 10, 10);
+    box-sizing: border-box;
+    padding: 50px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 950px) {
+
+
+    #opensource #main {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+            "badge"
+            "bigText"
+            "button"
+        ;
+        padding: 50px 0px;
+    }
+    
+
+    #opensource #badge-label {
+        align-items: center !important;
+        margin-bottom: 20px;;
+    }
+
+    #h3 {
+        justify-self: center !important;
+        text-align: center;
+        /* font-size: clamp(0px ,calc(30px + (76 - 30) * (100vw - 350px) / (1080 - 350)), 76px) !important; */
+    }
+
+    #github-button {
+        justify-self: center !important;
+        min-height: 40px !important;
+        font-size: 14px !important;
+    }
+
+    #opensource br {
+        display: none;
+    }
+}
+
+
+#opensource #badge-label {
+    grid-area: badge;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: fit-content;
+}
+
+
+#h3 {
+    font-size: clamp(0px ,calc(30px + (76 - 30) * (100vw - 350px) / (1080 - 350)), 76px) !important;
+   /* font-size: clamp(0px ,calc(30px + (56 - 30) * (100vw - 350px) / (1080 - 350)), 56px); */
+   font-weight: 600; 
+   white-space: nowrap;
+   /* border: solid 1px red; */
+}
+
+#opensource #badge {
+    grid-area: badge;
+    justify-self: flex-end;
+}
+
+#opensource #label {
+
+    grid-area: badge;
+    justify-self: flex-end;
+    color: white;
+    grid-area: badge;
+    font-size: clamp(0px ,calc(22px + (36 - 22) * (100vw - 350px) / (1080 - 350)), 36px);
+    font-weight: 600; 
+    text-align: end;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+#github-button {
+    grid-area: button;
+    justify-self: end;
+    margin-top: 30px;
+    min-height: 48px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 9999px;
+    border: solid 1px rgb(31, 31, 31);
+    cursor: pointer;
+    width: fit-content;
+    white-space: nowrap;
+
+    transition: all 250ms;
+}
+
+
+#github-button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+#github-button:active {
+    opacity: 0.85;
+}
+
+
+
+
+
+
+#opensource #top,
+#opensource #bottom {
+    width: clamp(0px, 100%, 1080px);
+    /* border: solid red 1px; */
+    box-sizing: border-box;
+}

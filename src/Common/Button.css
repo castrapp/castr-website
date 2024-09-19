@@ -1,0 +1,22 @@
+
+.button1 {
+    all: unset;
+    background-color: rgb(237, 237, 237);
+    align-items: center;
+    border-radius: 9999px;
+    cursor: pointer;
+    color: black;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    padding: 0px 12px;
+
+    transition: all 250ms;
+}
+
+
+.button1:hover {
+    opacity: 0.85;
+}

@@ -1,0 +1,25 @@
+#subhero {
+    height: 100svh;
+    /* border: solid red 1px; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+}
+
+#subhero #main {
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: solid red 1px;
+    margin: auto;
+    width: clamp(0px, 100%, 1080px);
+    border: solid rgb(31,31,31) 1px;
+    background-color: rgb(10, 10, 10);
+    box-sizing: border-box;
+}
+

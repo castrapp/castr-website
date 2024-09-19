@@ -1,0 +1,100 @@
+#tutorial {
+    /* height: 100svh; */
+    /* border: solid red 1px; */
+    box-sizing: border-box;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+}
+
+#tutorial #main {
+    border: solid red 1px;
+    margin: auto;
+    width: clamp(0px, 100%, 1080px);
+    border: solid rgb(31,31,31) 1px;
+    background-color: rgb(10, 10, 10);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: min-content auto;
+    grid-template-areas: 
+        "header header"
+        "details preview"
+    ;
+}
+
+#header-container {
+    grid-area: header;
+    /* border: solid red 1px; */
+    border-bottom: solid rgb(31,31,31) 1px;
+
+    width: 100%;
+    /* height: fit-content; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    padding: 40px 0px;
+}
+
+
+#details {
+    /* border: solid red 1px; */
+    grid-area: details;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-right: solid rgb(31,31,31) 1px;
+    padding: 24px;
+    /* width: 200px; */
+}
+
+#preview-wrapper {
+    grid-area: preview;
+    width: 100%;
+    /* height: 100%; */
+    box-sizing: border-box;
+    border: solid rgb(51, 51, 51) 1px;
+    width: 650px;
+    /* height: 450px; */
+    margin: 40px;
+    box-sizing: border-box;
+    place-self: center;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+#preview {
+    border: solid rgb(51, 51, 51) 1px;
+    border-radius: 6px;
+    width: 100%;
+    padding-bottom: 60%;
+    /* height: 100%; */
+}
+
+
+@media (max-width: 1000px) {
+    #tutorial #main {
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content auto auto;
+        grid-template-areas: 
+            "header"
+            "details"
+            "preview"
+        ;
+    }
+
+    #details {
+        height: 150px;
+        border-right: none;
+        border-bottom: solid rgb(31,31,31) 1px;
+    }
+
+    #preview-wrapper {
+        width: calc(100% - 40px);
+        margin: 20px;
+    }
+}

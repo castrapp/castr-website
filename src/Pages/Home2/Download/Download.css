@@ -1,0 +1,128 @@
+#download {
+    /* border: solid red 1px; */
+    /* height: 100svh; */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+}
+
+#download #main {
+    width: clamp(0px, 100%, 1080px);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12 equal columns */
+    grid-template-rows: auto 1fr auto; /* 3 rows */
+    grid-template-areas:
+        "top top top top top top top top top top top top"
+        "middle middle middle middle middle middle middle middle middle middle middle middle"
+        "bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom"; /* Define the grid areas */
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+    #download #main {
+        grid-template-columns: repeat(8, 1fr); /* Switch to 8 columns */
+        grid-template-areas:
+            "top top top top top top top top"
+            "middle middle middle middle middle middle middle middle"
+            "bottom bottom bottom bottom bottom bottom bottom bottom"; /* Update to 8 columns in each row */
+    }
+}
+
+
+#download .square {
+    width: 100%;
+    padding-bottom: 100%;
+    box-sizing: border-box;
+    border: solid rgb(31,31,31) 1px;
+}
+
+
+#download #middle {
+    /* border: solid red 1px; */
+    grid-area: middle;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    padding: 40px clamp(10px ,calc(10px + (40 - 10) * (100vw - 350px) / (1080 - 350)), 40px);
+    border-left: solid rgb(31,31,31) 1px;
+    border-right: solid rgb(31,31,31) 1px;
+    background-color: rgb(10, 10, 10);
+}
+
+
+#download .h1 {
+    font-size: clamp(0px ,calc(30px + (72 - 30) * (100vw - 350px) / (1080 - 350)), 72px);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+
+#download #cross1 {
+    --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
+    top: calc(var(--value) * -1);
+    left: calc(var(--value) * -1);
+}
+
+#download #cross2 {
+    --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
+    bottom: calc(var(--value) * -1);
+    right: calc(var(--value) * -1);
+}
+
+
+
+
+#download  {
+    /* font-size: clamp(12px ,calc(12px + (16 - 12) * (100vw - 350px) / (1080 - 350)), 16px); */
+    /* font-size: */
+}
+
+#download-button {
+    padding-left: clamp(20px , calc(20px + (36 - 20) * (100vw - 350px) / (1080 - 350)), 36px);
+    padding-right: clamp(10px , calc(10px + (18 - 10) * (100vw - 350px) / (1080 - 350)), 18px);
+    padding-top: clamp(10px , calc(10px + (18 - 10) * (100vw - 350px) / (1080 - 350)), 18px);
+    padding-bottom: clamp(10px , calc(10px + (18 - 10) * (100vw - 350px) / (1080 - 350)), 18px);
+    border-radius: 9999px;
+    border: solid 1px rgb(37, 37, 37);
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: ; */
+    white-space: nowrap;
+    font-size: clamp(0px ,calc(26px + (72 - 26) * (100vw - 350px) / (1080 - 350)), 72px);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1;
+}
+
+#download #header {
+    font-size: clamp(0px, calc(22px + (36 - 22) * (100vw - 350px) / (1080 - 350)), 36px);
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+#download-svg {
+    --value: clamp(36px , calc(36px + (90 - 36) * (100vw - 350px) / (1080 - 350)), 90px);
+    width: var(--value);
+    height: var(--value);
+}
+
+
+@media (max-width: 950px) {
+    #download #header {
+      text-align: center !important;
+    }
+    
+}

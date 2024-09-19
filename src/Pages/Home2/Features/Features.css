@@ -1,0 +1,183 @@
+#features {
+    /* height: 100svh; */
+    /* border: solid red 1px; */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0px;
+}
+
+#features #main-wrapper {
+    /* border: solid red 1px; */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px 20px;
+}
+
+#features #main {
+    /* border: solid red 1px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: clamp(0px, 100%, 1080px);
+    border: solid rgb(31,31,31) 1px;
+    background-color: rgb(10, 10, 10);
+    box-sizing: border-box;
+    padding: 40px 0px;
+    margin: 0px auto;
+}
+
+
+
+#features #options {
+    /* border: solid red 1px; */
+    display: flex;
+    /* justify-content: center; */
+    gap: 6px;
+    margin-top: 20px;
+    position: relative;
+    /* width: calc(270px + (730 - 270) * (100vw - 350px) / (1080 - 350)); */
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 730px;;
+    padding: 0px 10px;
+    overflow-x: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+#features #options::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+#features #options div {
+    /* border: solid red 1px; */
+    box-sizing: border-box;
+    border-radius: 9999px;
+    font-size: 14px;
+    /* height: 40px; */
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    cursor: pointer;
+    /* outline: none; */
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.519);
+}
+
+#features #options div:hover,
+#features #options div:focus,
+#features #options div:focus-visible,
+#features #options div:focus-within {
+    color: rgb(255, 255, 255);
+}
+
+#features #options div[data-option] {
+    position: relative;
+    z-index: 1;
+
+    transition: all 250ms;
+}
+
+
+#features #options div[data-selected] {
+    background-color: white;
+    color: black;
+}
+
+#features #backdrop {
+    background-color: rgb(31,31,31);
+    position: absolute;
+    height: 100%;
+    box-sizing: border-box;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+
+    transition: all 250ms;
+}
+
+
+#buttons {
+    /* border: solid red 1px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#buttons div:nth-child(2) {
+    transform: scaleX(-1);
+}
+
+div.chevron {
+
+    border: solid transparent 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9999px;
+    cursor: pointer;    
+
+    transition: all 250ms;
+}
+
+div.chevron:disabled {
+    opacity: 0.25 ;
+    cursor: unset;
+}
+
+div.chevron svg {
+    transform: translateX(-1px);
+}
+
+
+div.chevron:not(:disabled):hover {
+    border: solid 1px rgb(56, 56, 56);
+    /* background-color: rgb(31,31,31); */
+}
+
+div.chevron:not(:disabled):active {
+   opacity: 0.75;
+}
+
+
+
+
+
+#features-container {
+    /* border: solid red 1px; */
+    /* margin-top: 40px; */
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    box-sizing: border-box;
+    gap: 20px;
+    padding: 30px 0px;
+    /* height: 470px; */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+}
+
+
+#features-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+    .features-card {
+        scroll-snap-align: center;
+        border: solid red 1px;
+        box-sizing: border-box;
+        /* min-width: 350px; */
+        height: 470px;
+        border-radius: 6px;
+        min-width: calc(310px + (350 - 310) * (100vw - 350px) / (1080 - 350));
+        max-width: 350px;
+    }

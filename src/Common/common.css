@@ -1,0 +1,66 @@
+@import url('./Badges.css');
+@import url('./Button.css');
+
+
+
+
+/* Cross Icon - Start */
+.cross {
+    --length: clamp(14px ,calc(14px + (21 - 14) * (100vw - 350px) / (1080 - 350)), 21px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    width: var(--length);
+    height: var(--length);
+}
+
+.cross div {
+    --height: clamp(1px ,calc(1px + (1.5 - 1) * (100vw - 350px) / (1080 - 350)), 1.5px);
+    height: var(--height);
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgb(135, 135, 135);
+    position: absolute;
+}
+
+.cross > div:nth-child(1) {
+    transform: rotate(90deg);
+}
+/* Cross Icon - End */
+
+
+
+
+/* Header 1 - Start */
+.h1 {
+    font-size: clamp(0px ,calc(30px + (72 - 30) * (100vw - 350px) / (1080 - 350)), 72px);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+/* Header 2 - Start */
+
+
+
+
+/* Header 2 - Start */
+.h2 {
+    font-size: clamp(0px ,calc(22px + (36 - 22) * (100vw - 350px) / (1080 - 350)), 36px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 0px 20px;
+    /* line-height: 1.25; */
+}
+
+.h2 span {
+    color: rgb(255, 255, 255);
+}
+/* Header 2 - End */
+
+
+
+

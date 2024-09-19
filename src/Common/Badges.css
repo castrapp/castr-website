@@ -1,0 +1,19 @@
+
+.badge {
+    border-radius: 9999px;
+    height: 24px;
+    /* height: 31px; */
+    /* border: solid red 1px; */
+    width: fit-content;
+    padding: 0px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: oklch(0.717 0.1648 250.794);
+    background-color: oklch(0.2545 0.0811 255.8);
+    gap: 8px;
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
