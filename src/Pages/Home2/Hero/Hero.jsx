@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import './Hero.css'
+// import './Hero.css'
 
 
 const Hero = () => {

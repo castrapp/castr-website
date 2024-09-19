@@ -71,6 +71,7 @@
     --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
     top: calc(var(--value) * -1);
     left: calc(var(--value) * -1);
+    /* display: none; */
 }
 
 #hero #cross2 {

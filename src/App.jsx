@@ -1,6 +1,9 @@
+import React from 'react'
+import ReactDOM from 'react-dom';
+
 import './App.css';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigation } from './Navigation/Navigation';
 // import { NavigationTemp } from './NavigationTemp/NavigationTemp';
 import { Footer } from './Footer/Footer';
@@ -16,16 +19,26 @@ import './Common/common.css'
 const App = () => {
 
 	return (
-		<Router>
-			<Navigation />
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/download" element={<Download />} />
-				<Route path="/contact" element={<Contact />} />
-				<Route path="/privacy" element={<Privacy />} />
-			</Routes>
-			<Footer />
-		</Router>
+		// <Router>
+		// 	<Navigation />
+		// 	<Routes>
+		// 		<Route path="/" element={<Home />} />
+		// 		<Route path="/download" element={<Download />} />
+		// 		<Route path="/contact" element={<Contact />} />
+		// 		<Route path="/privacy" element={<Privacy />} />
+		// 	</Routes>
+		// 	<Footer />
+		// </Router>
+
+		<>
+		<Navigation />
+
+			<Home />
+	
+
+		<Footer />
+		
+		</>
 	)
 }
 
