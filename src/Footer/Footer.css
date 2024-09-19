@@ -1,76 +1,104 @@
-@import url('../Fonts/Fonts.css');
-
-
-#footer-line {
-    border-top: solid 1px rgba(255, 255, 255, 0.1);
-    border-radius: 9999px;
-    width: clamp(0px, 100%, 1680px);
-    margin-top: 40px;
-}
-
-
-
 #footer {
-    padding: 50px 0px;
-    display: grid;
-    grid-template-columns: 
-        /* 90px at 1050 width to 20px at 450 width */
-        /* 120px at 1440 width to 20px at 480 width */
-        /* clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px)  */
-        1fr
-        10fr
-        /* clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px) */
-        1fr
-    ;
-    grid-template-rows: 
-        auto
-    ;
-    grid-template-areas: 
-        ". main ."
-    ;
-}
+    /* border: solid red 1px; */
+    /* height: 100svh; */
 
-
-
-#footer-container {
-    grid-area: main;
-    width: clamp(0px, 100%, 1120px);
-    padding: 0px 20px;
-    box-sizing: border-box;
-    /* height: 100%; */
     display: flex;
-    flex-wrap: wrap;
-    margin: 80px auto;
+    align-items: center;
     justify-content: center;
-
-    /* margin-left: clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px);
-    margin-right: clamp(20px ,calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px); */
-    /* padding: 0px 24px; */
+    padding: 90px 20px;
 }
+
+#footer #main {
+    /* border: solid red 1px; */
+    display: flex;
+    width: clamp(0px, 100%, 1080px);
+    /* padding: 100px 0px; */
+    padding-bottom: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: min-content;
+    grid-template-areas: "support documentation project about logo";
+    position: relative;
+}
+
+@media (max-width: 800px) {
+    #footer {
+        padding: 40px 20px;
+    }
+
+    #footer #main {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 
+            min-content 
+            min-content 
+            min-content
+        ;
+        grid-template-areas: 
+            "logo logo"
+            "support project"
+            "documentation about"
+        ;
+        row-gap: 50px;
+    }
+
+    #footer-logo {
+        justify-self: start !important;
+    }
+
+    #footer #project,
+    #footer #about {
+        justify-self: end;
+        text-align: right;
+    }
+}
+
+#footer #support {
+    grid-area: support;
+}
+
+#footer #documentation {
+    grid-area: documentation;
+}
+
+#footer #project {
+    grid-area: project;
+}
+
+#footer #about {
+    grid-area: about;
+}
+
+#footer-logo {
+    grid-area: logo;
+    justify-self: end;
+}
+
+
+#footer-personal {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    font-size: 14px;
+    color: #888;
+}
+
 
 .footer-section {
-    width: 176px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    height: fit-content
+    flex-grow: 1;
+    /* border: solid red 1px; */
 }
 
 .footer-header {
-    color: rgb(255, 255, 255);
-    /* margin-top: 16px; */
-    /* margin-bottom: 12px; */
-    display: flex;
-    align-items: center;
-    font-weight: 600;
     font-size: 14px;
+    font-weight: 500;
+    margin: 12px 0px;
 }
 
 .footer-link {
-    color: rgb(102, 102, 102);
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
     font-size: 14px;
+    font-weight: 400;
+    padding: 10px 0px;
+    line-height: 20px;
+    color: #888;
 }
+
