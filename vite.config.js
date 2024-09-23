@@ -47,6 +47,32 @@ export default defineConfig({
 
           // Return undefined to keep the default HMR behavior for other files
           return undefined;
+        } else if(file.endsWith('.js') || file.endsWith('.jsx')) {
+           // Clear the terminal before each log
+           console.log(clearTerminal);
+
+           // Cycle through the bright colors based on logCount
+           const colorStyle = brightLogColors[logCount % brightLogColors.length];
+ 
+           // Get the current time as a string
+           const time = new Date().toLocaleTimeString();
+ 
+           // Toggle between prefixing and suffixing the time to the message
+           let message;
+           if (logCount % 2 === 0) {
+             message = `-- JSX file updated at: ${time} --`;  // Time as suffix
+           } else {
+             message = `${time}: JSX file updated`;  // Time as prefix
+           }
+ 
+           // Log the message with the corresponding bright terminal color
+           console.log(`${colorStyle}${message}${resetStyle}`);
+ 
+           // Increment the log count to cycle through colors and toggle placement
+           logCount++;
+ 
+           // Return undefined to keep the default HMR behavior for other files
+           return undefined;
         }
       },
     },
