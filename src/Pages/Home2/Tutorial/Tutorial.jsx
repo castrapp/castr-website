@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import './Tutorial.css'
+// import './Tutorial.css'
 
 
 const Tutorial = () => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import './Opensource.css'
+// import './Opensource.css'
 
 
 const Opensource = () => {

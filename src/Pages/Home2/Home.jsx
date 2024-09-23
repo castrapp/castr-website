@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-import './Home.css'
+// import './Home.css'
 import { Hero } from './Hero/Hero';
 import { Subhero } from './Subhero/Subhero';
 import { Features } from './Features/Features';

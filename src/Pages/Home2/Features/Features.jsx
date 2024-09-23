@@ -6,7 +6,7 @@ import background3 from './backgrounds/background-3.webp';
 import background4 from './backgrounds/background-4.webp';
 import background5 from './backgrounds/background-7.webp';
 
-import './Features.css'
+// import './Features.css'
 
 
 const Features = () => {

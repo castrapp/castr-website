@@ -8,7 +8,7 @@
     "start": "webpack serve --open",
     "parcel": "parcel src/index.html",
     "build": "webpack --mode production",
-    "dev": "vite",
+    "dev": "vite --host",
     "serve": "vite preview"
   },
   "keywords": [],

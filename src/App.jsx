@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 
-import './App.css';
+// import './App.css';
+
 
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigation } from './Navigation/Navigation';
@@ -14,6 +15,8 @@ import { Contact } from './Pages/Contact/Contact';
 import { Privacy } from './Pages/Privacy/Privacy';
 
 import './Common/common.css'
+
+
 
 
 const App = () => {
@@ -43,3 +46,15 @@ const App = () => {
 }
 
 export default App;
+
+
+
+
+export function loadCSS(file) {
+	const link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = file; // File should be an absolute path or relative to the public directory
+	document.head.appendChild(link);
+  }
+  
+
