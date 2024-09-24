@@ -59,11 +59,6 @@ export { Download }
 
 
 
-
-
-
-
-
 const ArrowSVG = () => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90" id="download-svg">
 		<circle id="Ellipse_4" data-name="Ellipse 4" cx="45" cy="45" r="45" fill="#ededed"/>

@@ -65,7 +65,7 @@
     justify-content: center;
     font-weight: 500;
     cursor: pointer;
-    /* outline: none; */
+    outline: none;
     white-space: nowrap;
     color: rgba(255, 255, 255, 0.519);
 }

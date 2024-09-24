@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import notifier from 'node-notifier'; // Import node-notifier
 
 // Define bright ANSI escape codes for terminal colors
 const brightLogColors = [
@@ -42,6 +43,14 @@ export default defineConfig({
           // Log the message with the corresponding bright terminal color
           console.log(`${colorStyle}${message}${resetStyle}`);
 
+
+          // Send macOS notification
+          notifier.notify({
+            title: 'CSS',
+            message: message,
+            sound: false, // Optional: Play a sound with the notification
+          });
+
           // Increment the log count to cycle through colors and toggle placement
           logCount++;
 
@@ -67,6 +76,12 @@ export default defineConfig({
  
            // Log the message with the corresponding bright terminal color
            console.log(`${colorStyle}${message}${resetStyle}`);
+
+           notifier.notify({
+            title: 'JavaScript',
+            message: message,
+            sound: false, // Optional: Play a sound with the notification
+          });
  
            // Increment the log count to cycle through colors and toggle placement
            logCount++;

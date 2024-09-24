@@ -125,7 +125,6 @@
     cursor: pointer;
     width: fit-content;
     white-space: nowrap;
-
     transition: all 250ms;
 }
 
