@@ -1,15 +1,36 @@
 #subhero {
-    height: 100svh;
+    /* --mainPerspective: mainPerspective 2s ease-in-out forwards; */
+    /* height: 100svh; */
     /* border: solid red 1px; */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0px 20px;
+    padding: 50px 20px;
+    overflow: hidden;
+    perspective-origin: 50% 50%;
+    perspective: 800px;
+    /* animation: var(--mainPerspective); */
+    /* overflow: overlay; */
+    /* overflow-x: hidden; */
+    overflow: unset;
+}
+@keyframes mainPerspective {
+    from {
+        perspective: 200px;
+    }
+
+    to {
+        perspective: 1000px;
+    }
 }
 
-#subhero #main {
+
+
+
+
+/* #subhero #main {
     height: 700px;
     display: flex;
     align-items: center;
@@ -21,5 +42,139 @@
     border: solid rgb(31,31,31) 1px;
     background-color: rgb(10, 10, 10);
     box-sizing: border-box;
+} */
+
+
+
+#subhero-wrapper {
+    --scale: clamp(0.6, calc(0.6 + (1.0 - 0.6) * (100vw - 700px) / (1080 - 700)), 1.0) ;
+    border: solid 1px green;
+    perspective-origin: 50% 50%;
+    perspective: 1000px;
+    /* transform: scale(calc(0.6 + (1.0 - 0.6) * ((100vw - 700px) / (1080px - 700px)))); */
+    transform: scale(calc(0.6 + (1.0 - 0.6) * ((100vw - 700px) / (1080px - 700px))));
+    /* width: fit-content; */
+    /* height: fit-content; */
 }
+
+#subhero-header {
+    font-size: clamp(0px ,calc(22px + (36 - 22) * (100vw - 350px) / (1080 - 350)), 36px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 0px 20px;
+    /* line-height: 1.25; */
+    display: flex;
+}
+
+
+#subhero-main {
+    /* --mainTransform: mainTransform 2s ease-in-out forwards; */
+    /* --mainBlur: mainBlur 1s ease-in-out forwards; */
+    /* transform: scale(1); */
+    transform: rotateX(5deg);
+    /* animation: var(--mainTransform), var(--mainBlur); */
+    /* transform: rotate(45deg); */
+    /* border: solid 1px red; */
+    transform-style: preserve-3d;
+    transition: transform 100ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    width: clamp(0px, 100% - 80px, 1080px - 80px);
+    margin-top: 20px;
+    transform-origin: center 30%;
+}
+
+/* Main Svg */
+@keyframes mainTransform {
+    from {
+        transform: translateZ(190px) rotateX(45deg);
+    }
+
+    to {
+        transform: translateZ(-210px)  rotateX(0deg);
+    }
+}
+
+@keyframes mainBlur {
+    from {
+        filter: blur(50px);
+    }
+
+    to {
+        filter: blur(0px);
+    }
+}
+
+@media (max-width: 699px) {
+    #subhero-main {
+        width: clamp(0px, 100% - 20px, 1080px - 20px);
+    }
+}
+
+
+
+
+
+
+
+/* Main SVG */
+#subhero-main-svg-desktop {
+    /* width: clamp(0px, 100% - 40px, 1080px); */
+    height: fit-content;
+    width: 100%;
+    /* opacity: 0.8; */
+}
+
+@media (max-width: 699px) {
+    #subhero-main-svg-desktop {
+        display: none;
+    }
+}
+
+
+
+/* Scenes Svg */
+
+#subhero-scenes {
+    position: absolute;
+    border: solid red 1px;
+    transform-style: preserve-3d;
+    transform: translateX(-410px) translateY(-130px););););););););););););););););););
+    /* opacity: 0.8; */
+}
+
+#subhero-scenes-svg {
+    /* po */
+}
+
+
+
+
+
+
+
+/* Mobile SVG */
+#subhero-main-svg-mobile {
+    display: none;
+    /* height: 1100px; */
+    border: solid purple 1px;
+    width: 100%;
+    /* display: block; */
+}
+
+    #subhero-main-svg-mobile > img {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+@media (max-width: 699px) {
+    #subhero-main-svg-mobile {
+        display: block;
+    }
+}
+
 
