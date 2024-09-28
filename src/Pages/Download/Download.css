@@ -1,3 +1,99 @@
-#download { 
+#download-page { 
     /* height: 1000px; */
+    /* border: solid red 1px; */
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px 20px;
+    padding-top: 60px;
+
+    /* padding-bottom: clamp(90px, calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px); */
+    /* padding-top:  clamp(90px, calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)) + 60px, 120px); */
+}
+
+
+#download-page-main {
+    /* border: solid red 1px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding-left: clamp(20px, calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px);
+    padding-right: clamp(20px, calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px);
+}
+
+
+    #download-page-icon {
+        width: clamp(0px, 100%, 192px);
+        height: clamp(0px, 100%, 192px);
+        object-fit: contain;
+
+        opacity: 0;
+    }
+
+    #download-page-header1 {
+        color: rgb(247, 248, 248);
+        font-size: clamp(0px, calc(32px + (40 - 32) * (100vw - 350px) / (1080 - 350)), 40px);
+        font-weight: 500;
+        margin-bottom: 16px;
+        text-align: center;
+        opacity: 0;
+    }
+
+    #download-page-description {
+        color: rgb(208, 214, 224);
+        font-size: clamp(0px, calc(17px + (21 - 17) * (100vw - 350px) / (1080 - 350)), 21px);
+        text-align: center;
+        opacity: 0;
+    }
+
+    #mac-store-badge {
+        margin-top: 32px;
+        cursor: pointer;
+        opacity: 0;
+    }
+
+        #mac-store-badge * { pointer-events: none; }
+
+    #download-page-subheader {
+        font-size: 12px;
+        color: rgb(138, 143, 152);
+        margin-top: 10px;
+        margin-bottom: 32px;
+        text-align: center;
+        opacity: 0;
+    }
+
+    #download-page-otherlink {
+        user-select: none;
+        -webkit-user-select: none;
+        cursor: pointer;
+        font-size: 14px;
+        color: rgb(247, 248, 248);
+        text-decoration: underline;
+        text-decoration-color: rgba(247, 248, 248, 0.296);
+        transition: all 250ms;
+        text-align: center;
+        opacity: 0;
+    }
+
+        #download-page-otherlink:hover,
+        #download-page-otherlink:active {
+            text-decoration-color: rgba(247, 248, 248);
+        }
+
+
+
+@keyframes onStartBlur {
+    from {
+        filter: blur(10px);
+        opacity: 0;
+    }
+    to {
+        filter: blur(0px);
+        opacity: 1;
+    }
 }
