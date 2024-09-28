@@ -1,0 +1,107 @@
+/* Desktop Navigation */
+#navigation {
+    max-width: 1120px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0px 20px;
+    margin: 0px auto;
+    display: grid;
+    grid-template-rows: 
+        60px;
+    grid-template-columns:
+        max-content 1fr auto auto auto 1fr auto;
+    grid-template-areas:
+        "logo . about support github . download";
+    align-items: center;
+    font-size: 14px;
+    user-select: none;
+    /* border: solid red 1px; */
+    position: relative;
+    z-index: 4;
+    transition: -webkit-backdrop-filter 600ms, backdrop-filter 600ms;
+}
+
+
+
+
+
+/* Mobile Menu */
+#mobile-menu {
+    /* border: solid orange 1px; */
+    height: 100vh;
+    padding: 0px 20px;
+    padding-top: 20px;
+    box-sizing: border-box;
+    padding-top: 60px;
+    width: 100%;
+    top: 0;
+    position: absolute;
+    z-index: 3;
+    opacity: 0;
+    pointer-events: none;
+    filter: blur(20px);
+    /* -webkit-filter: blur(20px); */
+    /* -webkit-backdrop-filter: blur(20px) brightness(0.5); */
+    /* backdrop-filter: blur(20px) brightness(0.5); */
+    transition: all 700ms;
+}
+
+    #html[mobile-menu-opened] 
+    #mobile-menu { 
+        opacity: 1;
+        filter: blur(0px);
+        -webkit-filter: blur(0px);
+        pointer-events: all;
+    }
+
+    
+
+
+    
+
+
+/* Navigation Mobile Blur */
+#navigation-blur-mobile {
+    /* border: solid green 1px; */
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    top: 0px;
+    z-index: 2;
+
+    pointer-events: none;
+
+    transition: -webkit-backdrop-filter 700ms, backdrop-filter 700ms;
+}
+
+    #html[mobile-menu-opened]
+    #navigation-blur-mobile {
+        -webkit-backdrop-filter: blur(20px) brightness(0.5);
+        backdrop-filter: blur(20px) brightness(0.5);
+    }
+
+
+
+
+
+
+
+
+/* Navigation Blur */
+#navigation-blur {
+    /* border: solid red 1px; */
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: -5px;
+    bottom: 0px;
+    z-index: 1;
+    transition: -webkit-backdrop-filter 600ms, backdrop-filter 600ms;
+}
+
+#html[data-scrolling] #navigation-blur {
+    -webkit-backdrop-filter: blur(20px) brightness(0.5);
+    backdrop-filter: blur(20px) brightness(0.5);
+}
+
