@@ -2,6 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
+
+/* 
+	Un-comment the imports below, when you want to use them with webpack.
+	Otherwise, if using them with vite, then comment them out.
+*/
+import './App.css';
+import './Navigation/Navigation.css';
+import './Navigation/NavigationBlur.css';
+import './Test.css';
+import './Pages/Download/Download.css';
+import './Pages/Privacy/Privacy.css';
+import './Pages/Home2/Home.css';
+import './Pages/Home2/Hero/Hero.css';
+import './Pages/Home2/Subhero/Subhero.css';
+import './Pages/Home2/Features/Features.css';
+import './Pages/Home2/Opensource/Opensource.css';
+import './Pages/Home2/Tutorial/Tutorial.css';
+import './Pages/Home2/Download/Download.css';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<React.StrictMode>
@@ -19,6 +39,25 @@ if (import.meta.hot) {
 
 	  payload.updates.forEach((update) => {
 		if (update.type === 'css-update') {
+
+		
+			// if (update?.path) {
+			// 	// Step 1: Parse the result string to get the .css file path
+			// 	const result = update?.path.match(/.*\.css/)[0];
+			// 	console.log('The parsed string is: ', result);
+			  
+			// 	// Step 2: Find all link elements in the <head> whose href contains the result string
+			// 	const allLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+			// 	const matchingLinks = allLinks.filter(link => link.href.includes(result));
+			  
+			// 	// Step 3: Remove the matching links from the <head>
+			// 	matchingLinks.forEach(link => document.head.removeChild(link));
+			  
+			// 	// Step 4: Add the links back to the <head>
+			// 	matchingLinks.forEach(link => document.head.appendChild(link));
+			//   }
+			// console.log('its a css update: ', update)
+			
 
 		// Is it possible to just invalidate the update here and prevent
 		// anything from happening

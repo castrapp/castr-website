@@ -105,7 +105,68 @@
     font-weight: 600;
     text-align: center;
     line-height: 1;
+    cursor: pointer;
+    /* margin-right: 135px; */
+    /* max-width: fit-content; */
+    gap: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+    transition: background-color 250ms;
 }
+
+#download-button:active,
+#download-button:hover {
+    background-color: rgb(20, 20, 20);
+}
+
+#download-button-arrow-container {
+    /* border: solid red 1px; */
+    height: 100%;
+    flex-grow: 0;
+    border-radius: 9999px;
+    background-color: white;
+    /* padding-left: 100%; */
+    box-sizing: border-box;
+    padding: clamp(0px ,calc(15px + (40 - 15) * (100vw - 350px) / (1080 - 350)), 40px);
+    transition: flex-grow cubic-bezier(0.6, 0.02, 0.17, 1) 800ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#download-button:hover #download-button-arrow-container,
+#download-button:active #download-button-arrow-container {
+    flex-grow: 0.25;
+}
+
+#download-button-arrow-container > div {
+    height: clamp(0px , calc(3px + (5 - 3) * (100vw - 350px) / (1080 - 350)), 5px);
+    background-color: black;
+    position: absolute;
+}
+
+    #download-button-arrow-container > div:nth-child(1) {
+        left: clamp(0px , calc(5px + (20 - 5) * (100vw - 350px) / (1080 - 350)), 20px);
+        right: clamp(0px , calc(5px + (20 - 5) * (100vw - 350px) / (1080 - 350)), 20px);
+    }
+
+    #download-button-arrow-container > div:nth-child(2) {
+        width: clamp(0px , calc(15px + (25 - 15) * (100vw - 350px) / (1080 - 350)), 25px);
+        transform-origin: bottom right;
+        transform: translateY(0.60px) rotateZ(45deg);
+        right: clamp(0px , calc(5px + (20 - 5) * (100vw - 350px) / (1080 - 350)), 20px);
+        border-top-right-radius: 4px;
+    }
+
+    #download-button-arrow-container > div:nth-child(3) {
+        width: clamp(0px , calc(15px + (25 - 15) * (100vw - 350px) / (1080 - 350)), 25px);
+        transform-origin: top right;
+        transform: translateY(-0.60px) rotateZ(-45deg);
+        right: clamp(0px , calc(5px + (20 - 5) * (100vw - 350px) / (1080 - 350)), 20px);
+        border-bottom-right-radius: 4px;
+    }
+
 
 #download #header {
     font-size: clamp(0px, calc(22px + (36 - 22) * (100vw - 350px) / (1080 - 350)), 36px);

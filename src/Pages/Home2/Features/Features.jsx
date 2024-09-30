@@ -11,6 +11,8 @@ import background5 from './backgrounds/background-7.webp';
 
 const Features = () => {
 
+	let set = false;
+
 	const [padding, setPadding] = useState(0)
 
 	const handlePointerMove = (e) => {
@@ -34,6 +36,23 @@ const Features = () => {
 			child.removeAttribute('data-selected')
 		}
 		target.setAttribute('data-selected', '')
+
+
+
+		// Scroll to selected element
+		const id = e.target.getAttribute('data-option')
+		if(!id) return
+
+		const targetElement = document.querySelector(`#${id}`);
+		const container = document.querySelector('#features-container');
+
+		// Scroll the element into view horizontally
+		targetElement.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest',  // Don't touch vertical scroll
+			inline: 'center'   // Center horizontally
+		});
+		console.log('handling scroll select ', e.target.getAttribute('data-option'))
 	}
 
 	const handleGlobalFocusIn = (e) => {
@@ -59,10 +78,13 @@ const Features = () => {
 		console.log('touch is starting: ', e)
 		e.preventDefault()
 	}
+	
 
 	useEffect(() => {
 
 		const featureContainer = document.querySelector('#features-container');
+		const features = document.querySelector('#features');
+		const featuresContainer = document.querySelector('#features-container');
 
 		document.addEventListener('focusin', handleGlobalFocusIn);
 		window.addEventListener('resize', handleResize);
@@ -71,6 +93,42 @@ const Features = () => {
 
 		handleResize();
 
+		const onObserve = (entries, observer) => {
+            entries.forEach(entry => {
+				// console.log('observing')
+
+				let scrollTopNormalized = entry.boundingClientRect.y /  entry.rootBounds.height 
+	            scrollTopNormalized = Math.max(0, Math.min(scrollTopNormalized, 1))
+                scrollTopNormalized = 1 - scrollTopNormalized
+
+				if(scrollTopNormalized > .4) {
+					// console.log('scroll top is above .4')
+					let delay = 0
+					if(set == true) return;
+					for(const child of featureContainer.children) {
+						// console.log('child animation is: ', child.style.animation)
+						if(!child.style.animation) child.style.animation = `onScale 1.5s cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms forwards`
+						delay += 200
+					}
+					set = true
+				} else {
+					// console.log('scroll top is not above .4')
+				}
+				
+				// console.log('scroll top normalized: ', scrollTopNormalized)
+			})
+		}
+
+
+		  // Intersection Observer for subhero
+        const observer = new IntersectionObserver(onObserve, {
+            root: null, // Default to viewport
+            rootMargin: '0px', 
+            threshold: Array.from({ length: 101 }, (_, i) => i / 100)
+        })
+
+        observer.observe(features);
+
 		return () => {
 			document.removeEventListener('focusin', handleGlobalFocusIn);
 			window.removeEventListener('resize', handleResize);
@@ -78,6 +136,8 @@ const Features = () => {
 			featureContainer.removeEventListener('touchstart', handleTouchStart)
 		};
 	}, [])
+
+
 
 	return (
 		<div id='features'>
@@ -92,11 +152,12 @@ const Features = () => {
 						onPointerLeave={handlePointerLeave}
 						onClick={handlePointerClick}
 					>
-						<div data-option tabIndex={0} data-selected style={{ marginLeft: 'auto' }}>Scenes</div>
-						<div data-option tabIndex={0}>Sources</div>
-						<div data-option tabIndex={0}>Recording</div>
-						<div data-option tabIndex={0}>Streaming</div>
-						<div data-option tabIndex={0} style={{ marginRight: 'auto' }}>Virtual Camera</div>
+						<div data-option="features-scenes-card" tabIndex={0} data-selected style={{ marginLeft: 'auto' }}>Scenes</div>
+						<div data-option="features-sources-card" tabIndex={0}>Sources</div>
+						<div data-option="features-stream-card" tabIndex={0}>Streaming</div>
+						<div data-option="features-record-card" tabIndex={0}>Recording</div>
+						<div data-option="features-camera-card" tabIndex={0}>Virtual Camera</div>
+						<div data-option="features-native-card" tabIndex={0} style={{ marginRight: 'auto' }}>Native for MacOS</div>
 						<div id="backdrop" />
 					</div>
 
@@ -111,71 +172,74 @@ const Features = () => {
 
 
 			<div id='features-container'>
-				<div style={{ minWidth: `${padding}px` }}/>
+				{/* <div className='feature-card-padding'/> */}
+				<div style={{ minWidth: `${padding}px` }}></div>
 				
-				<div className='features-card'>
+				<div className='features-card' id="features-scenes-card">
 					<div className='features-card-blur'></div>
 					<div className='features-card-background'>
 					    <ScenesSvg />
 					    <div className='features-card-background-image' style={{ background: `url(${background1})` }}></div>
 					</div>
 					<div className='features-card-header'>Scenes</div>
-					<div className='features-card-description'>Scenes let you build tailored layouts by combining multiple sources like webcams, images, and screen captures.</div>
+					<div className='features-card-description'>Scenes let you build tailored layouts by combining multiple sources.</div>
 				</div>
 				
-				<div className='features-card'>
+				<div className='features-card' id="features-sources-card">
 					<div className='features-card-blur'></div>
 					<div className='features-card-background'>
 						<SourcesSvg />
 					    <div className='features-card-background-image' style={{ background: `url(${background2})` }}></div>
 					</div>
 					<div className='features-card-header'>Sources</div>
-					<div className='features-card-description'>Easily integrate various media types into your scenes—whether it's your webcam, screen capture, audio, images, text and more.</div>
+					<div className='features-card-description'>Sources are various media types you can integrate into your scenes like screen captures, images, webcams and more.</div>
 				</div>
 				
-				<div className='features-card'>
+				<div className='features-card' id="features-stream-card">
 					<div className='features-card-blur'></div>
 					<div className='features-card-background'>
-					    <StreamSvg />
+					    {/* <StreamSvg /> */}
 					    <div className='features-card-background-image' style={{ background: `url(${background3})` }}></div>
 					</div>
 					<div className='features-card-header'>Stream</div>
 					<div className='features-card-coming-soon'>Coming soon</div>
-					<div className='features-card-description'>Broadcast your content in real-time to multiple platforms with seamless integration.</div>
+					<div className='features-card-description'>Stream your content in real-time to multiple platforms with seamless integration.</div>
 				</div>
 				
-				<div className='features-card'>
+				<div className='features-card' id="features-record-card">
 					<div className='features-card-blur'></div>
 					<div className='features-card-background'>
-					    <RecordSvg />
+					    {/* <RecordSvg /> */}
 					    <div className='features-card-background-image' style={{ background: `url(${background4})` }}></div>
 					</div>
 					<div className='features-card-header'>Record</div>
-					<div className='features-card-description'>Capture your content in crystal-clear quality while streaming or offline.</div>
+					<div className='features-card-coming-soon'>Coming soon</div>
+					<div className='features-card-description'>Record your content in crystal-clear quality while streaming or offline.</div>
 				</div>
 				
-				<div className='features-card'>
+				<div className='features-card' id="features-camera-card">
 					<div className='features-card-blur'></div>
 					<div className='features-card-background'>
 					    <VirtualCameraSvg />
 					    <div className='features-card-background-image' style={{ background: `url(${background5})` }}></div>
 					</div>
 					<div className='features-card-header'>Virtual Camera</div>
-					<div className='features-card-description'>Use your custom scenes as a live video source in other applications like Zoom or Skype.</div>
+					<div className='features-card-description'>Use your custom scenes as a live video source in other applications like Zoom or Skype through Castr's Virtual Camera.</div>
 				</div>
 				
-				<div className='features-card'>
+				<div className='features-card' id="features-native-card">
 					<div className='features-card-blur'></div>
 					<div className='features-card-background'>
-					    <NativeSvg />
+					    {/* <NativeSvg /> */}
 					    <div className='features-card-background-image' style={{ background: `url(${background1})` }}></div>
 					</div>
 					<div className='features-card-header'>Native for MacOS</div>
 					<div className='features-card-description'>Built specifically for macOS, enjoy a fully optimized experience with native performance and integration.</div>
 				</div>
 
+				<div id="last-feature-card" style={{ width: `${padding}px` }}></div>
+				{/* <div className='feature-card-padding'/> */}
 
-				<div style={{ minWidth: `${padding}px` }}/>
 			</div>
 
 		</div>

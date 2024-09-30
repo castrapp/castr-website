@@ -1,0 +1,201 @@
+#hero {
+    border: solid red 1px;
+    height: 100svh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+    position: relative;
+    perspective: 2000px;
+    perspective-origin: 50% 50%;
+}
+
+#hero #main-cube {
+    /* transform: rotateX(52deg) rotateZ(45deg); */
+    /* transform: rotateX(52deg); */
+    /* perspective: 2000px; */
+    /* perspective-origin: 50% 50%; */
+    /* display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    box-sizing: border-box;
+    height: 100px;
+    position: relative;
+    transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);
+    transform-style: preserve-3d;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid #ff0000bd 15px;
+    border-radius: 15px;
+}
+
+#hero #main {
+    /* width: clamp(0px, 100%, 1080px); */
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "top top top top top top top top top top top top"
+        "middle middle middle middle middle middle middle middle middle middle middle middle"
+        "bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom";
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    box-sizing: border-box;
+    border: solid #00aaffbd 15px;
+    /* width: 100px; */
+    /* height: 100px; */
+    border-radius: 15px;
+    /* animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    /* transform: rotateX(-270deg) translateY(-100px) translateZ(-40px); */
+    /* transform-origin: top center; */
+    /* transform: translateZ(-80px); */
+    position: absolute;
+    /* transform: translateZ(-80px); */
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    /* display: none; */
+}
+
+#hero #main2 {
+    /* width: clamp(0px, 100%, 1080px); */
+    position: relative;
+    box-sizing: border-box;
+    border: solid #ff0000bd 15px;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+    /* animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    /* right: -110px; */
+    /* transform: translateZ(50px); */
+    /* right: -17px; */
+    /* bottom: -17px; */
+    /* transform: rotateX(-270deg) translateY(-100px) translateZ(-147px); */
+    /* transform-origin: top center; */
+    /* display: none; */
+    position: absolute;
+    transform: translateZ(-40px);
+}
+
+#hero #main3 {
+    /* width: clamp(0px, 100%, 1080px); */
+    position: relative;
+    box-sizing: border-box;
+    border: solid #ff0000bd 15px;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+    /* animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    
+
+    /* transform: translateX(32px) translateY(23px); */
+    position: absolute;
+    /* display: none; */
+    transform: translateZ(-77px);
+}
+
+
+
+@media (max-width: 600px) {
+    #hero #main {
+        grid-template-columns: repeat(8, 1fr); /* Switch to 8 columns */
+        grid-template-areas:
+            "top top top top top top top top"
+            "middle middle middle middle middle middle middle middle"
+            "bottom bottom bottom bottom bottom bottom bottom bottom"; /* Update to 8 columns in each row */
+    }
+}
+
+
+#hero .square {
+    width: 100%;
+    padding-bottom: 100%;
+    box-sizing: border-box;
+    border: solid rgb(31,31,31) 1px;
+}
+
+
+#hero #middle {
+    /* border: solid red 1px; */
+    grid-area: middle;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0px;
+    border-left: solid rgb(31,31,31) 1px;
+    border-right: solid rgb(31,31,31) 1px;
+}
+
+
+#hero .h1 {
+    font-size: clamp(0px ,calc(30px + (72 - 30) * (100vw - 350px) / (1080 - 350)), 72px);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+
+#hero #cross1 {
+    --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
+    top: calc(var(--value) * -1);
+    left: calc(var(--value) * -1);
+    /* display: none; */
+}
+
+#hero #cross2 {
+    --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
+    bottom: calc(var(--value) * -1);
+    right: calc(var(--value) * -1);
+}
+
+
+
+
+#hero #description {
+    font-size: clamp(12px ,calc(12px + (16 - 12) * (100vw - 350px) / (1080 - 350)), 16px);
+    line-height: 2;
+    text-align: center;
+    width: calc(250px + (550 - 250) * (100vw - 350px) / (1080 - 350));
+    max-width: 550px;
+    margin-bottom: 40px;
+}
+
+
+
+#temp-logo-svg {
+    position: absolute;
+    transform: scale(0.5);
+    /* display: none; */
+    z-index: -1;
+    transform: scale(0.5) translateY(64px);
+}
+
+
+@keyframes onStartScale {
+    from {
+        transform: scale(0);
+    }
+
+        to {
+        transform: scale(1);
+    }
+}
+
+
+

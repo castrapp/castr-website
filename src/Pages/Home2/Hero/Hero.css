@@ -6,22 +6,163 @@
     align-items: center;
     justify-content: center;
     padding: 0px 20px;
+    position: relative;
+    perspective: 2000px;
+    perspective-origin: 50% 50%;
+    /* clip-path: polygon(0 0, 100% 0%, 100% 61%, 0 57%); */
+}
+
+#hero-overlay {
+    /* border: solid red 1px; */
+    position: absolute;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    top: calc(50% + 150px);
+    background-color: black;
+    animation: hide 0s linear 1s forwards;
+    display: none;
+}
+
+#hero #main-wrapper {
+    border: solid red 1px;
+    /* position: relative; */
+    /* perspective: 2000px; */
+    /* perspective-origin: 50% 50%; */
+    width: 30%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#hero #main-cube {
+    --mainCubeTop: mainCubeTop 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+    --mainCubeTransform: mainCubeTransform 1.55s cubic-bezier(0.65, 0.05, 0.36, 1) 0.65s forwards;
+    --mainCubeScale: mainCubeScale 1.25s cubic-bezier(0.65, 0.02, 0.28, 1) 0.95s forwards;
+    --mainCubeScale2: mainCubeScale2 0.95s cubic-bezier(0.65, 0.02, 0.28, 1);
+    --mainCubeOpacity: mainCubeOpacity 0.1s cubic-bezier(0.65, 0.02, 0, 0.99) 1.25s forwards;
+    --mainCubeBorder: mainCubeBorder 1s cubic-bezier(0.65, 0.02, 0.28, 1) 0.95s forwards;
+    /* transform: rotateX(52deg) rotateZ(45deg); */
+    /* transform: rotateX(52deg); */
+    /* perspective: 2000px; */
+    /* perspective-origin: 50% 50%; */
+    /* display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    box-sizing: border-box;
+    height: 100px;
+    position: relative;
+    transform-style: preserve-3d;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid #ffffff 15px;
+    border-radius: 15px;
+    animation: var(--mainCubeTop), var(--mainCubeTransform), var(--mainCubeScale), var(--mainCubeBorder);
+    top: 200px;
+    /* animation: auto; */
+    /* border: solid #ff0000bd 15px; */
+    background-color: #000000;
+    transform: scale(0.4) rotateX(55deg) rotateY(0deg) rotateZ(45deg);
+    /* clip-path: border-box; */
+    /* clip-rule: evenodd; */
+    /* position: absolute; */
 }
 
 #hero #main {
-    width: clamp(0px, 100%, 1080px);
+    /* width: clamp(0px, 100%, 1080px); */
     display: grid;
-    grid-template-columns: repeat(12, 1fr); /* 12 equal columns */
-    grid-template-rows: auto 1fr auto; /* 3 rows */
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
         "top top top top top top top top top top top top"
         "middle middle middle middle middle middle middle middle middle middle middle middle"
-        "bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom"; /* Define the grid areas */
+        "bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom bottom";
     align-items: center;
     justify-items: center;
     position: relative;
     box-sizing: border-box;
+    /* border: solid #00aaffbd 15px; */
+    /* width: 100px; */
+    /* height: 100px; */
+    /* border-radius: 15px; */
+    /* animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    /* transform: rotateX(-270deg) translateY(-100px) translateZ(-40px); */
+    /* transform-origin: top center; */
+    /* transform: translateZ(-80px); */
+    position: absolute;
+    /* transform: translateZ(-80px); */
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    /* display: none; */
+    clip-path: border-box;
 }
+
+#hero #main2 {
+     --main2Top: main2Top 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+     --mainCubeScale2: mainCubeScale2 0.95s cubic-bezier(0.65, 0.02, 0.28, 1);
+     /* width: clamp(0px, 100%, 1080px); */
+     position: relative;
+     /* box-sizing: border-box; */
+     /* border: solid #ff0000bd 15px; */
+     width: 100px;
+     height: 100px;
+     box-sizing: border-box;
+     /* width: clamp(0px, 100%, 100px);
+     height: clamp(0px, 100%, 100px); */
+     border-radius: 15px;
+     /* animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+     /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+     /* right: -110px; */
+     /* transform: translateZ(50px); */
+     /* right: -17px; */
+     /* bottom: -17px; */
+     /* transform: rotateX(-270deg) translateY(-100px) translateZ(-147px); */
+     /* transform-origin: top center; */
+     /* display: none; */
+     position: absolute;
+     transform: translateZ(-40px);
+     animation: var(--main2Top);
+     border: solid #ffffff 15px;
+     /* filter: blur(25px); */
+     background-color: #000000;
+
+}
+
+#hero #main3 {
+    --main3Top: main3Top 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+    --mainCubeScale2: mainCubeScale2 0.95s cubic-bezier(0.65, 0.02, 0.28, 1);
+    /* width: clamp(0px, 100%, 1080px); */
+    position: relative;
+    border: solid #ffffff 15px;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    /* width: clamp(0px, 100%, 100px);
+    height: clamp(0px, 100%, 100px); */
+    /* box-sizing: border-box; */
+    border-radius: 15px;
+    /* animation: onStartTransform 1s cubic-bezier(0.65, 0.05, 0.36, 1) forwards, onStartWidth 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.75s forwards; */
+    /* animation: onStartScale 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards; */
+    /* transform: translateX(32px) translateY(23px); */
+    position: absolute;
+    /* display: none; */
+    /* transform: translateZ(-77px); */
+    animation: var(--main3Top);
+    /* border: solid #ff0000bd 15px; */
+    background-color: #000000;
+}
+
+
 
 @media (max-width: 600px) {
     #hero #main {
@@ -35,14 +176,19 @@
 
 
 #hero .square {
+    --squaresBorder: squaresBorder 0.5s cubic-bezier(0.65, 0.05, 0.36, 1) 2s forwards;
     width: 100%;
     padding-bottom: 100%;
     box-sizing: border-box;
-    border: solid rgb(31,31,31) 1px;
+    border: solid rgb(31 31 31) 1px;
+    animation: var(--squaresBorder);
+    overflow: hidden;
 }
 
 
 #hero #middle {
+    --middleBlur: middleBlur 0.25s cubic-bezier(0.65, 0.02, 0.28, 1) 1.5s forwards;
+    --middleOpacity: middleOpacity 0.25s cubic-bezier(0.65, 0.02, 0.28, 1) 1.5s forwards;
     /* border: solid red 1px; */
     grid-area: middle;
     height: 100%;
@@ -52,9 +198,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 50px 0px;
-    border-left: solid rgb(31,31,31) 1px;
-    border-right: solid rgb(31,31,31) 1px;
+    /* padding: 50px 0px; */
+    /* overflow: hidden; */
+    /* animation: var(--middleBlur), var(--middleOpacity); */
+    /* filter: blur(30px); */
+    /* opacity: 0; */
+    /* clip-path: fill-box; */
+    /* overflow: hidden; */
 }
 
 
@@ -64,6 +214,7 @@
     text-align: center;
     line-height: 1;
     margin-bottom: 20px;
+    white-space: nowrap;
 }
 
 
@@ -71,13 +222,24 @@
     --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
     top: calc(var(--value) * -1);
     left: calc(var(--value) * -1);
+    transform: scale(0);
+    animation: crossScale 0.5s cubic-bezier(0.65, 0.02, 0.28, 1) 2s forwards;
     /* display: none; */
 }
-
 #hero #cross2 {
     --value: clamp(7px , calc(7px + (10.5 - 7) * (100vw - 350px) / (1080 - 350)), 10.5px);
     bottom: calc(var(--value) * -1);
     right: calc(var(--value) * -1);
+    transform: scale(0);
+    animation: crossScale 0.5s cubic-bezier(0.65, 0.02, 0.28, 1) 2.15s forwards;
+}
+@keyframes crossScale {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1.0);
+    }
 }
 
 
@@ -90,4 +252,231 @@
     width: calc(250px + (550 - 250) * (100vw - 350px) / (1080 - 350));
     max-width: 550px;
     margin-bottom: 40px;
+}
+
+
+
+#temp-logo-svg {
+    position: absolute;
+    transform: scale(0.5);
+    display: none;
+    z-index: -1;
+    transform: scale(0.5) translateY(64px);
+}
+
+
+
+
+/* Overlay - Animation */
+@keyframes hide {
+    0% {
+        visibility: visible;
+    }
+    100% {
+        visibility: hidden;
+    }
+}
+
+
+
+
+
+/* Main Cube - Animations */
+@keyframes mainCubeTransform {
+    from {
+        transform: scale(0.4) rotateX(55deg) rotateY(0deg) rotateZ(45deg);
+    }
+
+    to {
+        transform: scale(1.0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+}
+
+@keyframes mainCubeScale {
+    from {
+        width: 100px;
+        height: 100px;
+    }
+
+    to {
+        width: clamp(0px, calc(100vw - 40px), 1080px);
+        height: 530px;
+    }
+}
+
+@keyframes mainCubeScale2 {
+    from {
+        width: 0px;
+        height: 0px;
+    }
+
+    to {
+        width: 100px;
+        width: 100px;
+    }
+}
+
+@keyframes mainCubeBorder {
+    from {
+        border: solid #ffffff 15px;
+        border-radius: 15px;
+    }
+
+    to {
+        border: solid rgb(31, 31, 31) 1px;
+        border-radius: 0px;
+    }
+}
+
+@keyframes mainCubeBorder2 {
+    from {
+        border: solid #ffffff 0px;
+        border-radius: 15px;
+    }
+
+    to {
+        border: solid #ffffff 15px;
+        border-radius: 15px;
+    }
+}
+
+@keyframes mainCubeTop {
+    from {
+       /* top: 62px; */
+       top: 200px;
+       /* translate: 0px 44vh; */
+       /* scale: 0; */
+    }
+
+    to {
+       top: 0px;
+       /* translate: 0px 0px; */
+       /* scale: 1; */
+    }
+}
+
+@keyframes mainCubeOpacity {
+    from {
+        background-color: #00000000;
+    }
+
+    to {
+        background-color: #000000;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* Inner Mains - Animations */
+@keyframes main2Top {
+    from {
+       transform: translateZ(0px);
+    }
+
+    to {
+        transform: translateZ(-40px);
+    }
+}
+
+
+@keyframes main3Top {
+    from {
+       transform: translateZ(0px);
+    }
+
+    to {
+        transform: translateZ(-77px);
+    }
+}
+
+@keyframes main23Blur {
+     from {
+       filter: blur(0px);
+    }
+
+    to {
+        filter: blur(-35px);
+    }
+}
+
+
+
+
+
+
+/* Middle - Animation */
+@keyframes middleBlur {
+    from {
+      filter: blur(-35px);
+   }
+
+   to {
+       filter: blur(0px);
+   }
+}
+
+@keyframes middleOpacity{
+    from {
+        opacity: 0;
+   }
+
+   to {
+        opacity: 1;
+   }
+}
+
+
+
+
+
+/* Squares - Animations */
+@keyframes squaresBorder {
+    from {
+        border: solid rgb(31 31 31 / 0%) 1px;
+    }
+
+    to {
+        border: solid rgb(31, 31, 31) 1px;
+    }
+}
+
+@keyframes squaresTransform {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes squaresTransformReversed {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+
+
+
+
+@keyframes onStartBlur {
+    from {
+        filter: blur(10px);
+        opacity: 0;
+    }
+    to {
+        filter: blur(0px);
+        opacity: 1;
+    }
 }

@@ -6,8 +6,6 @@ import React, { useState, useEffect } from 'react';
 
 const Opensource = () => {
 
-
-
 	return (
 		<div id='opensource'>
      
@@ -25,7 +23,7 @@ const Opensource = () => {
 				
 				<div id='h3'>100% <br />Open Source</div>
 
-				<div id="github-button" >View on GitHub <OpenSVG /></div>
+				<div id="github-button" onClick={() => window.open('https://github.com/harrysonhall/castr')}>View on GitHub <OpenSVG /></div>
 			</div>
 
 			<div id='bottom'>

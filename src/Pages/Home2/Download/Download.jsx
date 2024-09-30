@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // import './Download.css'
 
 
 const Download = () => {
 
+	const navigate = useNavigate()
+    const location = useLocation()
+
 	const [numSquares, setNumSquares] = useState(window.innerWidth < 600 ? 8 : 12);
 
 	const renderSquares = () => Array.from({ length: numSquares }, (_, index) => (
 	  <div key={index} className="square"></div>
 	));
+
+	const navigateTo = (path) => {
+        document.querySelector('#html').removeAttribute("mobile-menu-opened");
+
+        if (location.pathname === path) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            navigate(path);
+            window.scrollTo(0, 0);
+        }
+    }
 
 	useEffect(() => {
 	  const handleResize = () => setNumSquares(window.innerWidth < 600 ? 8 : 12);
@@ -38,7 +52,15 @@ const Download = () => {
 
 				<div id="middle">
 					<div id="header">Get started today</div>
-					<div id='download-button'> Download Castr <ArrowSVG /></div>
+					<div id='download-button' onClick={() => navigateTo('/download')}> 
+						Download Castr 
+						{/* <div id="download-button-arrow-container">
+							<div></div>
+							<div></div>
+							<div></div>
+						</div> */}
+						<ArrowSVG />
+					</div>
 				
 
 				</div>

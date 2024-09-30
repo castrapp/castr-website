@@ -17,8 +17,8 @@ html {
 	/* overflow: hidden; */
 	box-sizing: border-box;
 	height: 100svh;
-	overscroll-behavior: none; /* Prevents the bounce effect */
-    touch-action: pan-x pan-y;
+	overscroll-behavior: none; 
+    /* touch-action: pan-x pan-y; */
 	margin: 0;
 	padding: 0;
 	/* background-color: #141414; */
@@ -32,21 +32,19 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 	height: 100%;
-	overscroll-behavior: none; /* Prevents the bounce effect */
-    touch-action: pan-x pan-y;
+	/* overscroll-behavior: none; */
+    /* touch-action: pan-x pan-y; */
 	-webkit-font-smoothing: antialiased;
 }
 
 
 
 #root {
-	min-height: 100%;
-	box-sizing: border-box;
 	position: relative;
-	overflow-y: scroll;
-	height: 100%;
-	box-sizing: border-box;
-	overflow-x: hidden;
+	/* overflow-y: scroll; */
+	/* height: 100%; */
+	/* box-sizing: border-box; */
+	/* overflow-x: hidden; */
 	/* overflow: hidden; */
 }
 

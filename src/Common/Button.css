@@ -12,10 +12,50 @@
     height: 32px;
     justify-content: center;
     padding: 0px 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    gap: 4px;
 
     transition: all 250ms;
 }
 
+.button1 div {
+    height: 1.5px;
+    background-color: black;
+    /* position: absolute; */
+}
+
+    .button1 > div {
+       width: 10px;
+       position: relative;
+       display: flex;
+       align-items: center;
+       justify-content: flex-end;
+
+       transition: width cubic-bezier(0.55, 0, 0.17, 1) 500ms;
+    }
+
+    .button1:hover > div {
+        width: 20px;
+    }
+
+    .button1 > div > div {
+        width: 7px;
+        position: absolute;
+        transform-origin: center right;
+    }
+
+    .button1 > div > div:nth-child(1) {
+        transform: translateY(0.5px) rotateZ(45deg);
+    }
+
+    .button1 > div > div:nth-child(2) {
+        transform: translateY(-0.5px) rotateZ(-45deg);
+    }
 
 .button1:hover {
     opacity: 0.85;

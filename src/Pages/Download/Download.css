@@ -20,13 +20,21 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
     padding-left: clamp(20px, calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px);
     padding-right: clamp(20px, calc(20px + (120 - 20) * (100vw - 480px) / (1440 - 480)), 120px);
+    position: relative;
 }
 
 
     #download-page-icon {
+        width: clamp(0px, 100%, 192px);
+        height: clamp(0px, 100%, 192px);
+        object-fit: contain;
+
+        opacity: 0;
+    }
+
+    #download-page-app-icon {
         width: clamp(0px, 100%, 192px);
         height: clamp(0px, 100%, 192px);
         object-fit: contain;

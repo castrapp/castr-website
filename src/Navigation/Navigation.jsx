@@ -6,7 +6,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const toggleMenu = () => {
         const root = document.querySelector('#html')
@@ -15,8 +16,13 @@ const Navigation = () => {
 
     const navigateTo = (path) => {
         document.querySelector('#html').removeAttribute("mobile-menu-opened");
-        navigate(path); 
-        window.scrollTo(0, 0);
+
+        if (location.pathname === path) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            navigate(path);
+            window.scrollTo(0, 0);
+        }
     }
 
    // Scroll and Resize listeners

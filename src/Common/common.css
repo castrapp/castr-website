@@ -14,6 +14,7 @@
     position: absolute;
     width: var(--length);
     height: var(--length);
+    z-index: 2;
 }
 
 .cross div {

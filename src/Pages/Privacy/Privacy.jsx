@@ -47,7 +47,7 @@ const Privacy = () => {
 			</div>
 
 			<div id='privacy-description'>
-			The privacy policy is simple:<br /><br /> Castr application does not collect any of your personal data, nor any data from anywhere for that matter. No personal data shared with us will be provided to any third parties under any circumstances without your explicit permission and consent.
+			The privacy policy is simple:<br /><br /> Castr application does not collect any of your personal data, nor any data for that matter. No personal data shared with us will be provided to any third parties under any circumstance without your explicit permission and consent.
 			Castr does not engage in any ad targeting, data mining, or other activities that may compromise your privacy, and Castr does not affiliate itself with any third parties that do so.
 			</div>
 

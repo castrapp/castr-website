@@ -1,6 +1,7 @@
 // import './Download.css';
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import icon from './LinearIcon.png'
+import appIcon from './appIcon.png'
 
 const Download = () => {
 
@@ -21,7 +22,8 @@ const Download = () => {
 		<div id='download-page'>
 
 			<div id='download-page-main'>
-				<img id='download-page-icon' src={icon} />
+				{/* <img id='download-page-icon' src={icon} /> */}
+				<img id='download-page-icon' src={appIcon} />
 				<div id='download-page-header1'>Download Castr</div>
 				<div id='download-page-description'>Available for download directly from Apple’s Mac App Store.</div>
 				<div id='download-page-description' style={{color: 'rgb(138, 143, 152)'}}>Or you can manually download it.</div>

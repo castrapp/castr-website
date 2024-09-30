@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     padding: 100px 0px;
+    min-height: 940px;
 }
 
 #features #main-wrapper {
@@ -42,8 +43,8 @@
     /* width: calc(270px + (730 - 270) * (100vw - 350px) / (1080 - 350)); */
     width: 100%;
     box-sizing: border-box;
-    max-width: 730px;;
-    padding: 0px 10px;
+    max-width: 730px;
+    padding: 0px 20px;
     overflow-x: scroll;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
@@ -155,7 +156,7 @@ div.chevron:not(:disabled):active {
     /* border: solid red 1px; */
     /* margin-top: 40px; */
     width: 100%;
-    display: flex;
+    display: inline-grid;
     overflow-x: scroll;
     box-sizing: border-box;
     gap: 20px;
@@ -166,6 +167,16 @@ div.chevron:not(:disabled):active {
     -ms-overflow-style: none;  /* For Internet Explorer and Edge */
     overflow-y: hidden;
     /* overflow: hidden; */
+    grid-auto-flow: column;
+    /* grid-auto-columns: auto; */
+}
+
+#last-feature-card {
+    min-width: 100px;
+}
+
+#features-container > * {
+    flex-shrink: 0 !important;
 }
 
 
@@ -174,24 +185,27 @@ div.chevron:not(:disabled):active {
 }
 
     .features-card {
+        --onScale: onScale 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        /* animation: var(--onScale); */
+        /* transform: scale(0.5); */
+        /* filter: blur(10px); */
+        /* opacity: 0; */
         scroll-snap-align: center;
         /* border: solid red 1px; */
         box-sizing: border-box;
         min-width: 350px;
         height: 470px;
         border-radius: 10px;
-        min-width: calc(310px + (350 - 310) * (100vw - 350px) / (1080 - 350));
+        min-width: clamp(0px, calc(310px + (350 - 310) * (100vw - 350px) / (1080 - 350)), 350px);
         max-width: 350px;
         padding: 16px;
         position: relative;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 
-            min-content 
+        grid-template-rows: min-content 
             auto 
             30px 
-            calc(90px + (100 - 90) * (100vw - 350px) / (1080 - 350));
-        ;
+            clamp(0px, calc(90px + (100 - 90) * (100vw - 350px) / (1080 - 350)), 100px);
         grid-template-areas:
             "header"
             "."
@@ -201,6 +215,36 @@ div.chevron:not(:disabled):active {
         /* border: solid rgb(78 78 78) 1px; */
         overflow: hidden;
         border: solid rgb(31,31,31) 1px;
+        filter: blur(20px) brightness(0);
+        /* will-change: filter; */
+    }
+
+    #last-feature-card {
+        min-width: 100px !important;
+        border: solid 1px red;
+        opacity: 0;
+    }
+
+    .feature-card-padding {
+        border: solid red 1px;
+        min-width: calc(310px + (350 - 310) * (100vw - 350px) / (1080 - 350));
+        height: 10px;
+
+    }
+
+
+    @keyframes onScale {
+        from {
+            /* transform: scale(0.5); */
+            filter: blur(20px) brightness(0);
+            /* opacity: 0; */
+        }
+
+        to {
+            /* transform: scale(1); */
+            filter: blur(0px) brightness(1);
+            /* opacity: 1; */
+        }
     }
 
         .features-card-header {
@@ -228,7 +272,7 @@ div.chevron:not(:disabled):active {
         
         .features-card-description {
             grid-area: description;
-            font-size:  calc(17px + (20 - 17) * (100vw - 350px) / (1080 - 350));
+            font-size: clamp(0px, calc(17px + (20 - 17) * (100vw - 350px) / (1080 - 350)), 20px);
             font-weight: 500;
         }
 

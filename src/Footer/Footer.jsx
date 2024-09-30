@@ -25,7 +25,7 @@ const Footer = () => {
 					<div id='project' className='footer-section'>
 						<div className='footer-header'>Project</div>
 						<div className='footer-link'>GitHub</div>
-						<div className='footer-link'>Donates</div>
+						{/* <div className='footer-link'>Donate</div> */}
 					</div>
 					<div id='about' className='footer-section'>
 						<div className='footer-header'>About</div>
@@ -34,7 +34,7 @@ const Footer = () => {
 
 					<Logo />
 
-					<div id='footer-personal'>Created and maintained by Harrison Hall</div>
+					<div id='footer-personal'>Castr is created and maintained by Harrison Hall</div>
 
 				</div>
 				

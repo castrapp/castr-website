@@ -25,7 +25,7 @@ const Home = () => {
 
 			<Opensource />
 
-			<Tutorial />
+			{/* <Tutorial /> */}
 
 			<Download />
      
